@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+
+
+{% block body %}
+<div>
+    {% for event in data['results'] %}
+    <p>{{ event['activityStartDate'] }} <br>
+        {{ event['assetName'] }} <br>
+        {{ event['organization']['organizationName'] }} <br>
+        {{ event['place']['cityName'] }} <br>
+        {{ event['place']['postalCode'] }} <br>
+        <a href="{{ event['homePageUrlAdr'] }}">Event Page</a> <br>
+        {{ event['assetDescriptions'][0]['description'] }} <br>
+        <input type="submit">
+        <br>
+    </p>
+
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+
+

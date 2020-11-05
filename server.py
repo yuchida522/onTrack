@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.secret_key = 'API_KEY'
 
 API_KEY = os.environ['API_KEY']
-# app.jinja_env.undefined = StrictUndefined
+app.jinja_env.undefined = StrictUndefined
 
 # @app.route('/')
 # def homepage():
