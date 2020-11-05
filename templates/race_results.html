@@ -11,10 +11,9 @@
         {{ event['organization']['organizationName'] }} <br>
         {{ event['place']['cityName'] }} <br>
         {{ event['place']['postalCode'] }} <br>
-        <a href="{{ event['homePageUrlAdr'] }}">Event Page</a> <br>
+        <a href="{{ event['homePageUrlAdr'] }}" target="_blank">Event Page</a> <br>
         {{ event['assetDescriptions'][0]['description'] }} <br>
-        <input type="submit">
-        <br>
+        <button type="button">Add this race</button>
     </p>
 
     {% endfor %}

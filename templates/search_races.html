@@ -3,7 +3,7 @@
 
 <form action="/race_results" method='GET'>
   <p>
-    City Name: <input type="text" name="city_name">
+    City Name: <input type="text" name="city_name" required>
   </p>
   <p>
     Type of Race: 
@@ -16,7 +16,11 @@
     <input type="checkbox" name="distance_length" value="marathon">
     <label>Marathon</label>
   </p>
-  
+  <p>
+    When do you want to run?
+    <input type="date" name="start_date">
+  </p>
+
   <input type="submit">
 
 </form>
