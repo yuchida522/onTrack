@@ -1,14 +1,23 @@
-from flask import SQLAlchemy
+"""Models for running tracking app"""
 
-db = SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 #User table
 class User(db.Model):
+
+    """a user"""
     
     __tablename__ = 'users'
 
     user_id = db.Column(db.Integer,
-                        primary_key=True)
+                        primary_key=True,
+                        autoincrement=True)
+    fname = db.Column(db.String,
+                      nullable=False)
+    lname = db.Column(db.String,
+                      nullable=False)
     username = db.Column(db.String,
                          unique=True,
                          nullable=False)
@@ -17,12 +26,9 @@ class User(db.Model):
                       nullable=False)
     password = db.Column(db.String,
                          nullable=False)
-    fname = db.Column(db.String,
-                      nullable=False)
-    lname = db.Column(db.String,
-                      nullable=False)
+    
 
-    current_race = db.relationship('CurrentRace')
+    current_race = db.relationship('Current_Race')
 
     def __repr__(self):
 
@@ -31,21 +37,22 @@ class User(db.Model):
 
 #race table
 class Race(db.Model):
+
+    """a race"""
     
-    __tablename__ = 'race'
+    __tablename__ = 'races'
 
     race_id = db.Column(db.Integer,
-                        primary_key=True)
-    race_name = db.Column(db.String)
-    date = db.Column(db.DateTime)
-    city_id = db.Column(db.Integer, db.ForeignKey('city.city_id'))
-    race_url = db.Column(db.String)
-    race_description = db.Column(db.Text)
-    distance_length_id = db.Column(db.Integer, db.ForeignKey('distance_length.distance_length_id'))
-    address = db.Column(db.String)
-    organization_name = db.Column(db.String)
+                        primary_key=True,
+                        autoincrement=True)
+    race_name = db.Column(db.String, nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
+    city_id = db.Column(db.Integer, db.ForeignKey('cities.city_id'), nullable=False)
+    race_url = db.Column(db.String, nullable=False)
+    race_description = db.Column(db.Text, nullable=False)
+    organization_name = db.Column(db.String, nullable=False)
 
-    current_race = db.relationship('current_race')
+    current_race = db.relationship('Current_Race')
 
 
     def __repr__(self):
@@ -53,40 +60,34 @@ class Race(db.Model):
 
 #city table
 class City(db.Model):
+
+    """a city"""
     
-    __tablename__ = 'city'
+    __tablename__ = 'cities'
 
     city_id = db.Column(db.Integer,
-                        primary_key=True)
+                        primary_key=True,
+                        autoincrement=True)
     city_name = db.Column(db.String, nullable=False)
     zipcode = db.Column(db.Integer, nullable=False)
+
+    race = db.relationship('Race')
 
     def __repr__(self):
         return f'<City city_id={self.city_id}, city_name={self.city_name}, zipcode={self.zipcode}>'
 
 
-#distance table
-class DistanceLength(db.Model):
-    
-    __tablename__ = 'distance_length'
-
-    distance_length_id = db.Column(db.Integer,
-                                   primary_key=True)
-    distance_length = db.Column(db.Integer)
-
-    def __repr__(self):
-        return f'<DistanceLength distance_length_id={self.distance_length_id}, distance_length={self.distance_length}>'
-
-
 #current race table
 class CurrentRace(db.Model):
+    """a current race"""
     
-    __tablename__ = 'current_race'
+    __tablename__ = 'current_races'
 
     current_race_id = db.Column(db.Integer,
-                                primary_key=True)
-    race_id = db.Column(db.Integer, db.ForeignKey('race.race_id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+                                primary_key=True,
+                                autoincrement=True)
+    race_id = db.Column(db.Integer, db.ForeignKey('races.race_id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nulla=False)
     signup_status = db.Column(db.Boolean)
 
     #relationship- current race is the child of Race and User
@@ -95,7 +96,26 @@ class CurrentRace(db.Model):
 
 
     def __repr__(self):
-        return f'<CurrentRace race_id={self.race_id}, user_id={self.user_id}>'
+        return f'<CurrentRace race_id={self.current_race_id}, user_id={self.users.user_id}>'
+
+        
+#distance table
+# class DistanceLength(db.Model):
+
+#     """a distance length of the race"""
+    
+#     __tablename__ = 'distance_lengths'
+
+#     distance_length_id = db.Column(db.Integer,
+#                                    primary_key=True,
+#                                    autoincrement=True)
+#     distance_length = db.Column(db.Integer, nullable=False)
+
+#     race = db.relationship('Race')
+
+#     def __repr__(self):
+#         return f'<DistanceLength distance_length_id={self.distance_length_id}, distance_length={self.distance_length}>'
+
 
 
 # signup status table?
