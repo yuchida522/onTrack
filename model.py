@@ -7,7 +7,7 @@ db = SQLAlchemy()
 #User table
 class User(db.Model):
 
-    """a user"""
+    """creates a user, taken from the form create user page"""
     
     __tablename__ = 'users'
 
@@ -38,7 +38,11 @@ class User(db.Model):
 #race table
 class Race(db.Model):
 
-    """a race"""
+    """
+    this creates a race which includes race name, date, time of race, city, race homepage,
+    description of the race, and host/organization of the race. All info is parsed from 
+    API request
+    """
     
     __tablename__ = 'races'
 
@@ -47,12 +51,13 @@ class Race(db.Model):
                         autoincrement=True)
     race_name = db.Column(db.String, nullable=False)
     date = db.Column(db.DateTime, nullable=False)
-    city_id = db.Column(db.Integer, db.ForeignKey('cities.city_id'))
+    city_id = db.Column(db.Integer, db.ForeignKey('cities.city_id'), nullable=False)
     race_url = db.Column(db.String, nullable=False)
     race_description = db.Column(db.Text, nullable=False)
     organization_name = db.Column(db.String, nullable=False)
 
     current_race = db.relationship('CurrentRace')
+    city = db.relationship('City')
 
 
     def __repr__(self):
@@ -61,13 +66,20 @@ class Race(db.Model):
 #city table
 class City(db.Model):
 
-    """a city"""
+    """creates a city, taken from the info parsed from API request"""
     
     __tablename__ = 'cities'
 
+    # city_id = db.Column(db.Integer,
+    #                     primary_key=True,
+    #                     autoincrement=True)
+    # city_name = db.Column(db.String, nullable=False)
+    # zipcode = db.Column(db.Integer, nullable=False)
+
     city_id = db.Column(db.Integer,
-                        primary_key=True,
-                        autoincrement=True)
+                        autoincrement=True,
+                        primary_key=True)
+
     city_name = db.Column(db.String, nullable=False)
     zipcode = db.Column(db.Integer, nullable=False)
 
@@ -79,7 +91,7 @@ class City(db.Model):
 
 #current race table
 class CurrentRace(db.Model):
-    """a current race"""
+    """creates a current race table, which shows which race the user has signed up/training for"""
     
     __tablename__ = 'current_races'
 

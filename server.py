@@ -29,6 +29,7 @@ def search_races():
 @app.route('/race_results')
 def race_results():
 
+    #get the values from search_races form
     city_name = request.args.get('city_name', '')
     distance_length = request.args.get('distance_length', '')
     start_date = request.args.get('start_date', '')
@@ -46,6 +47,7 @@ def race_results():
     
     events = data['results']
     
+    #render results onto race_results page
     return render_template('race_results.html',
                             data=data,
                             results=events)

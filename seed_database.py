@@ -23,8 +23,10 @@ model.db.create_all()
 
 #create users
 
+#have a list of users, use later to create current_races table
 users_in_db = []
 
+#open the test_users file to create users in db
 with open('test_data/test_users.txt') as f:
 
 	for line in f:
@@ -40,7 +42,7 @@ with open('test_data/test_users.txt') as f:
 
 		users_in_db.append(user)
 
-#import API
+#import API, for test purposes param is set to search races in SF beyond Jan 1, 2021
 url = 'http://api.amp.active.com/v2/search?query=running'
 payload = {'api_key': API_KEY,
                'near': 'San Francisco',
@@ -52,8 +54,10 @@ response = requests.get(url, params=payload)
 
 race_data = response.json() 
 
+#where the list of races exist
 events = race_data['results']
 
+#save each race to a list to again for later when creating current_races table
 races_in_db = []
 
 for race in events:
@@ -65,16 +69,20 @@ for race in events:
 	organization_name = race['organization']['organizationName']
 	race_name = race['assetName']
 
+	#seeding data into cities table
 	city = crud.create_city(city_name, zipcode)
 
-	race = crud.create_race(race_name, date, race_url, race_description, organization_name)
+	#seeding data into races table
+	race = crud.create_race(race_name, date, city, race_url, race_description, organization_name)
 
 	races_in_db.append(race)
 
 for user in users_in_db:
 
+	#choose random race for each user from the list of races saved in races_in_db
 	race_random = choice(races_in_db)
 
+	#seeding data into current races table
 	current_race = crud.create_current_race(race_random, user, signup_status=True)
 
 	

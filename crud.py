@@ -13,11 +13,14 @@ def create_user(fname, lname, username, email, password):
 
     return user
 
-def create_race(race_name, date, race_url, race_description, organization_name):
+def create_race(race_name, date, city, race_url, race_description, organization_name):
     
     #creates a race
-    race = Race(race_name=race_name, date=date,
-                race_url=race_url, race_description=race_description, 
+    race = Race(race_name=race_name,
+                date=date,
+                city=city,
+                race_url=race_url,
+                race_description=race_description, 
                 organization_name=organization_name)
 
     #add race to db
@@ -26,15 +29,21 @@ def create_race(race_name, date, race_url, race_description, organization_name):
 
     return race
 
+#TODO: refactor how to handle exisiting cities
 def create_city(city_name, zipcode):
     
+    exists = City.query.filter_by(city_name=city_name).first()
     city = City(city_name=city_name, zipcode=zipcode)
 
-    #add city to db
-    db.session.add(city)
-    db.session.commit()
+    if not exists:
+    
+        #add city to db
+        db.session.add(city)
+        db.session.commit()
 
-    return city
+        return city
+    else:
+        return exists
 
 def create_current_race(race, user, signup_status):
     
