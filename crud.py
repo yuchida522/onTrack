@@ -1,7 +1,6 @@
 """CRUD operations"""
 
-#importing models from model.py
-from model import db, User, Race, City,CurrentRace, connect_to_db
+from model import db, User, Race, City, CurrentRace, connect_to_db
 
 def create_user(fname, lname, username, email, password):
 
@@ -14,10 +13,12 @@ def create_user(fname, lname, username, email, password):
 
     return user
 
-def create_race(race_name, date, city, url, description, organization):
+def create_race(race_name, date, city, race_url, race_description, organization_name):
     
     #creates a race
-    race = Race(race_name=race_name, date=date, city=city,  organization=organization)
+    race = Race(race_name=race_name, date=date, city=city,
+                race_url=race_url, race_description=race_description, 
+                organization_name=organization_name)
 
     #add race to db
     db.session.add(race)
@@ -44,3 +45,7 @@ def create_current_race(username, race, signup_status):
     db.session.commit()
 
     return current_race
+
+if __name__ == '__main__':
+    from server import app
+    connect_to_db(app)

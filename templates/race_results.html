@@ -13,7 +13,7 @@
         {{ event['place']['postalCode'] }} <br>
         <a href="{{ event['homePageUrlAdr'] }}" target="_blank">Event Page</a> <br>
         {{ event['assetDescriptions'][0]['description'] }} <br>
-        <button type="button">Add this race</button>
+        <button id="{{ event['assetGuid'] }}" type="button">Add this race</button>
     </p>
 
     {% endfor %}

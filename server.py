@@ -3,8 +3,8 @@ from flask import (Flask, render_template, request)
 import requests
 import os
 
-# from model import connect_to_db
-# import crud
+from model import connect_to_db
+import crud
 
 from jinja2 import StrictUndefined
 
@@ -14,10 +14,10 @@ app.secret_key = 'API_KEY'
 API_KEY = os.environ['API_KEY']
 app.jinja_env.undefined = StrictUndefined
 
-# @app.route('/')
-# def homepage():
+@app.route('/')
+def homepage():
 
-#     return render_template('homepage.html')
+    return render_template('homepage.html')
 
 
 @app.route('/search_races')
@@ -43,16 +43,15 @@ def race_results():
     response = requests.get(url, params=payload)
     data = response.json()
 
+    return data
     events = data['results']
-
     
     return render_template('race_results.html',
                             data=data,
                             results=events)
 
 
-
 if __name__ == '__main__':
-    # connect_to_db(app)
+    connect_to_db(app)
     app.run(host='0.0.0.0', debug=True)
 
