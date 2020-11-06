@@ -43,7 +43,7 @@ def race_results():
     response = requests.get(url, params=payload)
     data = response.json()
 
-    return data
+    
     events = data['results']
     
     return render_template('race_results.html',

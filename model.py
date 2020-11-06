@@ -28,7 +28,7 @@ class User(db.Model):
                          nullable=False)
     
 
-    current_race = db.relationship('Current_Race')
+    current_race = db.relationship('CurrentRace')
 
     def __repr__(self):
 
@@ -47,12 +47,12 @@ class Race(db.Model):
                         autoincrement=True)
     race_name = db.Column(db.String, nullable=False)
     date = db.Column(db.DateTime, nullable=False)
-    city_id = db.Column(db.Integer, db.ForeignKey('cities.city_id'), nullable=False)
+    city_id = db.Column(db.Integer, db.ForeignKey('cities.city_id'))
     race_url = db.Column(db.String, nullable=False)
     race_description = db.Column(db.Text, nullable=False)
     organization_name = db.Column(db.String, nullable=False)
 
-    current_race = db.relationship('Current_Race')
+    current_race = db.relationship('CurrentRace')
 
 
     def __repr__(self):
@@ -96,7 +96,7 @@ class CurrentRace(db.Model):
 
 
     def __repr__(self):
-        return f'<CurrentRace race_id={self.current_race_id}, user_id={self.users.user_id}>'
+        return f'<CurrentRace race_id={self.current_race_id}, user_id={self.user_id}>'
 
         
 #distance table

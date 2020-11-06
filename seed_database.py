@@ -7,7 +7,7 @@ import model
 
 import server
 
-from server import race_results
+from random import choice
 
 
 API_KEY = os.environ['API_KEY']
@@ -20,15 +20,41 @@ os.system('createdb races')
 model.connect_to_db(server.app)
 model.db.create_all()
 
+
+#create users
+
+users_in_db = []
+
+with open('test_data/test_users.txt') as f:
+
+	for line in f:
+		user_info = line.split('|')
+
+		fname = user_info[0]
+		lname = user_info[1]
+		username = user_info[2]
+		email = user_info[3]
+		password = user_info[4]
+
+		user = crud.create_user(fname, lname, username, email, password)
+
+		users_in_db.append(user)
+
 #import API
 url = 'http://api.amp.active.com/v2/search?query=running'
-payload = {'api_key': API_KEY}
+payload = {'api_key': API_KEY,
+               'near': 'San Francisco',
+               'query': '5k',
+               'start_date': '2021-1-1..'
+               }
 
 response = requests.get(url, params=payload)
 
 race_data = response.json() 
 
 events = race_data['results']
+
+races_in_db = []
 
 for race in events:
 	date = race['activityStartDate']
@@ -39,15 +65,21 @@ for race in events:
 	organization_name = race['organization']['organizationName']
 	race_name = race['assetName']
 
-	# city = crud.create_city(city_name, zipcode)
+	city = crud.create_city(city_name, zipcode)
 
-	# race = crud.create_race(race_name, date, city, url, race_description, organization_name)
+	race = crud.create_race(race_name, date, race_url, race_description, organization_name)
 
-# with open('/test_data/test_users.seed') as files:
+	races_in_db.append(race)
+
+for user in users_in_db:
+
+	race_random = choice(races_in_db)
+
+	current_race = crud.create_current_race(race_random, user, signup_status=True)
+
 	
-# 	for line in files:
-# 		user_info = line.split('|')
-# 		print(user_info)
+
+
 
 
 	

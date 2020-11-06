@@ -13,10 +13,10 @@ def create_user(fname, lname, username, email, password):
 
     return user
 
-def create_race(race_name, date, city, race_url, race_description, organization_name):
+def create_race(race_name, date, race_url, race_description, organization_name):
     
     #creates a race
-    race = Race(race_name=race_name, date=date, city=city,
+    race = Race(race_name=race_name, date=date,
                 race_url=race_url, race_description=race_description, 
                 organization_name=organization_name)
 
@@ -26,9 +26,9 @@ def create_race(race_name, date, city, race_url, race_description, organization_
 
     return race
 
-def create_city(name, zipcode):
+def create_city(city_name, zipcode):
     
-    city = City(name=name, zipcode=zipcode)
+    city = City(city_name=city_name, zipcode=zipcode)
 
     #add city to db
     db.session.add(city)
@@ -36,9 +36,9 @@ def create_city(name, zipcode):
 
     return city
 
-def create_current_race(username, race, signup_status):
+def create_current_race(race, user, signup_status):
     
-    current_race = CurrentRace(username=username, race=race, signup_status=signup_status)
+    current_race = CurrentRace(race=race, user=user, signup_status=signup_status)
 
     #add current_race to db
     db.session.add(current_race)
