@@ -1,5 +1,4 @@
-from flask import (Flask, render_template, request)
-# flash, session, redirect)
+from flask import (Flask, render_template, request, flash, session, redirect)
 import requests
 import os
 
@@ -15,9 +14,20 @@ API_KEY = os.environ['API_KEY']
 app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
+def login():
+
+    return render_template('login.html')
+
+
+@app.route('/create_account')
+def create_account():
+
+    return render_template('create_account.html')
+
+@app.route('/dashboard')
 def homepage():
 
-    return render_template('homepage.html')
+    return render_template('dashboard.html')
 
 
 @app.route('/search_races')

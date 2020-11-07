@@ -55,6 +55,12 @@ def create_current_race(race, user, signup_status):
 
     return current_race
 
+def get_user_by_email(email):
+
+    return User.query.filter(User.email == email).first()
+
+    
+
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)
