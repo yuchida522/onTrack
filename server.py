@@ -35,17 +35,19 @@ def login():
     # - if they don't, flash a failure message and redirect back to "/login"
     # - do the same if a Customer with that email doesn't exist
     
-    email = request.form['email']
-    password = request.form['password']
+    email = request.form.get('email')
+    password = request.form.get('password')
 
     user = crud.get_user_by_email(email)
 
-    if user.email == email and user.password == password:
-        flash('Login successful!')
-        return redirect('/hello')
-    else:
+    if user is None:
         flash('Login unsuccessful. Try again')
         return redirect('/')
+    else:
+        flash('Login Successful!')
+        return redirect('/hello')
+
+        
 
 
 @app.route('/create_account')
@@ -64,7 +66,7 @@ def create_user():
     password = request.form.get('password')
 
     user = crud.get_user_by_email(email)
-    
+
     if user is None:
         user = crud.create_user(fname, lname, username, email, password)
         flash('Account created! Now log in.')
