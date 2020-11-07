@@ -14,20 +14,70 @@ API_KEY = os.environ['API_KEY']
 app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
-def login():
+def homepage():
 
-    return render_template('login.html')
+    return render_template('homepage.html')
+
+
+@app.route('/hello', methods=['POST'])
+def login():
+    # TODO: Need to implement this!
+
+    # The logic here should be something like:
+    #
+    # - get user-provided name and password from request.form
+    # - use customers.get_by_email() to retrieve corresponding Customer
+    #   object (if any)
+    # - if a Customer with that email was found, check the provided password
+    #   against the stored one
+    # - if they match, store the user's email in the session, flash a success
+    #   message and redirect the user to the "/melons" route
+    # - if they don't, flash a failure message and redirect back to "/login"
+    # - do the same if a Customer with that email doesn't exist
+    
+    email = request.form['email']
+    password = request.form['password']
+
+    user = crud.get_user_by_email(email)
+
+    if user.email == email and user.password == password:
+        flash('Login successful!')
+        return redirect('/hello')
+    else:
+        flash('Login unsuccessful. Try again')
+        return redirect('/')
 
 
 @app.route('/create_account')
-def create_account():
+def show_create_user():
 
-    return render_template('create_account.html')
+    return render_template('create_user.html')
 
-@app.route('/dashboard')
-def homepage():
 
-    return render_template('dashboard.html')
+@app.route('/', methods=['POST'])
+def create_user():
+
+    fname = request.form.get('fname')
+    lname = request.form.get('lname')
+    username = request.form.get('username')
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    user = crud.get_user_by_email(email)
+    
+    if user is None:
+        user = crud.create_user(fname, lname, username, email, password)
+        flash('Account created! Now log in.')
+        return redirect('/')
+    else:
+        flash("User already exists. Please try again...")
+        return redirect('/create_account')
+
+
+@app.route('/hello')
+def hello():
+
+    return render_template('hello.html')
 
 
 @app.route('/search_races')
