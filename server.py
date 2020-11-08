@@ -38,7 +38,7 @@ def login():
         else:
             session['logged_in'] = True
             flash('Login Successful!')
-            return redirect('/hello')
+            return render_template('hello.html', user=user)
             
 
 
@@ -66,7 +66,7 @@ def create_user():
         user = crud.create_user(fname, lname, username, email, password)
         flash('Account created! Now log in.')
         return redirect('/')
-        #if user already exists, create 
+        #if user already exists, flash message to say user already exists
     else:
         flash("User already exists. Please try again...")
         return redirect('/create_account')
@@ -74,6 +74,7 @@ def create_user():
 
 @app.route('/hello')
 def hello():
+
 
     return render_template('hello.html')
 
