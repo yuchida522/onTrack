@@ -1,17 +1,18 @@
 from flask import (Flask, render_template, request, flash, session, redirect)
 import requests
 import os
+import crud
+ 
 
 from model import connect_to_db
-import crud
-
 from jinja2 import StrictUndefined
 
 app = Flask(__name__)
-app.secret_key = 'API_KEY'
+app.secret_key = 'dev'
 
 API_KEY = os.environ['API_KEY']
 app.jinja_env.undefined = StrictUndefined
+
 
 @app.route('/')
 def homepage():
@@ -21,33 +22,24 @@ def homepage():
 
 @app.route('/hello', methods=['POST'])
 def login():
-    # TODO: Need to implement this!
-
-    # The logic here should be something like:
-    #
-    # - get user-provided name and password from request.form
-    # - use customers.get_by_email() to retrieve corresponding Customer
-    #   object (if any)
-    # - if a Customer with that email was found, check the provided password
-    #   against the stored one
-    # - if they match, store the user's email in the session, flash a success
-    #   message and redirect the user to the "/melons" route
-    # - if they don't, flash a failure message and redirect back to "/login"
-    # - do the same if a Customer with that email doesn't exist
     
     email = request.form.get('email')
     password = request.form.get('password')
 
     user = crud.get_user_by_email(email)
-
+    
     if user is None:
-        flash('Login unsuccessful. Try again')
+        flash('User does not exist. Create an account to sign in')
         return redirect('/')
     else:
-        flash('Login Successful!')
-        return redirect('/hello')
-
-        
+        if password is None:
+            flash('Login unsuccessful. Try again')
+            return redirect('/')
+        else:
+            session['logged_in'] = True
+            flash('Login Successful!')
+            return redirect('/hello')
+            
 
 
 @app.route('/create_account')
@@ -59,18 +51,22 @@ def show_create_user():
 @app.route('/', methods=['POST'])
 def create_user():
 
+    #get all the input values from the 'create account' form
     fname = request.form.get('fname')
     lname = request.form.get('lname')
     username = request.form.get('username')
     email = request.form.get('email')
     password = request.form.get('password')
 
+    #search with the email provided to see if the user exists in db
     user = crud.get_user_by_email(email)
 
+    #if the user does not exist, create user and add to db, redirect to homepage where the login is
     if user is None:
         user = crud.create_user(fname, lname, username, email, password)
         flash('Account created! Now log in.')
         return redirect('/')
+        #if user already exists, create 
     else:
         flash("User already exists. Please try again...")
         return redirect('/create_account')
