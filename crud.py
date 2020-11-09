@@ -1,6 +1,6 @@
 """CRUD operations"""
 
-from model import db, User, Race, City, CurrentRace, connect_to_db
+from model import db, User, Race, City, CurrentRace, TrainingLog, connect_to_db
 
 def create_user(fname, lname, username, email, password):
 
@@ -55,10 +55,23 @@ def create_current_race(race, user, signup_status):
 
     return current_race
 
+def create_training_log(user, training_date, training_effort, training_comment):
+
+    training_log = TrainingLog(user=user, training_date=training_date, training_effort=training_effort, training_comment=training_comment)
+
+    db.session.add(training_log)
+    db.session.commit()
+
+    return training_log
+
+
 def get_user_by_email(email):
 
     return User.query.filter(User.email == email).first()
 
+def get_training_log_by_username(user_id):
+
+    return TrainingLog.query.filter(TrainingLog.user_id == user_id).all()
 
 
 if __name__ == '__main__':

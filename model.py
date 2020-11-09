@@ -110,7 +110,23 @@ class CurrentRace(db.Model):
     def __repr__(self):
         return f'<CurrentRace race_id={self.current_race_id}, user_id={self.user_id}>'
 
-        
+class TrainingLog(db.Model):
+
+    __tablename__ = 'training_logs'   
+
+    training_log_id = db.Column(db.Integer,
+                                primary_key=True,
+                                autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    training_date = db.Column(db.DateTime, nullable=False)
+    training_effort = db.Column(db.String, nullable=False)
+    training_comment = db.Column(db.String, nullable=False)
+
+    user = db.relationship('User')
+
+    def __repr__(self):
+        return f'<TrainingLog training_log_id={self.training_log_id}, user_id={self.user_id}>'
+
 #distance table
 # class DistanceLength(db.Model):
 

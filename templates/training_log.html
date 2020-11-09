@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Log</title>
+</head>
+<body>
+  <h1>Training Log</h1>
+    <div>
+      <form action="/training_log" methods="POST">
+        Date: <input type="date" name="training_date"> <br>
+        Mileage Ran: <input type="text" name="mileage_run"> <br>
+        Effort:
+        <input type="radio" id="effort" name="effort" value="easy">
+            <label for="easy">Easy</label>
+        <input type="radio" id="effort" name="effort" value="moderate">
+            <label for="moderate">Moderate</label>
+        <input type="radio" id="effort" name="effort" value="hard">
+            <label for="hard">Hard</label> <br>
+        Comments: <input type="text" name="comments"> <br>
+
+        <input type="submit">
+      </form>
+
+      {{% for log in all_training_logs %}}
+      <p>
+          {{ log.training_date }} <br>
+          {{ log.training_effort }} <br>
+          {{ log.training_comment }}
+      </p>
+    </div>
+</body>
+</html>

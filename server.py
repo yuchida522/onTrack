@@ -36,10 +36,10 @@ def login():
             flash('Login unsuccessful. Try again')
             return redirect('/')
         else:
-            session['logged_in'] = True
+            user = session['user']
             flash('Login Successful!')
             return render_template('hello.html', user=user)
-            
+
 
 
 @app.route('/create_account')
@@ -72,11 +72,15 @@ def create_user():
         return redirect('/create_account')
 
 
-@app.route('/hello')
-def hello():
+@app.route('/training_log')
+def training_log():
+    
+    #TODO: figure out how to get user info using session so you can accurately display training logs
+    if session['logged_in'] == user:
 
+        all_training_logs = crud.get_training_log_by_username(user.user_id)
 
-    return render_template('hello.html')
+        return render_template('training_log.html', all_training_logs=all_training_logs)
 
 
 @app.route('/search_races')
@@ -93,7 +97,7 @@ def race_results():
     distance_length = request.args.get('distance_length', '')
     start_date = request.args.get('start_date', '')
 
-    url = 'http://api.amp.active.com/v2/search?query=running'
+    url = 'http://api.amp.active.com/v2/search?query=running&sort=date_asc'
     payload = {'api_key': API_KEY,
                'near': city_name,
                'query': distance_length,

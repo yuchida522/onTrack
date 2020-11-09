@@ -42,6 +42,20 @@ with open('test_data/test_users.txt') as f:
 
 		users_in_db.append(user)
 
+
+with open('test_data/test_training_log.txt') as f:
+
+	for user in users_in_db:
+		for line in f:
+			training_info = line.split('|')
+
+			training_date = training_info[0]
+			training_effort = training_info[1]
+			training_comment = training_info[2]
+
+		training_log = crud.create_training_log(user, training_date, training_effort, training_comment)
+
+
 #import API, for test purposes param is set to search races in SF beyond Jan 1, 2021
 url = 'http://api.amp.active.com/v2/search?query=running'
 payload = {'api_key': API_KEY,
