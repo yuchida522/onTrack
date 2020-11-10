@@ -1,4 +1,4 @@
-from flask import (Flask, render_template, request, flash, session, redirect)
+from flask import (Flask, jsonify, render_template, request, flash, session, redirect)
 import requests
 import os
 import crud
@@ -17,35 +17,14 @@ app.jinja_env.undefined = StrictUndefined
 @app.route('/')
 def homepage():
 
-    return render_template('homepage.html')
+    # if 'current_user' in session:
+    #     return redirect('/profile')
+
+    # else:
+        return render_template('homepage.html')
 
 
-@app.route('/hello', methods=['POST'])
-def login():
-    
-    email = request.form.get('email')
-    password = request.form.get('password')
-
-    user = crud.get_user_by_email(email)
-    
-    if user is None:
-        flash('User does not exist. Create an account to sign in')
-        return redirect('/')
-    else:
-        if password is None:
-            flash('Login unsuccessful. Try again')
-            return redirect('/')
-        else:
-            user = session['user']
-            flash('Login Successful!')
-            return render_template('hello.html', user=user)
-
-
-
-@app.route('/create_account')
-def show_create_user():
-
-    return render_template('create_user.html')
+########## USER AUTHENTICATION PROCESS ######################
 
 
 @app.route('/', methods=['POST'])
@@ -72,13 +51,70 @@ def create_user():
         return redirect('/create_account')
 
 
+@app.route('/profile', methods=['POST'])
+def login():
+    
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    user = crud.get_user_by_email(email)
+    
+    if not user:
+        flash('User does not exist. Create an account to sign in')
+        return redirect('/')
+    else:
+        if not password:
+            flash('Login unsuccessful. Try again')
+            return redirect('/')
+        else:
+            session['current_user'] = user.user_id 
+            flash('Login Successful!')
+            current_user = session.get('current_user')
+            
+            races = crud.get_currentraces_by_id(current_user)
+
+            return render_template('profile.html', current_user = user, current_races=races) 
+
+
+# @app.route('/profile', methods=['GET'])
+# def show_profile():
+
+#     #default to none if user does not exist
+#     current_user = session.get('current_user', None)
+
+#     if current_user is not None:
+
+#         current_user_races = crud.get_currentraces_by_id(current_user.user_id)
+
+
+#         return render_template('profile.html', current_user=current_user_races)
+
+
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    
+    session.pop('current_user', None)
+    flash('Logged Out')
+    return render_template('homepage.html')
+
+
+
+@app.route('/create_account')
+def show_create_user():
+
+    return render_template('create_user.html')
+
+
+############ ENTRIES ##############################
+
 @app.route('/training_log')
 def training_log():
     
     #TODO: figure out how to get user info using session so you can accurately display training logs
-    if session['logged_in'] == user:
+    if 'current_user' in session:
 
-        all_training_logs = crud.get_training_log_by_username(user.user_id)
+        all_training_logs = crud.get_training_log_by_userid(user_id)
 
         return render_template('training_log.html', all_training_logs=all_training_logs)
 

@@ -67,11 +67,18 @@ def create_training_log(user, training_date, training_effort, training_comment):
 
 def get_user_by_email(email):
 
+    #search user object by email
     return User.query.filter(User.email == email).first()
 
-def get_training_log_by_username(user_id):
 
-    return TrainingLog.query.filter(TrainingLog.user_id == user_id).all()
+def get_currentraces_by_id(user_id):
+
+    return db.session.query(User, Race).filter(User.user_id == user_id, CurrentRace.race_id == Race.race_id).all()
+
+
+def get_training_log_by_userid(user_id):
+
+    return TrainingLog.query.filter(TrainingLog.user_id == user_id).first()
 
 
 if __name__ == '__main__':

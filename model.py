@@ -28,7 +28,7 @@ class User(db.Model):
                          nullable=False)
     
 
-    current_race = db.relationship('CurrentRace')
+    race = db.relationship('Race', secondary='current_races')
 
     def __repr__(self):
 
@@ -56,7 +56,7 @@ class Race(db.Model):
     race_description = db.Column(db.Text, nullable=False)
     organization_name = db.Column(db.String, nullable=False)
 
-    current_race = db.relationship('CurrentRace')
+    user = db.relationship('User', secondary='current_races')
     city = db.relationship('City')
 
 
