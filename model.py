@@ -118,7 +118,7 @@ class TrainingLog(db.Model):
                                 primary_key=True,
                                 autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
-    training_date = db.Column(db.DateTime, nullable=False)
+    training_date = db.Column(db.Date, nullable=False)
     training_mileage = db.Column(db.Integer, nullable=False)
     training_effort = db.Column(db.String, nullable=False)
     training_comment = db.Column(db.String, nullable=False)

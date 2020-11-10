@@ -76,19 +76,6 @@ def login():
             return render_template('profile.html', current_user = user, current_races=races) 
 
 
-@app.route('/training_log', methods=['GET'])
-def show_profile():
-
-    #default to none if user does not exist
-    current_user = session.get('current_user', None)
-
-    if current_user:
-
-        current_user_logs = crud.get_training_log_by_userid(current_user)
-
-
-        return render_template('training_log.html', current_user_logs=current_user_logs)
-
 
 
 @app.route('/logout', methods=['GET'])
@@ -108,15 +95,39 @@ def show_create_user():
 
 ############ ENTRIES ##############################
 
-@app.route('/training_log')
-def training_log():
+@app.route('/training_log', methods=['POST'])
+def create_training_log():
+
+    # old_entries = crud.get_training_log_by_userid(current_user)
+    current_user = session.get('current_user', None)
     
-    #TODO: figure out how to get user info using session so you can accurately display training logs
-    if 'current_user' in session:
+    if current_user:
 
-        all_training_logs = crud.get_training_log_by_userid(user_id)
+        training_date = request.form.get('trainig_date')
+        training_mileage = request.form.get('mileage_run')
+        training_effort = request.form.get('effort')
+        training_comments = request.form.get('comments')
 
-        return render_template('training_log.html', all_training_logs=all_training_logs)
+        new_entry = crud.create_training_log(current_user, training_date, training_mileage, training_effort, training_comments)
+    
+
+        flash('New log created!')
+        return(new_entry)
+
+
+
+@app.route('/training_log', methods=['GET'])
+def show_profile():
+
+    #default to none if user does not exist
+    current_user = session.get('current_user', None)
+
+    if current_user:
+
+        current_user_logs = crud.get_training_log_by_userid(current_user)
+
+
+        return render_template('training_log.html', current_user_logs=current_user_logs)
 
 
 @app.route('/search_races')

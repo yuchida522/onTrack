@@ -55,30 +55,42 @@ def create_current_race(race, user, signup_status):
 
     return current_race
 
-def create_training_log(user, training_date, training_effort, training_comment):
+def create_training_log(user, training_date, training_mileage, training_effort, training_comment):
 
-    training_log = TrainingLog(user=user, training_date=training_date, training_effort=training_effort, training_comment=training_comment)
+    training_log = TrainingLog(user=user,
+                               training_date=training_date,
+                               training_mileage=training_mileage, 
+                               training_effort=training_effort,
+                               training_comment=training_comment)
 
+    #add the new training log to db
     db.session.add(training_log)
     db.session.commit()
 
     return training_log
 
 
+ #search user object by email
 def get_user_by_email(email):
 
-    #search user object by email
     return User.query.filter(User.email == email).first()
 
 
+#searches for current races that the user has saved in their account
 def get_currentraces_by_id(user_id):
 
-    return db.session.query(User, Race).filter(User.user_id == user_id, CurrentRace.race_id == user_id).all()
+
+    return CurrentRace.query.filter(CurrentRace.user_id==user_id).all()
+    
+
+    # return db.session.query(User, Race).filter(User.user_id == user_id, CurrentRace.race_id == Race.race_id).all()
 
 
+
+#function that grabs all the training logs associated with the account (look up by user_id)
 def get_training_log_by_userid(user_id):
 
-    return TrainingLog.query.filter(TrainingLog.user_id == user_id).all()
+    return TrainingLog.query.filter(TrainingLog.user_id == user_id).order_by(TrainingLog.training_date).all()
 
 
 if __name__ == '__main__':

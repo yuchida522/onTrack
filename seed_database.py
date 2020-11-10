@@ -3,8 +3,8 @@ import json
 import requests
 
 import crud
-import model 
-
+import model
+from model import db, User, Race, City, CurrentRace, TrainingLog
 import server
 
 from random import choice
@@ -43,17 +43,18 @@ with open('test_data/test_users.txt') as f:
 		users_in_db.append(user)
 
 
-with open('test_data/test_training_log.txt') as f:
+f = open('test_data/test_training_log.txt')
 
-	for line in f:
-		training_info = line.split('|')
-		training_date = training_info[0]
-		training_effort = training_info[1]
-		training_comment = training_info[2]
+for line in f:
+	training_info = line.split('|')
+	training_date = training_info[0]
+	training_mileage = training_info[1]
+	training_effort = training_info[2]
+	training_comment = training_info[3]
 
-for user in users_in_db:
+	for user in users_in_db:
 
-	training_log = crud.create_training_log(user, training_date, training_effort, training_comment)
+		training_log = crud.create_training_log(user, training_date, training_mileage, training_effort, training_comment)
 
 #import API, for test purposes param is set to search races in SF beyond Jan 1, 2021
 url = 'http://api.amp.active.com/v2/search?query=running'
@@ -92,11 +93,12 @@ for race in events:
 
 for user in users_in_db:
 
-	#choose random race for each user from the list of races saved in races_in_db
-	race_random = choice(races_in_db)
-
+	# #choose a race for each user from the list of races saved in races_in_db
+	race = choice(races_in_db)
 	#seeding data into current races table
-	current_race = crud.create_current_race(race_random, user, signup_status=True)
+	current_race = crud.create_current_race(race, user, signup_status=True)
+	
+
 
 	
 

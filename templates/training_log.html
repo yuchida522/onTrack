@@ -1,10 +1,10 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Training Log</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Training Log{% endblock %}
+
+{% block head %}{% endblock %}
+{% block body %}
+
   <h1>Training Log</h1>
     <div>
       <form action="/training_log" methods="POST">
@@ -19,17 +19,18 @@
             <label for="hard">Hard</label> <br>
         Comments: <input type="text" name="comments"> <br>
 
-        <input type="submit">
+        <button>Create new entry</button>
       </form>
-
-      {% for log in current_user_logs %}
       <p>
-          {{ log.training_date }} <br>
-          {{ log.training_effort }} <br>
-          {{ log.training_comment }}
+
+      {% for logs in current_user_logs[::-1] %}
+      
+          {{ logs.training_date }} <br>
+          {{ logs.training_mileage}} miles<br>
+          {{ logs.training_effort }} <br>
+          {{ logs.training_comment }}
       </p>  
       {% endfor %}
       
     </div>
-</body>
-</html>
+    {% endblock %}
