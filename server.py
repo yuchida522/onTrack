@@ -76,18 +76,18 @@ def login():
             return render_template('profile.html', current_user = user, current_races=races) 
 
 
-# @app.route('/profile', methods=['GET'])
-# def show_profile():
+@app.route('/training_log', methods=['GET'])
+def show_profile():
 
-#     #default to none if user does not exist
-#     current_user = session.get('current_user', None)
+    #default to none if user does not exist
+    current_user = session.get('current_user', None)
 
-#     if current_user is not None:
+    if current_user:
 
-#         current_user_races = crud.get_currentraces_by_id(current_user.user_id)
+        current_user_logs = crud.get_training_log_by_userid(current_user)
 
 
-#         return render_template('profile.html', current_user=current_user_races)
+        return render_template('training_log.html', current_user_logs=current_user_logs)
 
 
 

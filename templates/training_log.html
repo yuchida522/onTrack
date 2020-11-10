@@ -22,12 +22,14 @@
         <input type="submit">
       </form>
 
-      {{% for log in all_training_logs %}}
+      {% for log in current_user_logs %}
       <p>
           {{ log.training_date }} <br>
           {{ log.training_effort }} <br>
           {{ log.training_comment }}
-      </p>
+      </p>  
+      {% endfor %}
+      
     </div>
 </body>
 </html>

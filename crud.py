@@ -73,12 +73,12 @@ def get_user_by_email(email):
 
 def get_currentraces_by_id(user_id):
 
-    return db.session.query(User, Race).filter(User.user_id == user_id, CurrentRace.race_id == Race.race_id).all()
+    return db.session.query(User, Race).filter(User.user_id == user_id, CurrentRace.race_id == user_id).all()
 
 
 def get_training_log_by_userid(user_id):
 
-    return TrainingLog.query.filter(TrainingLog.user_id == user_id).first()
+    return TrainingLog.query.filter(TrainingLog.user_id == user_id).all()
 
 
 if __name__ == '__main__':
