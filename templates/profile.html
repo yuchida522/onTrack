@@ -18,9 +18,15 @@
     {% endfor %}
      <br>
     <!-- list of races here -->
-    <a href="/search_races">search races</a> <br>
-    <a href="/training_log">Your Training Log</a> <br>
-    <a href="/logout">logout</a> 
+    <form action="/search_races">
+        <input type="submit" value="Search for Races" />
+    </form>
+    <form action="/training_log">
+        <input type="submit" value="Your Training Log" />
+    </form>
+    <form action="/logout">
+        <input type="submit" value="Log Out" />
+    </form>
     <!-- {{current_user.user_id}} -->
 
 

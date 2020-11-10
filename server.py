@@ -73,7 +73,7 @@ def login():
             
             races = crud.get_currentraces_by_id(current_user)
 
-            return render_template('profile.html', current_user = user, current_races=races) 
+            return render_template('profile.html', current_user=user, current_races=races) 
 
 
 
@@ -93,10 +93,12 @@ def show_create_user():
     return render_template('create_user.html')
 
 
-############ ENTRIES ##############################
+########################## ENTRIES ##############################
 
 @app.route('/training_log', methods=['POST'])
 def create_training_log():
+
+    """creates new training entry to the training log"""
 
     # old_entries = crud.get_training_log_by_userid(current_user)
     current_user = session.get('current_user', None)
@@ -117,7 +119,8 @@ def create_training_log():
 
 
 @app.route('/training_log', methods=['GET'])
-def show_profile():
+def show_training_logs():
+    """shows the past training logs user has made"""
 
     #default to none if user does not exist
     current_user = session.get('current_user', None)
@@ -125,7 +128,6 @@ def show_profile():
     if current_user:
 
         current_user_logs = crud.get_training_log_by_userid(current_user)
-
 
         return render_template('training_log.html', current_user_logs=current_user_logs)
 
