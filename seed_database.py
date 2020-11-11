@@ -4,7 +4,7 @@ import requests
 
 import crud
 import model
-from model import db, User, Race, City, CurrentRace, TrainingLog
+# from model import db, User, Race, City, CurrentRace, TrainingLog
 import server
 
 from random import choice

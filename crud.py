@@ -59,7 +59,7 @@ def create_training_log(user, training_date, training_mileage, training_effort, 
 
     training_log = TrainingLog(user=user,
                                training_date=training_date,
-                               training_mileage=training_mileage, 
+                               training_mileage=int(training_mileage), 
                                training_effort=training_effort,
                                training_comment=training_comment)
 

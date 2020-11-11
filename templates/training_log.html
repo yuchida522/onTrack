@@ -7,7 +7,7 @@
 
   <h1>Training Log</h1>
     <div>
-      <form action="/training_log" methods="POST">
+      <form action="/training_log" method="POST">
         Date: <input type="date" name="training_date"> <br>
         Mileage Ran: <input type="text" name="mileage_run"> <br>
         Effort:
@@ -19,17 +19,18 @@
             <label for="hard">Hard</label> <br>
         Comments: <input type="text" name="comments"> <br>
 
-        <button>Create new entry</button>
+        <button type="submit">Create new entry</button>
       </form>
-      <p>
+    </div>
+    <div>
 
       {% for logs in current_user_logs[::-1] %}
-      
+        <p>
           {{ logs.training_date }} <br>
           {{ logs.training_mileage}} miles<br>
           {{ logs.training_effort }} <br>
           {{ logs.training_comment }}
-      </p>  
+        </p>  
       {% endfor %}
       
     </div>

@@ -1,7 +1,7 @@
 """Models for running tracking app"""
 
 from flask_sqlalchemy import SQLAlchemy
-
+from datetime import datetime
 db = SQLAlchemy()
 
 #User table
@@ -69,12 +69,6 @@ class City(db.Model):
     """creates a city, taken from the info parsed from API request"""
     
     __tablename__ = 'cities'
-
-    # city_id = db.Column(db.Integer,
-    #                     primary_key=True,
-    #                     autoincrement=True)
-    # city_name = db.Column(db.String, nullable=False)
-    # zipcode = db.Column(db.Integer, nullable=False)
 
     city_id = db.Column(db.Integer,
                         autoincrement=True,
@@ -174,6 +168,4 @@ def connect_to_db(flask_app, db_uri='postgresql:///races', echo=True):
 
 if __name__ == '__main__':
     from server import app
-    
-    
     connect_to_db(app)

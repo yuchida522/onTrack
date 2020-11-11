@@ -2,8 +2,9 @@ from flask import (Flask, jsonify, render_template, request, flash, session, red
 import requests
 import os
 import crud
- 
+from datetime import datetime
 
+#TODO:add classes from model.py
 from model import connect_to_db
 from jinja2 import StrictUndefined
 
@@ -30,6 +31,8 @@ def homepage():
 @app.route('/', methods=['POST'])
 def create_user():
 
+    """handle creating new accounts"""
+
     #get all the input values from the 'create account' form
     fname = request.form.get('fname')
     lname = request.form.get('lname')
@@ -53,7 +56,10 @@ def create_user():
 
 @app.route('/profile', methods=['POST'])
 def login():
-    
+
+    """handle login process"""
+
+    #get all input values from login form
     email = request.form.get('email')
     password = request.form.get('password')
 
@@ -96,6 +102,7 @@ def show_create_user():
 ########################## ENTRIES ##############################
 
 @app.route('/training_log', methods=['POST'])
+# @app.route('/training_log', methods=['GET', 'POST'])
 def create_training_log():
 
     """creates new training entry to the training log"""
@@ -104,18 +111,28 @@ def create_training_log():
     current_user = session.get('current_user', None)
     
     if current_user:
-
-        training_date = request.form.get('trainig_date')
-        training_mileage = request.form.get('mileage_run')
+        # if methods = POST
+        training_date = request.form.get('training_date')
+        print('\n\n\n\n\n\n\n\n\n\n\n\n')
+        print(training_date)
+        # print(datetime.fromisoformat(training_date))
+        training_mileage = int(request.form.get('mileage_run'))
+        print(training_mileage)
         training_effort = request.form.get('effort')
+        print(training_effort)
         training_comments = request.form.get('comments')
-
-        new_entry = crud.create_training_log(current_user, training_date, training_mileage, training_effort, training_comments)
-    
+        print(training_comments)
+        # crud.create_training_log(current_user, datetime.now(), training_mileage, training_effort, training_comments)
+        
 
         flash('New log created!')
-        return(new_entry)
+        # return(new_entry)
+        return redirect('/training_log')
 
+        #if method is GET
+            # current_user_logs = crud.get_training_log_by_userid(current_user)
+
+            # return render_template('training_log.html', current_user_logs=current_user_logs)
 
 
 @app.route('/training_log', methods=['GET'])
