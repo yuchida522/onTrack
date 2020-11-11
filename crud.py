@@ -45,9 +45,9 @@ def create_city(city_name, zipcode):
     else:
         return exists
 
-def create_current_race(race, user, signup_status):
+def create_current_race(race, user_id, signup_status):
     
-    current_race = CurrentRace(race=race, user=user, signup_status=signup_status)
+    current_race = CurrentRace(race=race, user_id=user_id, signup_status=signup_status)
 
     #add current_race to db
     db.session.add(current_race)
@@ -82,10 +82,6 @@ def get_currentraces_by_id(user_id):
 
     return CurrentRace.query.filter(CurrentRace.user_id==user_id).all()
     
-
-    # return db.session.query(User, Race).filter(User.user_id == user_id, CurrentRace.race_id == Race.race_id).all()
-
-
 
 #function that grabs all the training logs associated with the account (look up by user_id)
 def get_training_log_by_userid(user_id):

@@ -4,7 +4,7 @@ import os
 import crud
 from datetime import datetime, date
 
-#TODO:add classes from model.py
+# TODO:add classes from model.py
 from model import connect_to_db
 from jinja2 import StrictUndefined
 
@@ -51,7 +51,7 @@ def create_user():
         #if user already exists, flash message to say user already exists
     else:
         flash("User already exists. Please try again...")
-        return redirect('/create_account')
+        return redirect('/create-account')
 
 
 @app.route('/profile', methods=['POST'])
@@ -63,7 +63,7 @@ def login():
     email = request.form.get('email')
     password = request.form.get('password')
 
-    user = crud.get_user_by_email(email)
+    user = crud.get_user_by_email(email)  
     
     if not user:
         flash('User does not exist. Create an account to sign in')
@@ -93,16 +93,16 @@ def logout():
 
 
 
-@app.route('/create_account')
+@app.route('/create-account')
 def show_create_user():
 
-    return render_template('create_user.html')
+    return render_template('create-user.html')
 
 
 ########################## ENTRIES ##############################
 
 
-@app.route('/training_log', methods=['POST'])
+@app.route('/training-log', methods=['POST'])
 # @app.route('/training_log', methods=['GET', 'POST'])
 def create_training_log():
 
@@ -115,22 +115,22 @@ def create_training_log():
         # if methods = POST
         # training_date = request.form.get('training_date')
         training_date = datetime.today()
-        print('\n\n\n\n\n\n\n\n\n\n\n\n')
-        print('type', type(training_date))
-        print(training_date)
+        # print('\n\n\n\n\n\n\n\n\n\n\n\n')
+        # print('type', type(training_date))
+        # print(training_date)
         # print(datetime.fromisoformat(training_date))
         training_mileage = request.form.get('mileage_run')
-        print(training_mileage)
+        # print(training_mileage)
         training_effort = request.form.get('effort')
-        print(training_effort)
+        # print(training_effort)
         training_comments = request.form.get('comments')
-        print(training_comments)
+        # print(training_comments)
         crud.create_training_log(current_user_id, training_date, training_mileage, training_effort, training_comments)
         
 
         flash('New log created!')
         # return(new_entry)
-        return redirect('/training_log')
+        return redirect('/training-log')
 
         #if method is GET
             # current_user_logs = crud.get_training_log_by_userid(current_user)
@@ -138,27 +138,27 @@ def create_training_log():
             # return render_template('training_log.html', current_user_logs=current_user_logs)
 
 
-@app.route('/training_log', methods=['GET'])
+@app.route('/training-log', methods=['GET'])
 def show_training_logs():
     """shows the past training logs user has made"""
 
     #default to none if user does not exist
-    current_user = session.get('current_user', None)
+    current_user_id = session.get('current_user', None)
 
-    if current_user:
+    if current_user_id:
 
-        current_user_logs = crud.get_training_log_by_userid(current_user)
+        current_user_logs = crud.get_training_log_by_userid(current_user_id)
 
-        return render_template('training_log.html', current_user_logs=current_user_logs)
+        return render_template('training-log.html', current_user_logs=current_user_logs)
 
 
-@app.route('/search_races')
+@app.route('/search-races')
 def search_races():
     
-    return render_template('search_races.html')
+    return render_template('search-races.html')
 
 
-@app.route('/race_results')
+@app.route('/race-results')
 def race_results():
 
     #get the values from search_races form
@@ -180,9 +180,59 @@ def race_results():
     events = data['results']
     
     #render results onto race_results page
-    return render_template('race_results.html',
+    return render_template('race-results.html',
                             data=data,
                             results=events)
+
+@app.route('/save-the-date', methods=['GET'])
+def create_an_event():
+
+    asset_guid = request.args.get('assetguid', '')
+
+    url = 'http://api.amp.active.com/v2/search'
+
+    payload = {'api_key': API_KEY,
+               'asset.assetGuid': asset_guid
+               }
+
+    response = requests.get(url, params=payload)
+    data = response.json()
+
+    # race = data['results']
+
+    return render_template('save-the-date.html',
+                            data=data)
+    
+@app.route('/race-results', methods=['POST'])  
+def save_the_date():
+    # # savethe race
+    # # save the race according to account
+    # # redirect to search page    
+    # save_race = CurrentRace(race=race, user_id=user_id, signup_status=signup_status)
+    race_name = request.form.get('race_name')
+    race_date = datetime.strptime(request.form.get('date'), '%Y-%m-%dT%H:%M:%S')
+    race_city = request.form.get('city_name')
+    race_zipcode = request.form.get('zipcode')
+    race_url = request.form.get('race_url')
+    race_description = request.form.get('race_description')
+    race_organization_name = request.form.get('organization_name')
+    signup_status = request.form.get('signup_status')
+    print('\n\n\n\n\n\n\n\n\n\n\n\n')
+    print(race_date)
+    print(type(race_date))
+    
+    new_city = crud.create_city(race_city, race_zipcode)
+    new_race = crud.create_race(race_name, race_date, new_city, race_url, race_description, race_organization_name)
+    
+
+    current_user_id = session.get('current_user', None)
+
+    if current_user_id:
+
+        crud.create_current_race(new_race, current_user_id, signup_status)
+        
+        flash('Race has been added!')
+        return redirect('/race-results')
 
 
 if __name__ == '__main__':
