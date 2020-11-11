@@ -2,7 +2,7 @@ from flask import (Flask, jsonify, render_template, request, flash, session, red
 import requests
 import os
 import crud
-from datetime import datetime
+from datetime import datetime, date
 
 #TODO:add classes from model.py
 from model import connect_to_db
@@ -101,6 +101,7 @@ def show_create_user():
 
 ########################## ENTRIES ##############################
 
+
 @app.route('/training_log', methods=['POST'])
 # @app.route('/training_log', methods=['GET', 'POST'])
 def create_training_log():
@@ -108,21 +109,23 @@ def create_training_log():
     """creates new training entry to the training log"""
 
     # old_entries = crud.get_training_log_by_userid(current_user)
-    current_user = session.get('current_user', None)
+    current_user_id = session.get('current_user', None)
     
-    if current_user:
+    if current_user_id:
         # if methods = POST
-        training_date = request.form.get('training_date')
+        # training_date = request.form.get('training_date')
+        training_date = datetime.today()
         print('\n\n\n\n\n\n\n\n\n\n\n\n')
+        print('type', type(training_date))
         print(training_date)
         # print(datetime.fromisoformat(training_date))
-        training_mileage = int(request.form.get('mileage_run'))
+        training_mileage = request.form.get('mileage_run')
         print(training_mileage)
         training_effort = request.form.get('effort')
         print(training_effort)
         training_comments = request.form.get('comments')
         print(training_comments)
-        # crud.create_training_log(current_user, datetime.now(), training_mileage, training_effort, training_comments)
+        crud.create_training_log(current_user_id, training_date, training_mileage, training_effort, training_comments)
         
 
         flash('New log created!')

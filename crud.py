@@ -55,11 +55,11 @@ def create_current_race(race, user, signup_status):
 
     return current_race
 
-def create_training_log(user, training_date, training_mileage, training_effort, training_comment):
+def create_training_log(user_id, training_date, training_mileage, training_effort, training_comment):
 
-    training_log = TrainingLog(user=user,
+    training_log = TrainingLog(user_id=user_id,
                                training_date=training_date,
-                               training_mileage=int(training_mileage), 
+                               training_mileage=training_mileage, 
                                training_effort=training_effort,
                                training_comment=training_comment)
 

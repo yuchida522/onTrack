@@ -14,7 +14,7 @@
         {{ event['place']['postalCode'] }} <br>
         <a href="{{ event['homePageUrlAdr'] }}" target="_blank">Event Page</a> <br>
         {{ event['assetDescriptions'][0]['description'] }} <br>
-        <button id="{{ event['assetGuid'] }}" type="button">Save the date</button>
+        <button id="{{ event['assetGuid'] }}" type="submit">Save the date</button>
        <a href="https://calendar.google.com/calendar/r/eventedit?text={{ event['assetName'] }}&dates={{ event['activityStartDate'] }}
        &details=For+details,+link+here:+{{ event['homePageUrlAdr'] }}&location={{ event['place']['cityName'] }}">save date</a> 
     </div>
