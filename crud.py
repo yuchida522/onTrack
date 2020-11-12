@@ -79,7 +79,6 @@ def get_user_by_email(email):
 #searches for current races that the user has saved in their account
 def get_currentraces_by_id(user_id):
 
-
     return CurrentRace.query.filter(CurrentRace.user_id==user_id).all()
     
 
@@ -88,6 +87,9 @@ def get_training_log_by_userid(user_id):
 
     return TrainingLog.query.filter(TrainingLog.user_id == user_id).order_by(TrainingLog.training_date).all()
 
+def get_user_by_user_id(user_id):
+    
+    return User.query.filter(User.user_id == user_id).first()
 
 if __name__ == '__main__':
     from server import app

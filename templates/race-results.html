@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block head %}{% endblock %}
+
+{% block body %}
+<div>
+    {% for event in data['results'] %}
+    <p>{{ event['activityStartDate'] }} <br>
+        {{ event['assetName'] }} <br>
+        {{ event['organization']['organizationName'] }} <br>
+        {{ event['place']['cityName'] }} <br>
+        {{ event['place']['postalCode'] }} <br>
+        <a href="{{ event['homePageUrlAdr'] }}" target="_blank">Event Page</a> <br>
+        {{ event['assetDescriptions'][0]['description'] }} <br>
+        <form action="/save-the-date">
+          <button type="submit" name="assetguid" value="{{ event['assetGuid'] }}" >Save Race</button>
+        </form>
+        
+       <a href="https://calendar.google.com/calendar/r/eventedit?text={{ event['assetName'] }}&dates={{ event['activityStartDate'] }}
+       &details=For+details,+link+here:+{{ event['homePageUrlAdr'] }}&location={{ event['place']['cityName'] }}">save to google calendar</a> 
+
+    </p>
+
+    {% endfor %}
+
+    <a href="/search-races">back to search</a>
+    <a href="/profile">back to profile</a>
+</div>
+
+{% endblock %}
+
+
+

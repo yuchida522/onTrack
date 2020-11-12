@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block head %}{% endblock %}
+{% block body %}
+
+<div>
+<h2>Add this race</h2>
+
+<form action="/race-results" method="POST">
+  Race name: <input type="text" name="race_name" value="{{ data['results'][0]['assetName'] }}"> <br>
+  Race date: <input type="text" name="date" value="{{ data['results'][0]['activityStartDate'] }}"> <br>
+  City: <input type="text" name="city_name" value="{{ data['results'][0]['place']['cityName'] }}"> <br>
+  Zipcode: <input type="text" name="zipcode" value="{{ data['results'][0]['place']['postalCode'] }}"> <br>
+  url: <input type="text" name="race_url" value="{{ data['results'][0]['homePageUrlAdr'] }}"> <br>
+  description: <input type="text" name="race_description" value="{{ data['results'][0]['assetDescriptions'][0]['description'] }}"> <br>
+  Organization Name: <input type="text" name="organization_name" value="{{ data['results'][0]['organization']['organizationName'] }}"> <br>
+  Signed up?
+  <input type="checkbox" name="signup_status" value="TRUE">
+    <label>Yes</label>
+  <input type="checkbox" name="signup_status" value="">
+    <label>No</label> 
+  <br>
+  <br>
+  <input type="submit">
+</form>
+</div> 
+{% endblock %}
