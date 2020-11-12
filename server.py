@@ -166,6 +166,8 @@ def race_results():
     distance_length = request.args.get('distance_length', '')
     start_date = request.args.get('start_date', '')
 
+    # session['city_name'] = city_name
+    # session['distance']
     url = 'http://api.amp.active.com/v2/search?query=running&sort=date_asc'
     payload = {'api_key': API_KEY,
                'near': city_name,
@@ -175,14 +177,12 @@ def race_results():
     
     response = requests.get(url, params=payload)
     data = response.json()
-
-    
-    events = data['results']
     
     #render results onto race_results page
     return render_template('race-results.html',
-                            data=data,
-                            results=events)
+                            data=data)
+
+
 
 @app.route('/save-the-date', methods=['GET'])
 def create_an_event():
@@ -203,12 +203,10 @@ def create_an_event():
     return render_template('save-the-date.html',
                             data=data)
     
+# TODO: explore using models
 @app.route('/race-results', methods=['POST'])  
 def save_the_date():
-    # # savethe race
-    # # save the race according to account
-    # # redirect to search page    
-    # save_race = CurrentRace(race=race, user_id=user_id, signup_status=signup_status)
+    
     race_name = request.form.get('race_name')
     race_date = datetime.strptime(request.form.get('date'), '%Y-%m-%dT%H:%M:%S')
     race_city = request.form.get('city_name')
@@ -216,12 +214,15 @@ def save_the_date():
     race_url = request.form.get('race_url')
     race_description = request.form.get('race_description')
     race_organization_name = request.form.get('organization_name')
-    signup_status = request.form.get('signup_status')
-    print('\n\n\n\n\n\n\n\n\n\n\n\n')
-    print(race_date)
-    print(type(race_date))
+    signup_status = bool(request.form.get('signup_status'))
+    # print('\n\n\n\n\n\n\n\n\n\n\n\n')
+    # print(race_date)
+    # print(type(signup_status))
     
+    #create a new city to add to db
     new_city = crud.create_city(race_city, race_zipcode)
+
+    #create a new race to add to db, using the city that was just created
     new_race = crud.create_race(race_name, race_date, new_city, race_url, race_description, race_organization_name)
     
 
@@ -232,7 +233,8 @@ def save_the_date():
         crud.create_current_race(new_race, current_user_id, signup_status)
         
         flash('Race has been added!')
-        return redirect('/race-results')
+        # return render_template('search-races.html')
+        return redirect('/search-races')
 
 
 if __name__ == '__main__':
