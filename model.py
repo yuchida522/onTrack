@@ -7,7 +7,35 @@ db = SQLAlchemy()
 #User table
 class User(db.Model):
 
-    """creates a user, taken from the form create user page"""
+    """
+    creates a user, taken from the form "create account" page
+    
+    For example:
+        First name: Jane
+        Last name: Doe  
+        username: jdoe
+        password: testpw
+        email: jdoe@test.com
+
+    >>> new_user = User(fname='Jane',
+    ...                 lname='Doe',
+    ...                 username='jdoe',
+    ...                 password='testpw',
+    ...                 email='jdoe@test.com')
+    >>> new_user
+    <User user_id=None, email=jdoe@test.com>
+    >>> new_user.fname
+    'Jane'
+    >>> new_user.lname
+    'Doe'
+    >>> new_user.username
+    'jdoe'
+    >>> new_user.password
+    'testpw'
+    >>> new_user.email
+    'jdoe@test.com'
+
+    """
     
     __tablename__ = 'users'
 
@@ -39,9 +67,29 @@ class User(db.Model):
 class Race(db.Model):
 
     """
-    this creates a race which includes race name, date, time of race, city, race homepage,
-    description of the race, and host/organization of the race. All info is parsed from 
-    API request
+    this creates a race which includes race name, date, time of race, city, 
+    race homepage, description of the race, and host/organization of the race. 
+    All info is parsed from API request.
+
+    For example, to save a race from 
+    >>> race = Race(race_name='Half Marathon',
+    ...             date='2020-11-13',
+    ...             city_id=1,
+    ...             race_url='halfmarathon.com',
+    ...             race_description="Let's run!",
+    ...             organization_name="Runner's World")
+    >>> race
+    <Race race_id=None, race_name=Half Marathon>
+    >>> race.date
+    '2020-11-13'
+    >>> race.city_id
+    1
+    >>> race.race_url
+    'halfmarathon.com'
+    >>> race.race_description
+    "Let's run!"
+    >>> race.organization_name
+    "Runner's World"
     """
     
     __tablename__ = 'races'
@@ -66,7 +114,23 @@ class Race(db.Model):
 #city table
 class City(db.Model):
 
-    """creates a city, taken from the info parsed from API request"""
+    """
+    creates a city, taken from the info parsed from API request
+    
+    For example:
+    
+        city = Chicago
+        zipcode = 60601
+
+    >>> new_city = City(city_name='Chicago', zipcode=60601)
+    >>> new_city
+    <City city_id=None, city_name=Chicago, zipcode=60601>
+    >>> new_city.city_name
+    'Chicago'
+    >>> new_city.zipcode
+    60601
+
+    """
     
     __tablename__ = 'cities'
 
@@ -122,36 +186,6 @@ class TrainingLog(db.Model):
     def __repr__(self):
         return f'<TrainingLog training_log_id={self.training_log_id}, user_id={self.user_id}>'
 
-#distance table
-# class DistanceLength(db.Model):
-
-#     """a distance length of the race"""
-    
-#     __tablename__ = 'distance_lengths'
-
-#     distance_length_id = db.Column(db.Integer,
-#                                    primary_key=True,
-#                                    autoincrement=True)
-#     distance_length = db.Column(db.Integer, nullable=False)
-
-#     race = db.relationship('Race')
-
-#     def __repr__(self):
-#         return f'<DistanceLength distance_length_id={self.distance_length_id}, distance_length={self.distance_length}>'
-
-
-
-# signup status table?
-
-# past race table?
-
-#  class PastRace(db.Model):
-#     __tablename__ = 'past_races'
-#    past_race_id = db.Column(db.Integer,
-#                                 primary_key=True)
-#     user_id = db.Column()                          
-#     race_id = db.Column(db.Integer, db.ForeignKey('race.race_id'))
-
 
 
 def connect_to_db(flask_app, db_uri='postgresql:///races', echo=True):
@@ -164,6 +198,49 @@ def connect_to_db(flask_app, db_uri='postgresql:///races', echo=True):
 
     print('Connected to the db!')
 
+    
+def example_data():
+
+    #empty out exisiting data if test is ran more than once
+    User.query.delete()
+    Race.query.delete()
+    City.query.delete()
+    CurrentRace.query.delete()
+    TrainingLog.query.delete()
+
+    #create new training data
+    test_new_user = User(fname='Jane',
+                    lname='Doe',
+                    username='jdoe',
+                    password='testpw',
+                    email='jdoe@test.com')
+
+    test_new_city = City(city_name='chicago',
+                    zipcode=60601)
+
+    test_new_race = Race(race_name='Half Marathon',
+                    date='2020-11-13',
+                    city_id=test_new_city,
+                    race_url='halfmarathon.com',
+                    race_description="Let's run!",
+                    organization_name="Runner's World")
+
+    test_new_current_race = CurrentRace(user_id=test_new_user,
+                                   race_id=test_new_race,
+                                   signup_status=True)
+    
+    test_new_training_log = TrainingLog(user_id=test_new_user,
+                                        training_date='2020-11-11',
+                                        training_mileage=13,
+                                        training_effort='hard',
+                                        training_comment='test comment')
+
+    db.session.add_all([test_new_user,
+                        test_new_city,
+                        test_new_race,
+                        test_new_current_race,
+                        test_new_training_log])
+    db.session.commit()
 
 
 if __name__ == '__main__':

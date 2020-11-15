@@ -107,14 +107,15 @@ def logout():
 
 @app.route('/create-account')
 def show_create_user():
+    """renders create account form"""
 
     return render_template('create-user.html')
+
 
 
 ########################## ENTRIES ##############################
 
 
-# @app.route('/training-log', methods=['POST'])
 @app.route('/training-log', methods=['POST'])
 def create_training_log():
     
@@ -151,12 +152,14 @@ def show_training_logs():
 
 @app.route('/search-races')
 def search_races():
-    
+    """renders race searching feature"""
+
     return render_template('search-races.html')
 
 
 @app.route('/race-results')
 def race_results():
+    """takes values from the search form to create direct API requests, returns search results"""
 
     #get the values from search_races form
     city_name = request.args.get('city_name', '')
@@ -183,6 +186,8 @@ def race_results():
 
 @app.route('/save-the-date', methods=['GET'])
 def create_an_event():
+    """make a direct API call using unique assetGuID to retrieve event"""
+
 
     asset_guid = request.args.get('assetguid', '')
 
@@ -203,33 +208,32 @@ def create_an_event():
 # TODO: explore using models
 @app.route('/race-results', methods=['POST'])  
 def save_the_date():
+    """saving race, and city to db, allows users to save race to account"""
+
+    race_name = request.form.get('race_name')
+    race_date = datetime.strptime(request.form.get('date'), '%Y-%m-%dT%H:%M:%S')
+    race_city = request.form.get('city_name')
+    race_zipcode = request.form.get('zipcode')
+    race_url = request.form.get('race_url')
+    race_description = request.form.get('race_description')
+    race_organization_name = request.form.get('organization_name')
+    signup_status = bool(request.form.get('signup_status'))
     
-    if request.method == 'POST':
+    #create a new city to add to db
+    new_city = crud.create_city(race_city, race_zipcode)
 
-        race_name = request.form.get('race_name')
-        race_date = datetime.strptime(request.form.get('date'), '%Y-%m-%dT%H:%M:%S')
-        race_city = request.form.get('city_name')
-        race_zipcode = request.form.get('zipcode')
-        race_url = request.form.get('race_url')
-        race_description = request.form.get('race_description')
-        race_organization_name = request.form.get('organization_name')
-        signup_status = bool(request.form.get('signup_status'))
+    #create a new race to add to db, using the city that was just created
+    new_race = crud.create_race(race_name, race_date, new_city, race_url, race_description, race_organization_name)
+
+    current_user_id = session.get('current_user', None)
+
+    if current_user_id:
+
+        crud.create_current_race(new_race, current_user_id, signup_status)
         
-        #create a new city to add to db
-        new_city = crud.create_city(race_city, race_zipcode)
-
-        #create a new race to add to db, using the city that was just created
-        new_race = crud.create_race(race_name, race_date, new_city, race_url, race_description, race_organization_name)
-
-        current_user_id = session.get('current_user', None)
-
-        if current_user_id:
-
-            crud.create_current_race(new_race, current_user_id, signup_status)
-            
-            flash('Race has been added!')
-            # return render_template('search-races.html')
-            return redirect('/search-races')
+        flash('Race has been added!')
+        # return render_template('search-races.html')
+        return redirect('/search-races')
     
 
 

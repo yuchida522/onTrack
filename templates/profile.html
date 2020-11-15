@@ -14,6 +14,8 @@
     Your current races: <br>
     {% for race in current_races %}
     > {{ race.race.race_name }} <br>
+    signed up? {{ race.signup_status }}<br>
+    
 
     {% endfor %}
      <br>
