@@ -22,7 +22,7 @@ def homepage():
     #     return redirect('/profile')
 
     # else:
-        return render_template('homepage.html')
+    return render_template('homepage.html')
 
 
 ########## USER AUTHENTICATION PROCESS ######################

@@ -3,22 +3,35 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    
-    <link rel="stylesheet" href="/static/css/styles.css"/>
-    <title>
-      {% block title %}{% endblock %}
-    </title>
 
-    {% block head %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- react scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- Include any page-specific Javascript using this block. -->
+    {% block js %}
+    {% endblock %}
+
+    <!-- css style sheet -->
+    <link rel="stylesheet" href="/static/css/styles.css"/>
+    
   </head>
   <body>
+
+    <!-- where flash messages will appear -->
     {% for msg in get_flashed_messages() %}
     <p class="flash-msg">
       {{ msg }}
     </p>
     {% endfor %}
+
+    <!-- the page's content within this block. -->
     {% block body %}{% endblock %}
 
     {% block after_body %}{% endblock %}
+
   </body>
 </html>
