@@ -79,7 +79,46 @@ def login():
             
             races = crud.get_currentraces_by_id(current_user_id)
 
-            return render_template('profile.html', current_user=user, current_races=races) 
+            
+            # current_user_training_log = crud.get_training_log_by_userid(current_user_id)
+            
+            # #current_user_training_log = list of TrainingLog objects
+
+            # training_log = []
+
+            # for training in current_user_training_log:
+            #     # print('\n\n\n\n\n\n\n\n\n\n\n\n\n')
+            #     # print(training)
+            #     training_log.append({'date': training.training_date.isoformat(),
+            #                          'mileage': training.training_mileage})
+            #     # print('\n\n\n\n\n\n\n\n\n\n\n\n\n')
+            #     # print(training_log)
+            #     training_log_jsonify = jsonify(training_log)
+            #     print('\n\n\n\n\n\n\n\n\n\n\n\n\n')
+            #     print(training_log_jsonify)
+                
+            return render_template('profile.html',
+                                    current_user=user, 
+                                    current_races=races) 
+
+
+@app.route('/training-log.json')
+def get_training_log_by_userid():
+    """get the training log by user and jsonify it"""
+
+    current_user_id = session.get('current_user', None)
+
+    if current_user_id:
+        current_user_training_log = crud.get_training_log_by_userid(current_user_id)
+
+    training_log = []
+    
+    for training in current_user_training_log:
+        training_log.append({'date': training.training_date.isoformat(),
+                             'mileage': training.training_mileage})
+
+    return jsonify({'data': training_log})
+
 
     
 

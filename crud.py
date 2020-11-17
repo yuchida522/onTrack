@@ -87,6 +87,7 @@ def get_training_log_by_userid(user_id):
 
     return TrainingLog.query.filter(TrainingLog.user_id == user_id).order_by(TrainingLog.training_date).all()
 
+
 def get_user_by_user_id(user_id):
 
     return User.query.filter(User.user_id == user_id).first()

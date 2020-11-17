@@ -2,11 +2,58 @@
 
 {% block title %}{% endblock %}
 
-{% block head %}{% endblock %}
+{% block head %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js" 
+integrity="sha512-hZf9Qhp3rlDJBvAKvmiG+goaaKRZA6LKUO35oK6EsM0/kjPK32Yw7URqrq3Q+Nvbbt8Usss+IekL7CRn83dYmw==" 
+crossorigin="anonymous"></script>
+{% endblock %}
 
 {% block body %}
+<div>
 <h1>Hello, {{ current_user.fname }}!</h1>
+</div>
+<div class="chart-container">
+    <canvas id="myChart"></canvas>
 
+    <script>
+        $.get('/training-log.json', (res) => {
+        const data = [];
+        for (const training of res.data) {
+        data.push({x: training.date, y: training.mileage});
+        }
+        console.log(data)
+        new Chart(
+            $('#myChart'),
+            {
+                type: 'line',
+                data: {
+                  datasets: [
+                  {
+                    label: 'Mileage ran',
+                    data: data
+                  }
+                ]
+              },
+                options: {
+                  scales: {
+                    xAxes: [
+                      {
+                        type: 'time',
+                        distribution: 'series'
+                      }
+                ]
+              },
+                }
+           }
+          );
+        });
+    </script>
+    
+</div>
+
+<div>
 <p>
     <!-- current races:
     link to races here -->
@@ -31,5 +78,5 @@
     </form>
     
 </p>
-
+</div>
 {% endblock %}
