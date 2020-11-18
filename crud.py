@@ -93,6 +93,13 @@ def get_user_by_user_id(user_id):
     return User.query.filter(User.user_id == user_id).first()
 
 
+def delete_training_log(training_log_id):
+
+    training_log = TrainingLog.query.filter(TrainingLog.training_log_id == training_log_id).first()
+
+    db.session.delete(training_log)
+    db.session.commit()
+
 
 if __name__ == '__main__':
     from server import app

@@ -18,10 +18,7 @@ app.jinja_env.undefined = StrictUndefined
 @app.route('/')
 def homepage():
 
-    # if 'current_user' in session:
-    #     return redirect('/profile')
 
-    # else:
     return render_template('homepage.html')
 
 
@@ -79,23 +76,6 @@ def login():
             
             races = crud.get_currentraces_by_id(current_user_id)
 
-            
-            # current_user_training_log = crud.get_training_log_by_userid(current_user_id)
-            
-            # #current_user_training_log = list of TrainingLog objects
-
-            # training_log = []
-
-            # for training in current_user_training_log:
-            #     # print('\n\n\n\n\n\n\n\n\n\n\n\n\n')
-            #     # print(training)
-            #     training_log.append({'date': training.training_date.isoformat(),
-            #                          'mileage': training.training_mileage})
-            #     # print('\n\n\n\n\n\n\n\n\n\n\n\n\n')
-            #     # print(training_log)
-            #     training_log_jsonify = jsonify(training_log)
-            #     print('\n\n\n\n\n\n\n\n\n\n\n\n\n')
-            #     print(training_log_jsonify)
                 
             return render_template('profile.html',
                                     current_user=user, 
@@ -122,7 +102,7 @@ def get_training_log_by_userid():
 
     
 
-@app.route('/profile')
+@app.route('/profile/')
 def profile():
     current_user_id = session.get('current_user', None)
 
@@ -130,6 +110,7 @@ def profile():
 
         current_user = crud.get_user_by_user_id(current_user_id)
         races = crud.get_currentraces_by_id(current_user_id)
+        #TODO: add crud function that will return total mileage ran 
 
         return render_template('profile.html', current_user=current_user, current_races=races)
 
@@ -164,7 +145,8 @@ def create_training_log():
     
     if current_user_id:
 
-        training_date = datetime.today()
+        training_date = datetime.strptime(request.form.get('training_date'), '%Y-%m-%d')
+        
         training_mileage = request.form.get('mileage_run')
         training_effort = request.form.get('effort')
         training_comments = request.form.get('comments')
@@ -173,7 +155,13 @@ def create_training_log():
 
         flash('New log created!')
         return redirect('/training-log')
-   
+
+
+@app.route('/edit-training-log')
+def edit_training_log():
+    pass
+
+
 
 @app.route('/training-log')
 def show_training_logs():
@@ -187,6 +175,9 @@ def show_training_logs():
         current_user_logs = crud.get_training_log_by_userid(current_user_id)
 
         return render_template('training-log.html', current_user_logs=current_user_logs)
+
+
+
 
 
 @app.route('/search-races')

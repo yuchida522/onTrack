@@ -15,7 +15,7 @@ crossorigin="anonymous"></script>
 <h1>Hello, {{ current_user.fname }}!</h1>
 </div>
 <div class="chart-container">
-    <canvas id="myChart"></canvas>
+    <canvas id="myChart" ></canvas>
 
     <script>
         $.get('/training-log.json', (res) => {
@@ -40,15 +40,27 @@ crossorigin="anonymous"></script>
                   scales: {
                     xAxes: [
                       {
-                        type: 'time',
-                        distribution: 'series'
+						type: 'time',
+						time: {
+						  displayFormats: {
+						    week: 'll'
+						  }
+						},
+						distribution: 'series'
                       }
-                ]
-              },
-                }
-           }
-          );
-        });
+                	]
+				  },
+				  tooltips: {
+          			callbacks: {
+            		  title: (tooltipItem) => {
+                       return moment(tooltipItem.label).format('MMM D');
+            		  }
+          			}
+       			  }
+              	}
+           	  }
+            );
+          });
     </script>
     
 </div>

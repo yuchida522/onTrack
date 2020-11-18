@@ -19,7 +19,7 @@ class User(db.Model):
 
     >>> new_user = User(fname='Jane',
     ...                 lname='Doe',
-    ...                 username='jdoe',
+    ...                 username='jdoe',_l
     ...                 password='testpw',
     ...                 email='jdoe@test.com')
     >>> new_user
