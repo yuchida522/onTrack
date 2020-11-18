@@ -76,9 +76,10 @@ def login():
             
             races = crud.get_currentraces_by_id(current_user_id)
 
+
                 
             return render_template('profile.html',
-                                    current_user=user, 
+                                    current_user=user,
                                     current_races=races) 
 
 
@@ -102,17 +103,21 @@ def get_training_log_by_userid():
 
     
 
-@app.route('/profile/')
+@app.route('/profile')
 def profile():
+
     current_user_id = session.get('current_user', None)
 
     if current_user_id:
 
         current_user = crud.get_user_by_user_id(current_user_id)
+        # print('\n\n\n\n\n\n\n')
+        # print(current_user)
         races = crud.get_currentraces_by_id(current_user_id)
-        #TODO: add crud function that will return total mileage ran 
+        # #TODO: add crud function that will return total mileage ran 
 
-        return render_template('profile.html', current_user=current_user, current_races=races)
+        return render_template('profile.html', current_user=current_user,
+                                               current_races=races)
 
 
 @app.route('/logout')
@@ -155,11 +160,20 @@ def create_training_log():
 
         flash('New log created!')
         return redirect('/training-log')
+        
 
+@app.route('/delete-training-log', methods=['POST'])
+def delete_training_log():
 
-@app.route('/edit-training-log')
-def edit_training_log():
-    pass
+    """deletes a training log entry"""
+
+    training_log_id = request.form.get('delete-log')
+
+    crud.delete_training_log(training_log_id)
+
+    flash('Log has been deleted!')
+
+    return redirect('/training-log')
 
 
 

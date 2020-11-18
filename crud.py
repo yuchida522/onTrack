@@ -92,6 +92,9 @@ def get_user_by_user_id(user_id):
 
     return User.query.filter(User.user_id == user_id).first()
 
+def get_training_log_by_log_id(training_log_id):
+
+    return TrainingLog.query.filter(TrainingLog.training_log_id == training_log_id).first()
 
 def delete_training_log(training_log_id):
 

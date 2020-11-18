@@ -31,11 +31,11 @@
           {{ logs.training_effort }} <br>
           {{ logs.training_comment }}
         </p>  
-        <form action="/edit-log" name="edit" value="{{ logs.training_log_id }}">
-          <button type="submit">edit log</button>
+        <form action="/edit-log">
+          <button type="submit" name="edit" value="{{ logs.training_log_id }}">edit log</button>
         </form>
-        <form action="/training-log">
-          <button type="submit" name="delete" value="{{ logs.training_log_id }}"></button>
+        <form action="/delete-training-log" method="POST">
+          <button type="submit" name="delete-log" value="{{ logs.training_log_id }}">delete log</button>
         </form>
       {% endfor %}
       
