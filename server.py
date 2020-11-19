@@ -7,6 +7,7 @@ from datetime import datetime, date
 # TODO:add classes from model.py
 from model import connect_to_db
 from jinja2 import StrictUndefined
+# from pprint import pformat
 
 app = Flask(__name__)
 app.secret_key = 'dev'
@@ -18,18 +19,24 @@ app.jinja_env.undefined = StrictUndefined
 @app.route('/')
 def homepage():
 
-
     return render_template('homepage.html')
 
 
 ########## USER AUTHENTICATION PROCESS ######################
 
 
-@app.route('/', methods=['POST'])
+@app.route('/create-account')
+def show_create_user():
+    """renders create account form"""
+
+    return render_template('create-user.html')
+
+
+@app.route('/make-new-user', methods=['POST'])
 def create_user():
 
     """handle creating new accounts"""
-
+    
     #get all the input values from the 'create account' form
     fname = request.form.get('fname')
     lname = request.form.get('lname')
@@ -51,7 +58,7 @@ def create_user():
         return redirect('/create-account')
 
 
-@app.route('/profile', methods=['POST'])
+@app.route('/login', methods=['POST'])
 def login():
 
     """handle login process"""
@@ -75,9 +82,7 @@ def login():
             current_user_id = session.get('current_user')
             
             races = crud.get_currentraces_by_id(current_user_id)
-
-
-                
+  
             return render_template('profile.html',
                                     current_user=user,
                                     current_races=races) 
@@ -101,10 +106,10 @@ def get_training_log_by_userid():
     return jsonify({'data': training_log})
 
 
-    
-
 @app.route('/profile')
 def profile():
+
+    """display user's profile page"""
 
     current_user_id = session.get('current_user', None)
 
@@ -130,18 +135,10 @@ def logout():
 
 
 
-@app.route('/create-account')
-def show_create_user():
-    """renders create account form"""
-
-    return render_template('create-user.html')
-
-
-
 ########################## ENTRIES ##############################
 
 
-@app.route('/training-log', methods=['POST'])
+@app.route('/create-training-log', methods=['POST'])
 def create_training_log():
     
     """creates new training entry to the training log"""
@@ -150,8 +147,7 @@ def create_training_log():
     
     if current_user_id:
 
-        training_date = datetime.strptime(request.form.get('training_date'), '%Y-%m-%d')
-        
+        training_date = datetime.strptime(request.form.get('training_date'), '%Y-%m-%d')  
         training_mileage = request.form.get('mileage_run')
         training_effort = request.form.get('effort')
         training_comments = request.form.get('comments')
@@ -160,11 +156,10 @@ def create_training_log():
 
         flash('New log created!')
         return redirect('/training-log')
-        
 
-@app.route('/delete-training-log', methods=['POST'])
-def delete_training_log():
 
+@app.route('/delete-training-log/<int:training_log_id>', methods=['POST'])
+def delete_training_log(training_log_id):
     """deletes a training log entry"""
 
     training_log_id = request.form.get('delete-log')
@@ -175,6 +170,39 @@ def delete_training_log():
 
     return redirect('/training-log')
 
+
+
+@app.route('/edit-training-log/<int:training_log_id>')
+def edit_training_log(training_log_id):
+    """edits past training log entry"""
+    
+    # training_log_id = request.args.get('edit')
+    training_log_to_edit = crud.get_training_log_by_log_id(training_log_id)
+    
+    return render_template('edit-training-log.html',
+                           training_log_to_edit=training_log_to_edit)
+
+
+
+@app.route('/save-changes/<int:training_log_id>', methods=['POST'])
+def save_edited_log(training_log_id):
+
+    #get the values from the edit log form
+    edited_date = datetime.strptime(request.form.get('edited_training_date'), '%Y-%m-%d')
+    print('\n\n\n\n\n\n\n')
+    print(edited_date)
+    edited_mileage = request.form.get('edited_training_mileage')
+    print(edited_mileage)
+    edited_effort = request.form.get('edited_training_effort')
+    print(edited_effort)
+    edited_comment = request.form.get('edited_training_comment')
+    print(edited_comment)
+
+    #commit the changes
+    crud.update_training_log(training_log_id, edited_date, edited_mileage, edited_effort, edited_comment)
+
+    flash('Entry has been updated!')
+    return redirect('/training-log')
 
 
 @app.route('/training-log')
@@ -192,13 +220,12 @@ def show_training_logs():
 
 
 
-
-
 @app.route('/search-races')
 def search_races():
     """renders race searching feature"""
 
     return render_template('search-races.html')
+
 
 
 @app.route('/race-results')
@@ -209,7 +236,6 @@ def race_results():
     city_name = request.args.get('city_name', '')
     distance_length = request.args.get('distance_length', '')
     start_date = request.args.get('start_date', '')
-
     # session['city_name'] = city_name
     # session['distance']
     url = 'http://api.amp.active.com/v2/search?query=running&sort=date_asc'
@@ -220,6 +246,7 @@ def race_results():
                }
     
     response = requests.get(url, params=payload)
+    
     data = response.json()
     
     #render results onto race_results page
@@ -228,8 +255,8 @@ def race_results():
 
 
 
-@app.route('/save-the-date', methods=['GET'])
-def create_an_event():
+@app.route('/save-the-date')
+def create_saved_race():
     """make a direct API call using unique assetGuID to retrieve event"""
 
 
@@ -248,7 +275,8 @@ def create_an_event():
 
     return render_template('save-the-date.html',
                             data=data)
-    
+
+
 # TODO: explore using models
 @app.route('/race-results', methods=['POST'])  
 def save_the_date():

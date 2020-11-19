@@ -96,12 +96,26 @@ def get_training_log_by_log_id(training_log_id):
 
     return TrainingLog.query.filter(TrainingLog.training_log_id == training_log_id).first()
 
+
 def delete_training_log(training_log_id):
 
     training_log = TrainingLog.query.filter(TrainingLog.training_log_id == training_log_id).first()
 
     db.session.delete(training_log)
     db.session.commit()
+
+def update_training_log(training_log_id, new_date, new_mileage, new_effort, new_comment):
+
+    training_log_to_update = TrainingLog.query.filter(TrainingLog.training_log_id == training_log_id).first()
+
+    training_log_to_update.training_date = new_date
+    training_log_to_update.training_mileage = new_mileage
+    training_log_to_update.training_effort = new_effort
+    training_log_to_update.training_comment = new_comment
+
+
+    db.session.commit()
+
 
 
 if __name__ == '__main__':

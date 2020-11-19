@@ -7,7 +7,7 @@
 
   <h1>Training Log</h1>
     <div>
-      <form action="/training-log" method="POST">
+      <form action="/create-training-log" method="POST">
         Date: <input type="date" name="training_date"> <br>
         Mileage Ran: <input type="text" name="mileage_run"> <br>
         Effort:
@@ -31,10 +31,10 @@
           {{ logs.training_effort }} <br>
           {{ logs.training_comment }}
         </p>  
-        <form action="/edit-log">
+        <form action="/edit-training-log/{{ logs.training_log_id }}">
           <button type="submit" name="edit" value="{{ logs.training_log_id }}">edit log</button>
         </form>
-        <form action="/delete-training-log" method="POST">
+        <form action="/delete-training-log/{{ logs.training_log_id }}" method="POST">
           <button type="submit" name="delete-log" value="{{ logs.training_log_id }}">delete log</button>
         </form>
       {% endfor %}
