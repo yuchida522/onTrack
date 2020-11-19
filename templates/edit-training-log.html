@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit training log{% endblock %}
+
+{% block head %}{% endblock %}
+
+{% block body %}
+<div>
+  <h1>Edit Log</h1>
+  
+  <form action="/save-changes/{{ training_log_to_edit.training_log_id }}" method="POST">
+    Date: <input type="date" name="edited_training_date" value="{{ training_log_to_edit.training_date }}"> <br>
+    Mileage: <input type="text" name="edited_training_mileage" value="{{ training_log_to_edit.training_mileage}}"> <br>
+    Effort: 
+    <input type="radio" id="effort" name="edited_training_effort" value="easy">
+      <label for="easy">Easy</label>
+    <input type="radio" id="effort" name="edited_training_effort" value="moderate">
+      <label for="moderate">Moderate</label>
+    <input type="radio" id="effort" name="edited_training_effort" value="hard">
+    <label for="hard">Hard</label> <br>
+    Comment: <input type="text" name="edited_training_comment" value="{{ training_log_to_edit.training_comment }}"> <br>
+
+    <button type="submit" name="log-to-edit">Save Edit</button>
+  </form>
+</div>
+
+{% endblock %}
