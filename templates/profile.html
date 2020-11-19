@@ -66,9 +66,14 @@ crossorigin="anonymous"></script>
 </div>
 
 <div>
-<p>
-    <!-- current races:
-    link to races here -->
+	<h2>total runs: {{ total_runs }}</h2> <br>
+	<h2>total distance: {{ total_mileage[0] }}</h2> <br>
+	last run:
+
+</div>
+<div>
+  <p>
+    
     
     Your current races: <br>
     {% for race in current_races %}
@@ -89,6 +94,6 @@ crossorigin="anonymous"></script>
         <button type="submit">Log Out</button>
     </form>
     
-</p>
+  </p>
 </div>
 {% endblock %}

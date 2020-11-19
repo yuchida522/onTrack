@@ -82,10 +82,14 @@ def login():
             current_user_id = session.get('current_user')
             
             races = crud.get_currentraces_by_id(current_user_id)
+            total_mileage = crud.get_total_mileage(current_user_id)
+            total_runs = crud.get_total_number_of_runs(current_user_id)
   
             return render_template('profile.html',
                                     current_user=user,
-                                    current_races=races) 
+                                    current_races=races,
+                                    total_mileage=total_mileage,
+                                    total_runs=total_runs) 
 
 
 @app.route('/training-log.json')
@@ -119,10 +123,13 @@ def profile():
         # print('\n\n\n\n\n\n\n')
         # print(current_user)
         races = crud.get_currentraces_by_id(current_user_id)
-        # #TODO: add crud function that will return total mileage ran 
+        total_mileage = crud.get_total_mileage(current_user_id)
+        total_runs = crud.get_total_number_of_runs(current_user_id)
 
         return render_template('profile.html', current_user=current_user,
-                                               current_races=races)
+                                               current_races=races,
+                                               total_mileage=total_mileage,
+                                               total_runs=total_runs)
 
 
 @app.route('/logout')

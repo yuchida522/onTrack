@@ -1,6 +1,7 @@
 """CRUD operations"""
 
 from model import db, User, Race, City, CurrentRace, TrainingLog, connect_to_db
+from sqlalchemy.sql import functions
 
 def create_user(fname, lname, username, email, password):
 
@@ -82,10 +83,24 @@ def get_currentraces_by_id(user_id):
     return CurrentRace.query.filter(CurrentRace.user_id==user_id).all()
     
 
-#function that grabs all the training logs associated with the account (look up by user_id)
+
 def get_training_log_by_userid(user_id):
+    """function that grabs all the training logs associated with the account (look up by user_id)"""
 
     return TrainingLog.query.filter(TrainingLog.user_id == user_id).order_by(TrainingLog.training_date).all()
+
+
+
+def get_total_mileage(user_id):
+    """function that return total mileage ran by the user"""
+
+    return TrainingLog.query.with_entities(functions.sum(TrainingLog.training_mileage)).filter(TrainingLog.user_id == user_id).first()
+
+    
+def get_total_number_of_runs(user_id):
+    """function that return total mileage ran by the user"""
+
+    return TrainingLog.query.filter(TrainingLog.user_id == user_id).count()
 
 
 def get_user_by_user_id(user_id):
