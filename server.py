@@ -80,14 +80,12 @@ def login():
             session['current_user'] = user.user_id 
             flash('Login Successful!')
             current_user_id = session.get('current_user')
-            
-            races = crud.get_currentraces_by_id(current_user_id)
+    
             total_mileage = crud.get_total_mileage(current_user_id)
             total_runs = crud.get_total_number_of_runs(current_user_id)
   
             return render_template('profile.html',
                                     current_user=user,
-                                    current_races=races,
                                     total_mileage=total_mileage,
                                     total_runs=total_runs) 
 
@@ -122,14 +120,26 @@ def profile():
         current_user = crud.get_user_by_user_id(current_user_id)
         # print('\n\n\n\n\n\n\n')
         # print(current_user)
-        races = crud.get_currentraces_by_id(current_user_id)
         total_mileage = crud.get_total_mileage(current_user_id)
         total_runs = crud.get_total_number_of_runs(current_user_id)
 
         return render_template('profile.html', current_user=current_user,
-                                               current_races=races,
                                                total_mileage=total_mileage,
                                                total_runs=total_runs)
+
+@app.route('/current-races')
+def current_races():
+    current_user_id = session.get('current_user', None)
+    print('\n\n\n\n\n')
+    print(current_user_id)
+    if current_user_id:
+
+        races = crud.get_currentraces_by_id(current_user_id)
+
+        return render_template('current-races.html',
+                               current_races=races)
+
+
 
 
 @app.route('/logout')
@@ -196,14 +206,9 @@ def save_edited_log(training_log_id):
 
     #get the values from the edit log form
     edited_date = datetime.strptime(request.form.get('edited_training_date'), '%Y-%m-%d')
-    print('\n\n\n\n\n\n\n')
-    print(edited_date)
     edited_mileage = request.form.get('edited_training_mileage')
-    print(edited_mileage)
     edited_effort = request.form.get('edited_training_effort')
-    print(edited_effort)
     edited_comment = request.form.get('edited_training_comment')
-    print(edited_comment)
 
     #commit the changes
     crud.update_training_log(training_log_id, edited_date, edited_mileage, edited_effort, edited_comment)
@@ -265,7 +270,6 @@ def race_results():
 @app.route('/save-the-date')
 def create_saved_race():
     """make a direct API call using unique assetGuID to retrieve event"""
-
 
     asset_guid = request.args.get('assetguid', '')
 

@@ -67,21 +67,18 @@ crossorigin="anonymous"></script>
 
 <div>
 	<h2>total runs: {{ total_runs }}</h2> <br>
-	<h2>total distance: {{ total_mileage[0] }}</h2> <br>
-	last run:
+	<h2>total distance: {{ total_mileage[0] }} miles</h2> <br>
 
 </div>
 <div>
   <p>
     
-    
-    Your current races: <br>
-    {% for race in current_races %}
-    > {{ race.race.race_name }} <br>
-    signed up? {{ race.signup_status }}<br>
-    
+    <form action="/current-races">
+        <button type="submit">See your Races</button>
+    </form>
+        
 
-    {% endfor %}
+    
      <br>
     <!-- list of races here -->
     <form action="/search-races">
