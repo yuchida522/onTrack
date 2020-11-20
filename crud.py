@@ -48,13 +48,16 @@ def create_city(city_name, zipcode):
 
 def create_current_race(race, user_id, signup_status):
     
-    current_race = CurrentRace(race=race, user_id=user_id, signup_status=signup_status)
+    current_race = CurrentRace(race=race,
+                               user_id=user_id,
+                               signup_status=signup_status)
 
     #add current_race to db
     db.session.add(current_race)
     db.session.commit()
 
     return current_race
+
 
 def create_training_log(user_id, training_date, training_mileage, training_effort, training_comment):
 
@@ -71,17 +74,53 @@ def create_training_log(user_id, training_date, training_mileage, training_effor
     return training_log
 
 
- #search user object by email
+ 
 def get_user_by_email(email):
+    """searches for user object by email"""
 
     return User.query.filter(User.email == email).first()
 
 
-#searches for current races that the user has saved in their account
+def get_user_by_user_id(user_id):
+
+    return User.query.filter(User.user_id == user_id).first()
+
+
+######################## CURRENT RACE ENTRIES#################################
+
+
 def get_currentraces_by_id(user_id):
+    """searches for current races that the user has saved in their account"""
 
     return CurrentRace.query.filter(CurrentRace.user_id==user_id).all()
     
+def get_saved_race(current_race_id):
+    """finds the current race saved"""
+
+    return CurrentRace.query.filter(CurrentRace.current_race_id==current_race_id).first()
+
+def update_race_signup_status(current_race_id, new_signup_status):
+    """update saved race signup status"""
+
+    race_to_update = CurrentRace.query.filter(CurrentRace.current_race_id==current_race_id).first()
+
+    race_to_update.signup_status = new_signup_status
+
+    db.session.commit() 
+
+
+
+def delete_saved_race(current_race_id):
+    """deletes a race saved by the user"""
+
+    current_race = CurrentRace.query.filter(CurrentRace.current_race_id==current_race_id).first()
+
+    db.session.delete(current_race)
+    db.session.commit()
+
+
+
+######################## TRAINING LOG ENTRIES ##################################
 
 
 def get_training_log_by_userid(user_id):
@@ -103,9 +142,8 @@ def get_total_number_of_runs(user_id):
     return TrainingLog.query.filter(TrainingLog.user_id == user_id).count()
 
 
-def get_user_by_user_id(user_id):
 
-    return User.query.filter(User.user_id == user_id).first()
+
 
 def get_training_log_by_log_id(training_log_id):
 

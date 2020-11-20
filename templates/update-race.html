@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Race Status{% endblock %}
+
+{% block head %}{% endblock %}
+{% block body %}
+<h1>Update Race Status</h1>
+<form action="/update-saved/{{ current_race_to_update.current_race_id }}" method="POST">
+
+  {{ current_race_to_update.race.race_name}} <br>
+  Signed Up? 
+  <input type="checkbox" name="update_signup_status" value="TRUE">
+    <label>Yes</label>
+  <input type="checkbox" name="update_signup_status" value="">
+    <label>No</label> 
+    <br>
+  <button type="submit">Update</button>
+</form>
+
+
+{% endblock %}

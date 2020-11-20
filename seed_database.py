@@ -53,9 +53,14 @@ for line in f:
 	training_comment = training_info[3]
 
 	for user in users_in_db:
-
-		training_log = crud.create_training_log(user, training_date, training_mileage, training_effort, training_comment)
-
+		print('\n\n\n\n\n\n')
+		print('*********////////////')
+		print('IS THIS USER????', user)
+		print('*********')
+		training_log = crud.create_training_log(user.user_id, training_date, training_mileage, training_effort, training_comment)
+		print('\n\n\n\n\n\n')
+		print('*********')
+		print(training_log)
 #import API, for test purposes param is set to search races in SF beyond Jan 1, 2021
 url = 'http://api.amp.active.com/v2/search?query=running'
 payload = {'api_key': API_KEY,
@@ -96,7 +101,7 @@ for user in users_in_db:
 	# #choose a race for each user from the list of races saved in races_in_db
 	race = choice(races_in_db)
 	#seeding data into current races table
-	current_race = crud.create_current_race(race, user, signup_status=True)
+	current_race = crud.create_current_race(race, user.user_id, signup_status=True)
 	
 
 

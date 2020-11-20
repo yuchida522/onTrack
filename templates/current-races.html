@@ -9,9 +9,12 @@
   <h1>Your current races:</h1> <br>
     {% for race in current_races %}
     > {{ race.race.race_name }} <br>
-    signed up? {{ race.signup_status }}<br>
-    <form action="/update-race-status">
+    > signed up? {{ race.signup_status }}<br>
+    <form action="/update-race-status/{{ race.current_race_id }}">
         <button type="submit">Update Race Status</button>
+    </form> 
+    <form action="/delete-race/{{ race.current_race_id }}" method="POST">
+        <button type="submit">Delete Race</button>
     </form> <br>
     {% endfor %}   
 </p>

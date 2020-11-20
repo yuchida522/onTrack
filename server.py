@@ -129,16 +129,16 @@ def profile():
 
 @app.route('/current-races')
 def current_races():
+    """get a list of the races users have saved"""
+
     current_user_id = session.get('current_user', None)
-    print('\n\n\n\n\n')
-    print(current_user_id)
+    
     if current_user_id:
 
         races = crud.get_currentraces_by_id(current_user_id)
 
         return render_template('current-races.html',
                                current_races=races)
-
 
 
 
@@ -217,6 +217,38 @@ def save_edited_log(training_log_id):
     return redirect('/training-log')
 
 
+@app.route('/update-race-status/<int:current_race_id>')
+def update_race_status(current_race_id):
+
+    current_race_to_update = crud.get_saved_race(current_race_id)
+
+    return render_template('update-race.html',
+                            current_race_to_update=current_race_to_update)
+
+
+@app.route('/update-saved/<int:current_race_id>', methods=['POST'])
+def update_saved(current_race_id):
+
+    updated_signup_status = bool(request.form.get('update_signup_status'))
+
+    crud.update_race_signup_status(current_race_id, updated_signup_status)
+
+    flash('Update Saved!')
+
+    return redirect('/current-races')
+
+
+
+@app.route('/delete-race/<int:current_race_id>', methods=['POST'])
+def delete_race(current_race_id):
+
+    crud.delete_saved_race(current_race_id)
+    
+    flash('Race has been deleted!')
+
+    return redirect('/current-races')
+
+
 @app.route('/training-log')
 def show_training_logs():
     """shows the past training logs user has made"""
@@ -228,9 +260,11 @@ def show_training_logs():
 
         current_user_logs = crud.get_training_log_by_userid(current_user_id)
 
-        return render_template('training-log.html', current_user_logs=current_user_logs)
+        return render_template('training-log.html',
+                               current_user_logs=current_user_logs)
 
 
+###################### SEARCH RACE FUNCTIONS ###################################
 
 @app.route('/search-races')
 def search_races():
