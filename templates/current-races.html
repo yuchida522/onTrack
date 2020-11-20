@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block head %}{% endblock %}
+{% block body %}
+<div>
+<p>
+  <h1>Your current races:</h1> <br>
+    {% for race in current_races %}
+    > {{ race.race.race_name }} <br>
+    signed up? {{ race.signup_status }}<br>
+    <form action="/update-race-status">
+        <button type="submit">Update Race Status</button>
+    </form> <br>
+    {% endfor %}   
+</p>
+</div>
+<div>
+    <form action="/profile">
+        <button type="submit">Back to Profile</button>
+    </form>
+</div>
+{% endblock %}
