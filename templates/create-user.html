@@ -1,21 +1,47 @@
 {% extends 'base.html' %}
 
-{% block title %}{% endblock %}
+{% block title %}Log In{% endblock %}
 
-{% block head %}{% endblock %}
-{% block body %}
-<div>
-<form action="/make-new-user" method="POST">
+{% block head %}
+{% block stylesheets %}
 
-  <h2>Create an Account</h2>
-    First name: <input type="text" name="fname" required> <br>
-    Last name: <input type="text" name="lname" required> <br>
-    Username: <input type="text" name="username" required> <br>
-    Email: <input type="text" name="email" required> <br>
-    Password: <input type="password" name="password" required> <br>
-    <br>
-    <button>Create Account</button>
-</form>
-</div>
-
+{% endblock stylesheets %}
 {% endblock %}
+
+{% block body %}
+
+<h2>Create New Account</h2>
+  <form action="/make-new-user" method="POST">
+    <div class="form-group">
+      <label for="exampleInputEmail1">First name</label>
+      <input type="test" class="form-control" name="fname" id="exampleInputEmail1" required>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Last name</label>
+      <input type="text" class="form-control" name="lname" id="exampleInputEmail1" required>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Username</label>
+      <input type="text" class="form-control" name="username" id="exampleInputEmail1" required>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" required> 
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" name="password" id="exampleInputPassword1" required>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  
+
+  <!-- Bootstrap Javascript in order to use JS-based components -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" 
+  integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+  {% endblock %}
+
+
+

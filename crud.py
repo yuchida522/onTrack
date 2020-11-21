@@ -94,10 +94,12 @@ def get_currentraces_by_id(user_id):
 
     return CurrentRace.query.filter(CurrentRace.user_id==user_id).all()
     
+
 def get_saved_race(current_race_id):
     """finds the current race saved"""
 
     return CurrentRace.query.filter(CurrentRace.current_race_id==current_race_id).first()
+
 
 def update_race_signup_status(current_race_id, new_signup_status):
     """update saved race signup status"""
@@ -143,8 +145,6 @@ def get_total_number_of_runs(user_id):
 
 
 
-
-
 def get_training_log_by_log_id(training_log_id):
 
     return TrainingLog.query.filter(TrainingLog.training_log_id == training_log_id).first()
@@ -157,6 +157,7 @@ def delete_training_log(training_log_id):
     db.session.delete(training_log)
     db.session.commit()
 
+
 def update_training_log(training_log_id, new_date, new_mileage, new_effort, new_comment):
 
     training_log_to_update = TrainingLog.query.filter(TrainingLog.training_log_id == training_log_id).first()
@@ -165,7 +166,6 @@ def update_training_log(training_log_id, new_date, new_mileage, new_effort, new_
     training_log_to_update.training_mileage = new_mileage
     training_log_to_update.training_effort = new_effort
     training_log_to_update.training_comment = new_comment
-
 
     db.session.commit()
 
