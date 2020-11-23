@@ -2,18 +2,17 @@
 
 {% block title %}Log In{% endblock %}
 
-{% block head %}
-{% block stylesheets %}
 
-{% endblock stylesheets %}
-{% endblock %}
 
 {% block body %}
+
+  </html>
+  
   <div class="container">
     <h1>Log In</h1>
   </div>
   <form action="/login" method="POST">
-    <div class="form-group">
+    <div class="form-group" >
       <label for="exampleInputEmail1">Email address</label>
       <input type="email" class="form-control" name ="email" id="exampleInputEmail1" aria-describedby="emailHelp" required>
     </div>
@@ -27,11 +26,10 @@
   <div>
       Don't have an account yet? <a href="/create-account">Create an Account</a>
   </div>
-  {% block Javascript %}
   
-  {% endblock %}
+{% endblock %}
 
-  {% endblock %}
+  
 
 
 
