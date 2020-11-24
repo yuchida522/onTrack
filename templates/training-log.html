@@ -2,10 +2,41 @@
 
 {% block title %}Training Log{% endblock %}
 
-{% block head %}{% endblock %}
+
 {% block body %}
 
-  <h1>Training Log</h1>
+<!-- navbar -->
+<nav class="navbar navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="/profile">Profile<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/search-races">Search Races</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/training-log">View Your Training Log</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/current-races">View Your Saved Races</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Log Out</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- training logs -->
+<div class="container">
+  <div clss="row">
+    <h1>Training Log</h1>
+  </div>
+  <div class="row">
     <div>
       <form action="/create-training-log" method="POST">
         Date: <input type="date" name="training_date"> <br>
@@ -22,26 +53,47 @@
         <button type="submit">Create new entry</button>
       </form>
     </div>
-    <div>
-
-      {% for logs in current_user_logs[::-1] %}
-        <p>
-          {{ logs.training_date }} <br>
-          {{ logs.training_mileage}} miles<br>
-          {{ logs.training_effort }} <br>
-          {{ logs.training_comment }}
-        </p>  
-        <form action="/edit-training-log/{{ logs.training_log_id }}">
-          <button type="submit" name="edit" value="{{ logs.training_log_id }}">edit log</button>
-        </form>
-        <form action="/delete-training-log/{{ logs.training_log_id }}" method="POST">
-          <button type="submit" name="delete-log" value="{{ logs.training_log_id }}">delete log</button>
-        </form>
-      {% endfor %}
+    
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-5">
+    {% for logs in current_user_logs[::-1] %}
+      <p>
+        {{ logs.training_date }} <br>
+        {{ logs.training_mileage}} miles<br>
+        {{ logs.training_effort }} <br>
+        {{ logs.training_comment }}
+      </p>  
       
+      <form action="/edit-training-log/{{ logs.training_log_id }}">
+        <button class="btn btn-outline-danger" type="submit" value="{{ logs.training_log_id }}">Edit Log</button>
+      </form>
+      <form id="delete-log-button" action="/delete-training-log/{{ logs.training_log_id }}" method="POST">
+        <button class="btn btn-outline-dark" type="submit">Delete Log</button>
+      </form>
+    {% endfor %}
+     </div>
     </div>
-    <form action="/profile">
-      <button type="submit">Back to Profile</button>
-    </form>
 
-    {% endblock %}
+  </div>
+  <!-- <script>
+    document.querySelector('#delete-log').on('click', () => {
+    evt.preventDefault();
+    console.log('CALLED')
+    Toastify({
+
+      text: "This is a toast",
+      
+      duration: 3000
+      
+      }).showToast();
+      console.log('end of function')
+  });
+  </script> -->
+  {% block javascript %}
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="/static/js/training-log.js"></script>
+  {% endblock %}
+  
+  {% endblock %}

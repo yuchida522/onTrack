@@ -179,11 +179,9 @@ def create_training_log():
 def delete_training_log(training_log_id):
     """deletes a training log entry"""
 
-    training_log_id = request.form.get('delete-log')
-
+    print('\n\n\n\n\n')
+    print(training_log_id)
     crud.delete_training_log(training_log_id)
-
-    flash('Log has been deleted!')
 
     return redirect('/training-log')
 
@@ -204,6 +202,7 @@ def edit_training_log(training_log_id):
 @app.route('/save-changes/<int:training_log_id>', methods=['POST'])
 def save_edited_log(training_log_id):
 
+    
     #get the values from the edit log form
     edited_date = datetime.strptime(request.form.get('edited_training_date'), '%Y-%m-%d')
     edited_mileage = request.form.get('edited_training_mileage')
