@@ -41,6 +41,13 @@
       <form action="/create-training-log" method="POST">
         Date: <input type="date" name="training_date" required> <br>
         Mileage Ran: <input type="text" name="mileage_run" required> <br>
+        <!-- Time (hh:mm:ss) <input type="text" name="run_time" required>:<input type="text" name="run_time" required>:<input type="text" name="run_time" required><br> -->
+        Time: <input id='h' name='run_time_hr' type='number' min='0' max='24'>
+          <label for='h'>h</label>
+          <input id='m' name='run_time_min' type='number' min='0' max='59'>
+          <label for='m'>m</label>
+          <input id='s' name='run_time_sec' type='number' min='0' max='59'>
+          <label for='s'>s</label> <br>
         Effort:
         <input type="radio" id="effort" name="effort" value="easy" required>
             <label for="easy">Easy</label>
@@ -62,8 +69,9 @@
       <div id="{{ logs.training_log_id }}">
         {{ logs.training_date }} <br>
         {{ logs.training_mileage}} miles<br>
+        {{ logs.training_run_time }} <br>
         {{ logs.training_effort }} <br>
-        {{ logs.training_comment }}
+        {{ logs.training_comment }} 
        
         <form action="/edit-training-log/{{ logs.training_log_id }}">
           <button class="btn btn-outline-danger" type="submit" value="{{ logs.training_log_id }}">Edit Log</button>
@@ -78,7 +86,7 @@
 
   </div>
   
-  </script> -->
+ 
   {% block javascript %}
   <script src="/static/js/trainingLog.js"></script>
   {% endblock %}

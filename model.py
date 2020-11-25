@@ -180,6 +180,7 @@ class TrainingLog(db.Model):
     training_mileage = db.Column(db.Integer, nullable=False)
     training_effort = db.Column(db.String, nullable=False)
     training_comment = db.Column(db.String, nullable=False)
+    training_run_time = db.Column(db.Interval, nullable=False)
 
     user = db.relationship('User')
 

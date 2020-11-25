@@ -59,13 +59,14 @@ def create_current_race(race, user_id, signup_status):
     return current_race
 
 
-def create_training_log(user_id, training_date, training_mileage, training_effort, training_comment):
+def create_training_log(user_id, training_date, training_mileage, training_effort, training_comment, training_run_time):
 
     training_log = TrainingLog(user_id=user_id,
                                training_date=training_date,
                                training_mileage=training_mileage, 
                                training_effort=training_effort,
-                               training_comment=training_comment)
+                               training_comment=training_comment,
+                               training_run_time=training_run_time)
 
     #add the new training log to db
     db.session.add(training_log)
@@ -142,6 +143,7 @@ def get_total_number_of_runs(user_id):
     """function that return total mileage ran by the user"""
 
     return TrainingLog.query.filter(TrainingLog.user_id == user_id).count()
+
 
 
 

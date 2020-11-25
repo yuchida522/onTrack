@@ -2,7 +2,7 @@ from flask import (Flask, jsonify, render_template, request, flash, session, red
 import requests
 import os
 import crud
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 
 # TODO:add classes from model.py
 from model import connect_to_db
@@ -91,7 +91,7 @@ def login():
 
 @app.route('/training-log.json')
 def get_training_log_by_userid():
-    """get the training log by user and jsonify it"""
+    """get the training log by user and jsonify it for graph"""
 
     current_user_id = session.get('current_user', None)
 
@@ -121,6 +121,7 @@ def profile():
         # print(current_user)
         total_mileage = crud.get_total_mileage(current_user_id)
         total_runs = crud.get_total_number_of_runs(current_user_id)
+        #TODO:create funciton that will give average time
 
         return render_template('profile.html', current_user=current_user,
                                                total_mileage=total_mileage,
@@ -169,8 +170,23 @@ def create_training_log():
         training_mileage = request.form.get('mileage_run')
         training_effort = request.form.get('effort')
         training_comments = request.form.get('comments')
+
+        hours_run = int(request.form.get('run_time_hr'))
+        min_run = int(request.form.get('run_time_min'))
+        sec_run = int(request.form.get('run_time_sec'))
+
+        training_run_time = timedelta(hours=hours_run, minutes=min_run, seconds=sec_run)
+
+        # print('\n\n\n\n')
+        # print(training_run_time)
+        # print(type(training_run_time))
     
-        crud.create_training_log(current_user_id, training_date, training_mileage, training_effort, training_comments) 
+        crud.create_training_log(current_user_id,
+                                training_date,
+                                training_mileage,
+                                training_effort, 
+                                training_comments, 
+                                training_run_time) 
 
         flash('New log created!')
         return redirect('/training-log')

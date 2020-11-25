@@ -1,10 +1,10 @@
-10/20/2020|2|Easy|base speed at 9:30/mile
-10/22/2020|3|Moderate|need to pace better
-10/24/2020|3|Moderate|got caught in the rain
-10/25/2020|2|Hard|pace was good, aim for 9min/mile
-10/27/2020|5|Hard|first long run, pace could be faster
-10/29/2020|3|Moderate|ran too fast in the beginning
-11/02/2020|3|Modeate|ran at 10:20/mile
-11/03/2020|6|Hard|heavy legs, blazing sun
-11/04/2020|2|Easy|recovery run
-11/6/2020|3|Easy|definitely could have ran faster
+10/20/2020|2|Easy|base speed at 9:30/mile|00:19:00
+10/22/2020|3|Moderate|need to pace better|00:30:00
+10/24/2020|3|Moderate|got caught in the rain|00:32:00
+10/25/2020|2|Hard|pace was good, aim for 9min/mile|00:18:00
+10/27/2020|5|Hard|first long run, pace could be faster|00:55:00
+10/29/2020|3|Moderate|ran too fast in the beginning|00:30:00
+11/02/2020|3|Modeate|ran at 10:20/mile|00:31:00
+11/03/2020|6|Hard|heavy legs, blazing sun|01:00:00
+11/04/2020|2|Easy|recovery run|00:19:00
+11/6/2020|3|Easy|definitely could have ran faster|00:30:00
