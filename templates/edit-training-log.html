@@ -5,23 +5,32 @@
 
 
 {% block body %}
-<div>
-  <h1>Edit Log</h1>
+<div class="container">
+  <div class="row">
+    <h1>Edit Log</h1>
+  </div>
+  <div class="row">
   
-  <form action="/save-changes/{{ training_log_to_edit.training_log_id }}" method="POST">
-    Date: <input type="date" name="edited_training_date" value="{{ training_log_to_edit.training_date }}"> <br>
-    Mileage: <input type="text" name="edited_training_mileage" value="{{ training_log_to_edit.training_mileage}}" required> <br>
-    Effort: 
-    <input type="radio" id="effort" name="edited_training_effort" value="easy" required>
-      <label for="easy">Easy</label>
-    <input type="radio" id="effort" name="edited_training_effort" value="moderate">
-      <label for="moderate">Moderate</label>
-    <input type="radio" id="effort" name="edited_training_effort" value="hard">
-    <label for="hard">Hard</label> <br>
-    Comment: <input type="text" name="edited_training_comment" value="{{ training_log_to_edit.training_comment }}"> <br>
+    <form action="/save-changes/{{ training_log_to_edit.training_log_id }}" method="POST">
+      Date: <input type="date" name="edited_training_date" value="{{ training_log_to_edit.training_date }}"> <br>
+      Mileage: <input type="text" name="edited_training_mileage" value="{{ training_log_to_edit.training_mileage}}" required> <br>
+      Effort: 
+      <input type="radio" id="effort" name="edited_training_effort" value="easy" required>
+        <label for="easy">Easy</label>
+      <input type="radio" id="effort" name="edited_training_effort" value="moderate">
+        <label for="moderate">Moderate</label>
+      <input type="radio" id="effort" name="edited_training_effort" value="hard">
+      <label for="hard">Hard</label> <br>
+      Comment: <input type="text" name="edited_training_comment" value="{{ training_log_to_edit.training_comment }}"> <br>
 
-    <button type="submit" name="log-to-edit">Save Edit</button>
-  </form>
+      <button type="submit" name="log-to-edit" id="edit-log-button" value="{{ training_log_to_edit.training_log_id }}">Save Edit</button>
+    </form>
+
+  </div>
 </div>
+
+{% block javascript %}
+<script src="/static/js/editLog.js"></script>
+{% endblock %}
 
 {% endblock %}

@@ -78,7 +78,6 @@ def login():
             return redirect('/')
         else:
             session['current_user'] = user.user_id 
-            flash('Login Successful!')
             current_user_id = session.get('current_user')
     
             total_mileage = crud.get_total_mileage(current_user_id)
@@ -126,6 +125,8 @@ def profile():
         return render_template('profile.html', current_user=current_user,
                                                total_mileage=total_mileage,
                                                total_runs=total_runs)
+
+
 
 @app.route('/current-races')
 def current_races():
@@ -179,11 +180,10 @@ def create_training_log():
 def delete_training_log(training_log_id):
     """deletes a training log entry"""
 
-    print('\n\n\n\n\n')
-    print(training_log_id)
     crud.delete_training_log(training_log_id)
 
-    return redirect('/training-log')
+    # return redirect('/training-log')
+    return "Log is deleted!"
 
 
 
@@ -212,7 +212,7 @@ def save_edited_log(training_log_id):
     #commit the changes
     crud.update_training_log(training_log_id, edited_date, edited_mileage, edited_effort, edited_comment)
 
-    flash('Entry has been updated!')
+
     return redirect('/training-log')
 
 
