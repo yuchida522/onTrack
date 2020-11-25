@@ -1,22 +1,6 @@
 "use strict";
 
 
-document.querySelector('#login-button').addEventListener('click', (evt) => {
-  evt.preventDefault();
-
-  $.post('/login', (res) => {
-    Toastify({
-      text: res,
-      duration: 3000,
-      }
-
-      ).showToast();
-  });
-
-});
-
-
-
 // delete log button
 document.querySelector('#delete-log-button').addEventListener('click', (evt) => {
   evt.preventDefault();

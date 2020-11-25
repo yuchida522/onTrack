@@ -39,16 +39,16 @@
   <div class="row">
     <div>
       <form action="/create-training-log" method="POST">
-        Date: <input type="date" name="training_date"> <br>
-        Mileage Ran: <input type="text" name="mileage_run"> <br>
+        Date: <input type="date" name="training_date" required> <br>
+        Mileage Ran: <input type="text" name="mileage_run" required> <br>
         Effort:
-        <input type="radio" id="effort" name="effort" value="easy">
+        <input type="radio" id="effort" name="effort" value="easy" required>
             <label for="easy">Easy</label>
         <input type="radio" id="effort" name="effort" value="moderate">
             <label for="moderate">Moderate</label>
         <input type="radio" id="effort" name="effort" value="hard">
             <label for="hard">Hard</label> <br>
-        Comments: <input type="text" name="comments"> <br>
+        Comments: <input type="text" name="comments" required> <br>
 
         <button type="submit">Create new entry</button>
       </form>
@@ -77,19 +77,7 @@
     </div>
 
   </div>
-  <!-- <script>
-    document.querySelector('#delete-log').on('click', () => {
-    evt.preventDefault();
-    console.log('CALLED')
-    Toastify({
-
-      text: "This is a toast",
-      
-      duration: 3000
-      
-      }).showToast();
-      console.log('end of function')
-  });
+  
   </script> -->
   {% block javascript %}
   <script src="/static/js/trainingLog.js"></script>

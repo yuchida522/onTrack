@@ -12,25 +12,30 @@
   <div class="row">
   
     <form action="/save-changes/{{ training_log_to_edit.training_log_id }}" method="POST">
-      Date: <input type="date" name="edited_training_date" value="{{ training_log_to_edit.training_date }}"> <br>
-      Mileage: <input type="text" name="edited_training_mileage" value="{{ training_log_to_edit.training_mileage}}" required> <br>
+      Date: <input type="date" name="edited_training_date" id="date-field" value="{{ training_log_to_edit.training_date }}"> <br>
+      Mileage: <input type="text" name="edited_training_mileage" id="mileage-field" value="{{ training_log_to_edit.training_mileage}}" required> <br>
       Effort: 
-      <input type="radio" id="effort" name="edited_training_effort" value="easy" required>
+      <input type="radio" name="edited_training_effort" id="effort-field" value="easy" required>
         <label for="easy">Easy</label>
-      <input type="radio" id="effort" name="edited_training_effort" value="moderate">
+      <input type="radio" name="edited_training_effort" id="effort-field" value="moderate">
         <label for="moderate">Moderate</label>
-      <input type="radio" id="effort" name="edited_training_effort" value="hard">
-      <label for="hard">Hard</label> <br>
-      Comment: <input type="text" name="edited_training_comment" value="{{ training_log_to_edit.training_comment }}"> <br>
+      <input type="radio" name="edited_training_effort" id="effort-field" value="hard">
+        <label for="hard">Hard</label> <br>
+      Comment: <input type="text" name="edited_training_comment" id="comment-field" value="{{ training_log_to_edit.training_comment }}"> <br>
 
       <button type="submit" name="log-to-edit" id="edit-log-button" value="{{ training_log_to_edit.training_log_id }}">Save Edit</button>
     </form>
-
   </div>
+  <div class="row">
+    <form action="/training-log">
+      <button type="submit">Back to Training Log</button>
+    </form>
+  </div>
+  
 </div>
 
 {% block javascript %}
-<script src="/static/js/editLog.js"></script>
+  <script src="/static/js/editLog.js"></script>
 {% endblock %}
 
 {% endblock %}

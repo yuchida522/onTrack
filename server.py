@@ -212,8 +212,7 @@ def save_edited_log(training_log_id):
     #commit the changes
     crud.update_training_log(training_log_id, edited_date, edited_mileage, edited_effort, edited_comment)
 
-
-    return redirect('/training-log')
+    return "Changes saved!"
 
 
 @app.route('/update-race-status/<int:current_race_id>')
