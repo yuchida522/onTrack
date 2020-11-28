@@ -124,10 +124,7 @@ def profile():
         total_mileage = crud.get_total_mileage(current_user_id)
         total_runs = crud.get_total_number_of_runs(current_user_id)
         avg_pace = crud.get_avg_run_time(current_user_id)
-        print('\n\n\n\n\n')
-        print(avg_pace)
-
-        #TODO:create funciton that will give average time
+    
 
         return render_template('profile.html', current_user=current_user,
                                                total_mileage=total_mileage,
@@ -266,10 +263,8 @@ def update_saved(current_race_id):
 def delete_race(current_race_id):
 
     crud.delete_saved_race(current_race_id)
-    
-    flash('Race has been deleted!')
 
-    return redirect('/current-races')
+    return 'race has been deleted!'
 
 
 @app.route('/training-log')
