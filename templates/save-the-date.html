@@ -17,10 +17,17 @@
   description: <input type="text" name="race_description" value="{{ data['results'][0]['assetDescriptions'][0]['description'] }}"> <br>
   Organization Name: <input type="text" name="organization_name" value="{{ data['results'][0]['organization']['organizationName'] }}"> <br>
   Signed up?
-  <input type="checkbox" name="signup_status" value="TRUE">
+  <input type="checkbox" name="signup_status" value="Yes">
     <label>Yes</label>
-  <input type="checkbox" name="signup_status" value="">
-    <label>No</label> 
+  <input type="checkbox" name="signup_status" value="No">
+    <label>No</label> <br>
+  Completed the race yet?
+  <input type="checkbox" name="completed_status" value="Yes">
+    <label>Yes</label>
+  <input type="checkbox" name="completed_status" value="No">
+    <label>No</label> <br>
+  Notes:
+    <input type="text" name="comments">
   <br>
   <br>
   <input type="submit">

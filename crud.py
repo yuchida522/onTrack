@@ -46,11 +46,13 @@ def create_city(city_name, zipcode):
     else:
         return exists
 
-def create_current_race(race, user_id, signup_status):
+def create_current_race(race, user_id, signup_status, completed_status, comments):
     
     current_race = CurrentRace(race=race,
                                user_id=user_id,
-                               signup_status=signup_status)
+                               signup_status=signup_status,
+                               completed_status=completed_status,
+                               comments=comments)
 
     #add current_race to db
     db.session.add(current_race)
@@ -87,7 +89,7 @@ def get_user_by_user_id(user_id):
     return User.query.filter(User.user_id == user_id).first()
 
 
-######################## CURRENT RACE ENTRIES#################################
+######################## CURRENT RACE ENTRIES #################################
 
 
 def get_currentraces_by_id(user_id):
@@ -102,12 +104,14 @@ def get_saved_race(current_race_id):
     return CurrentRace.query.filter(CurrentRace.current_race_id==current_race_id).first()
 
 
-def update_race_signup_status(current_race_id, new_signup_status):
+def update_saved_race(current_race_id, new_signup_status, new_completed_status, new_comments):
     """update saved race signup status"""
 
     race_to_update = CurrentRace.query.filter(CurrentRace.current_race_id==current_race_id).first()
 
     race_to_update.signup_status = new_signup_status
+    race_to_update.completed_status = new_completed_status
+    race_to_update.comments = new_comments
 
     db.session.commit() 
 

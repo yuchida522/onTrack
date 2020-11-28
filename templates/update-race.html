@@ -9,11 +9,18 @@
 
   {{ current_race_to_update.race.race_name}} <br>
   Signed Up? 
-  <input type="checkbox" name="update_signup_status" value="TRUE">
+  <input type="checkbox" name="update_signup_status" value="Yes">
     <label>Yes</label>
-  <input type="checkbox" name="update_signup_status" value="">
+  <input type="checkbox" name="update_signup_status" value="No">
     <label>No</label> 
     <br>
+  Completed race?
+  <input type="checkbox" name="update_completed_status" value="Yes">
+    <label>Yes</label>
+  <input type="checkbox" name="update_completed_status" value="No">
+    <label>No</label>
+    <br>
+  Notes: <input type="text" name="update_comments"> <br>
   <button type="submit">Update</button>
 </form>
 

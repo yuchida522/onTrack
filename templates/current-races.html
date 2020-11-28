@@ -30,10 +30,12 @@
   </nav>
 <div>
 <p>
-  <h1>Your current races:</h1> <br>
+  <h1>Your Saved Races:</h1> <br>
     {% for race in current_races %}
     > {{ race.race.race_name }} <br>
     > signed up? {{ race.signup_status }}<br>
+    > completed race? {{ race.completed_status }} <br>
+    > Notes: {{ race.comments }} <br>
     <form action="/update-race-status/{{ race.current_race_id }}">
         <button type="submit">Update Race Status</button>
     </form> 

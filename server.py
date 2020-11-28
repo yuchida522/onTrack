@@ -250,9 +250,11 @@ def update_race_status(current_race_id):
 @app.route('/update-saved/<int:current_race_id>', methods=['POST'])
 def update_saved(current_race_id):
 
-    updated_signup_status = bool(request.form.get('update_signup_status'))
+    updated_signup_status = request.form.get('update_signup_status')
+    updated_completed_status = request.form.get('update_completed_status')
+    update_comments = request.form.get('update_comments')
 
-    crud.update_race_signup_status(current_race_id, updated_signup_status)
+    crud.update_saved_race(current_race_id, updated_signup_status, updated_completed_status, update_comments)
 
     flash('Update Saved!')
 
@@ -355,7 +357,9 @@ def save_the_date():
     race_url = request.form.get('race_url')
     race_description = request.form.get('race_description')
     race_organization_name = request.form.get('organization_name')
-    signup_status = bool(request.form.get('signup_status'))
+    signup_status = request.form.get('signup_status')
+    completed_status = request.form.get('completed_status')
+    comments = request.form.get('comments')
     
     #create a new city to add to db
     new_city = crud.create_city(race_city, race_zipcode)
@@ -367,7 +371,7 @@ def save_the_date():
 
     if current_user_id:
 
-        crud.create_current_race(new_race, current_user_id, signup_status)
+        crud.create_current_race(new_race, current_user_id, signup_status, completed_status, comments)
         
         flash('Race has been added!')
         # return render_template('search-races.html')
