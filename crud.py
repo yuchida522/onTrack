@@ -136,15 +136,36 @@ def get_training_log_by_userid(user_id):
 def get_total_mileage(user_id):
     """function that return total mileage ran by the user"""
 
-    return TrainingLog.query.with_entities(functions.sum(TrainingLog.training_mileage)).filter(TrainingLog.user_id == user_id).first()
+    # return TrainingLog.query.with_entities(functions.sum(TrainingLog.training_mileage)).filter(TrainingLog.user_id == user_id).first()
+    # return TrainingLog.query(functions.sum(TrainingLog.training_mileage.label('training_mileage'))).filter(TrainingLog.user_id == user_id).first()
+    return db.session.query(functions.sum(TrainingLog.training_mileage)).filter(TrainingLog.user_id == user_id).first()[0]
 
-    
+
 def get_total_number_of_runs(user_id):
     """function that return total mileage ran by the user"""
 
     return TrainingLog.query.filter(TrainingLog.user_id == user_id).count()
 
 
+def get_avg_run_time(user_id):
+    
+    total_mileage = db.session.query(functions.sum(TrainingLog.training_mileage)).filter(TrainingLog.user_id == user_id).first()[0]
+    total_time = db.session.query(functions.sum(TrainingLog.training_run_time)).filter(TrainingLog.user_id == user_id).first()[0]
+
+    return convert_deltatime_to_time(total_time / total_mileage)
+    #query for total mileage
+    #query for total time
+    #divide sum(mileage) by sum(time)
+
+def convert_deltatime_to_time(timedelta_obj):
+
+    total_seconds = timedelta_obj.total_seconds()
+    hours = total_seconds // 3600
+    remaining_seconds = total_seconds % 3600
+    minutes = remaining_seconds // 60
+    remaining_seconds = remaining_seconds % 60
+
+    return f'{round(hours)}0:{round(minutes)}:0{round(remaining_seconds)}'
 
 
 def get_training_log_by_log_id(training_log_id):
@@ -170,6 +191,7 @@ def update_training_log(training_log_id, new_date, new_mileage, new_effort, new_
     training_log_to_update.training_comment = new_comment
 
     db.session.commit()
+
 
 
 

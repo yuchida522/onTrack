@@ -82,11 +82,13 @@ def login():
     
             total_mileage = crud.get_total_mileage(current_user_id)
             total_runs = crud.get_total_number_of_runs(current_user_id)
+            avg_pace = crud.get_avg_run_time(current_user_id)
   
             return render_template('profile.html',
                                     current_user=user,
                                     total_mileage=total_mileage,
-                                    total_runs=total_runs) 
+                                    total_runs=total_runs,
+                                    avg_pace=avg_pace) 
 
 
 @app.route('/training-log.json')
@@ -121,11 +123,16 @@ def profile():
         # print(current_user)
         total_mileage = crud.get_total_mileage(current_user_id)
         total_runs = crud.get_total_number_of_runs(current_user_id)
+        avg_pace = crud.get_avg_run_time(current_user_id)
+        print('\n\n\n\n\n')
+        print(avg_pace)
+
         #TODO:create funciton that will give average time
 
         return render_template('profile.html', current_user=current_user,
                                                total_mileage=total_mileage,
-                                               total_runs=total_runs)
+                                               total_runs=total_runs,
+                                               avg_pace=avg_pace)
 
 
 
