@@ -25,3 +25,6 @@ document.querySelector('#delete-log-button').addEventListener('click', (evt) => 
 });
 
 
+
+
+

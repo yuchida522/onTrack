@@ -160,9 +160,14 @@ def logout():
 
 ########################## ENTRIES ##############################
 
-
-@app.route('/create-training-log', methods=['POST'])
+@app.route('/create-new-log')
 def create_training_log():
+
+    return render_template('create-new-log.html')
+
+
+@app.route('/save-new-log', methods=['POST'])
+def save_new_log():
     
     """creates new training entry to the training log"""
 
@@ -192,8 +197,9 @@ def create_training_log():
                                 training_comments, 
                                 training_run_time) 
 
-        flash('New log created!')
-        return redirect('/training-log')
+        
+        # return redirect('/training-log')
+        return 'new log created!'
 
 
 @app.route('/delete-training-log/<int:training_log_id>', methods=['POST'])
@@ -249,13 +255,11 @@ def update_saved(current_race_id):
 
     updated_signup_status = request.form.get('update_signup_status')
     updated_completed_status = request.form.get('update_completed_status')
-    update_comments = request.form.get('update_comments')
+    update_notes = request.form.get('update_notes')
 
-    crud.update_saved_race(current_race_id, updated_signup_status, updated_completed_status, update_comments)
+    crud.update_saved_race(current_race_id, updated_signup_status, updated_completed_status, update_notes)
 
-    flash('Update Saved!')
-
-    return redirect('/current-races')
+    return 'Update Saved!'
 
 
 
@@ -318,7 +322,7 @@ def race_results():
                             data=data)
 
 
-
+#TODO: change route name
 @app.route('/save-the-date')
 def create_saved_race():
     """make a direct API call using unique assetGuID to retrieve event"""
@@ -341,7 +345,8 @@ def create_saved_race():
 
 
 # TODO: explore using models
-@app.route('/race-results', methods=['POST'])  
+# TODO: change route name
+@app.route('/race-saved', methods=['POST'])  
 def save_the_date():
     """saving race, and city to db, allows users to save race to account"""
 
@@ -354,7 +359,7 @@ def save_the_date():
     race_organization_name = request.form.get('organization_name')
     signup_status = request.form.get('signup_status')
     completed_status = request.form.get('completed_status')
-    comments = request.form.get('comments')
+    notes = request.form.get('notes')
     
     #create a new city to add to db
     new_city = crud.create_city(race_city, race_zipcode)
@@ -366,11 +371,11 @@ def save_the_date():
 
     if current_user_id:
 
-        crud.create_current_race(new_race, current_user_id, signup_status, completed_status, comments)
+        crud.create_current_race(new_race, current_user_id, signup_status, completed_status, notes)
         
-        flash('Race has been added!')
+        # flash('Race has been added!')
         # return render_template('search-races.html')
-        return redirect('/search-races')
+        return "race has been added!"
     
 
 

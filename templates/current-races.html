@@ -36,7 +36,7 @@
     > {{ race.race.race_name }} <br>
     > signed up? {{ race.signup_status }}<br>
     > completed race? {{ race.completed_status }} <br>
-    > Notes: {{ race.comments }} <br>
+    > Notes: {{ race.notes }} <br>
     <form action="/update-race-status/{{ race.current_race_id }}">
         <button type="submit">Update Race Status</button>
     </form> 

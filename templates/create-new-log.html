@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Log In{% endblock %}
+
+{% block head %}
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+    <h1>Create new Log</h1>
+    </div>
+    <form action="/save-new-log" method="POST">
+      Date: <input type="date" name="training_date" id="training-date-field" required> <br>
+      Mileage Ran: <input type="text" name="mileage_run" id="training-mileage-field" required> <br>
+      <!-- Time (hh:mm:ss) <input type="text" name="run_time" required>:<input type="text" name="run_time" required>:<input type="text" name="run_time" required><br> -->
+      Time: <input id='h-field' name='run_time_hr' type='number' min='0' max='24'>
+        <label for='h'>h</label>
+        <input id='m-field' name='run_time_min' type='number' min='0' max='59'>
+        <label for='m'>m</label>
+        <input id='s-field' name='run_time_sec' type='number' min='0' max='59'>
+        <label for='s'>s</label> <br>
+      Effort:
+      <input type="radio" name="effort" id="training-effort-field" value="easy" required>
+          <label for="easy">Easy</label>
+      <input type="radio" name="effort" id="training-effort-field"value="moderate">
+          <label for="moderate">Moderate</label>
+      <input type="radio" name="effort" id="training-effort-field" value="hard">
+          <label for="hard">Hard</label> <br>
+      Comments: <input type="text" name="comments" id="training-comment-field" required> <br>
+
+      <button class="btn btn-outline-danger" id="create-new-log-button" type="submit">Create new entry</button>
+    </form>
+  </div>
+  <div class="row">
+    <form action="/training-log">
+      <button type="submit">Back to Training Log</button>
+    </form>
+  </div>
+
+{% block javascript %}
+<script src="/static/js/newLog.js"></script>
+{% endblock %}
+
+{% endblock %}

@@ -104,7 +104,7 @@ for user in users_in_db:
 	# #choose a race for each user from the list of races saved in races_in_db
 	race = choice(races_in_db)
 	#seeding data into current races table
-	current_race = crud.create_current_race(race, user.user_id, signup_status="Yes", completed_status="Yes", comments="First race of the year!")
+	current_race = crud.create_current_race(race, user.user_id, signup_status="Yes", completed_status="Yes", notes="First race of the year!")
 	
 
 

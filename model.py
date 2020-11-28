@@ -160,7 +160,7 @@ class CurrentRace(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     signup_status = db.Column(db.String)
     completed_status = db.Column(db.String)
-    comments = db.Column(db.String)
+    notes = db.Column(db.String)
 
     #relationship- current race is the child of Race and User
     race = db.relationship('Race')
@@ -243,6 +243,7 @@ def connect_to_db(flask_app, db_uri='postgresql:///races', echo=True):
 #                         test_new_race,
 #                         test_new_current_race,
 #                         test_new_training_log])
+#     
 #     db.session.commit()
 
 

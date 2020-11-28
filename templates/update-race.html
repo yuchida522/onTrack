@@ -9,20 +9,30 @@
 
   {{ current_race_to_update.race.race_name}} <br>
   Signed Up? 
-  <input type="checkbox" name="update_signup_status" value="Yes">
+  <input type="checkbox" name="update_signup_status" id="signup-status-field" value="Yes" required>
     <label>Yes</label>
-  <input type="checkbox" name="update_signup_status" value="No">
+  <input type="checkbox" name="update_signup_status" id="signup-status-field" value="No">
     <label>No</label> 
     <br>
   Completed race?
-  <input type="checkbox" name="update_completed_status" value="Yes">
+  <input type="checkbox" name="update_completed_status" id="completed-status-field" value="Yes" required>
     <label>Yes</label>
-  <input type="checkbox" name="update_completed_status" value="No">
+  <input type="checkbox" name="update_completed_status" id="completed-status-field" value="No">
     <label>No</label>
     <br>
-  Notes: <input type="text" name="update_comments"> <br>
-  <button type="submit">Update</button>
+  Notes: <input type="text" name="update_notes" id="notes-field" required> <br>
+  <button id="update-saved-race-button" value="{{ current_race_to_update.current_race_id }}"type="submit">Update</button>
 </form>
+
+<div class="row">
+  <form action="/current-races">
+    <button type="submit">Back to saved races</button>
+  </form>
+</div>
+
+{% block javascript %}
+<script src="/static/js/editSavedRace.js"></script>
+{% endblock %}
 
 
 {% endblock %}
