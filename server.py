@@ -69,15 +69,14 @@ def login():
     user = crud.get_user_by_email(email)
     
     if user is None:
-        # flash('User does not exist. Create an account to sign in')
-        # return redirect('/')
-        return 'User does not exist. Create an account to sign in' 
+        flash('User does not exist. Create an account to sign in')
+        return redirect('/')
     else:
-        if user.password is not password:
-            # flash('Login unsuccessful. Try again')
-            # return redirect('/')
-            return 'Login unsuccessful. Try again'
-        
+        if not password:
+            flash('Login unsuccessful. Try again')
+            return redirect('/')
+        # return 'Login unsuccessful. Try again'
+    
         else:
             session['current_user'] = user.user_id 
             current_user_id = session.get('current_user')
@@ -86,12 +85,33 @@ def login():
             total_runs = crud.get_total_number_of_runs(current_user_id)
             avg_pace = crud.get_avg_run_time(current_user_id)
 
-            return 'Welcome!'
-            # return render_template('profile.html',
-            #                         current_user=user,
-            #                         total_mileage=total_mileage,
-            #                         total_runs=total_runs,
-            #                         avg_pace=avg_pace) 
+            # return current_user_id
+            return render_template('profile.html',
+                                    current_user=user,
+                                    total_mileage=total_mileage,
+                                    total_runs=total_runs,
+                                    avg_pace=avg_pace) 
+    # toastify option
+    # if user is None:
+    #     return 'User does not exist. Create an account to sign in' 
+    # else:
+    #     if user.password is not password:
+   
+    #         return 'Login unsuccessful. Try again'
+    
+    #     else:
+    #         session['current_user'] = user.user_id 
+    #         current_user_id = session.get('current_user')
+
+    #         total_mileage = crud.get_total_mileage(current_user_id)
+    #         total_runs = crud.get_total_number_of_runs(current_user_id)
+    #         avg_pace = crud.get_avg_run_time(current_user_id)
+
+    #         return render_template('profile.html',
+    #                                 current_user=user,
+    #                                 total_mileage=total_mileage,
+    #                                 total_runs=total_runs,
+    #                                 avg_pace=avg_pace) 
 
 
 @app.route('/training-log.json')

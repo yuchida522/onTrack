@@ -5,7 +5,8 @@
 
 {% block body %}
 
-<nav class="navbar navbar-light bg-light">
+<!-- navbar -->
+<nav class="navbar navbar-dark bg-dark">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -29,29 +30,34 @@
     </ul>
   </div>
 </nav>
-<div class="container">
-  <div class="row">
-    <form action="/race-results" method='GET'>
-      
-        City Name: <input type="text" name="city_name" required> <br>
-      
-        Type of Race: 
-        <input type="checkbox" name="distance_length" value="5k">
-        <label>5K</label>
-        <input type="checkbox" name="distance_length" value="10k">
-        <label>10k</label>
-        <input type="checkbox" name="distance_length" value="half_marathon">
-        <label>Half Marathon</label>
-        <input type="checkbox" name="distance_length" value="marathon">
-        <label>Marathon</label> <br>
-      
-        When do you want to run?
-        <input type="date" name="start_date"> <br>
-      
-      <input type="submit"> <br>
-    </form>
-  </div>
 
+<!-- content -->
+<div class="app">
+  <div class="container">
+    <h2>Search</h2>
+    <div class="row">
+      <form action="/race-results" method='GET'>
+        
+          City Name: <input type="text" name="city_name" required> <br>
+        
+          Type of Race: 
+          <input type="checkbox" name="distance_length" value="5k">
+          <label>5K</label>
+          <input type="checkbox" name="distance_length" value="10k">
+          <label>10k</label>
+          <input type="checkbox" name="distance_length" value="half_marathon">
+          <label>Half Marathon</label>
+          <input type="checkbox" name="distance_length" value="marathon">
+          <label>Marathon</label> <br>
+        
+          When do you want to run?
+          <input type="date" name="start_date"> <br>
+        
+        <input type="submit"> <br>
+      </form>
+    </div>
+
+  </div>
 </div>
 {% endblock %}
 

@@ -12,7 +12,8 @@ crossorigin="anonymous"></script>
 
 {% block body %}
 
-<nav class="navbar navbar-light bg-light">
+<!-- navbar -->
+<nav class="navbar navbar-dark bg-dark">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -36,7 +37,9 @@ crossorigin="anonymous"></script>
     </ul>
   </div>
 </nav>
-<div clss="container">
+
+<!-- content -->
+<div class="app">
 
   <div class="row">
     <div class="col-12">
@@ -46,54 +49,54 @@ crossorigin="anonymous"></script>
 
   <div class="row">
     <div class="col-10">
-      <div class="chart-container">
-      <canvas id="myChart"></canvas>
+      <div class="chart-container" id="running-chart">
+        <canvas id="myChart"></canvas>
 
-        <script>
+          <script>
             $.get('/training-log.json', (res) => {
-            const data = [];
-            for (const training of res.data) {
-            data.push({x: training.date, y: training.mileage});
-            }
-            console.log(data)
-            new Chart(
+              const data = [];
+              for (const training of res.data) {
+                data.push({x: training.date, y: training.mileage});
+              }
+              console.log(data)
+              new Chart(
                 $('#myChart'),
                 {
-                    type: 'line',
-                    data: {
-                      datasets: [
+                  type: 'line',
+                  data: {
+                    datasets: [
                       {
                         label: 'Mileage ran',
                         data: data
                       }
                     ]
                   },
-                    options: {
-                      scales: {
-                        xAxes: [
-                          {
-                type: 'time',
-                time: {
-                  displayFormats: {
-                    week: 'll'
-                  }
-                },
-                distribution: 'series'
+                  options: {
+                    scales: {
+                      xAxes: [
+                        {
+                          type: 'time',
+                          time: {
+                            displayFormats: {
+                              week: 'll'
+                            }
+                          },
+                          distribution:'series'
                           }
-                      ]
-              },
-              tooltips: {
-                    callbacks: {
-                      title: (tooltipItem) => {
+                        ]
+                      },
+                    tooltips: {
+                      callbacks: {
+                        title: (tooltipItem) => {
                           return moment(tooltipItem.label).format('MMM D');
+                       } 
                       }
                     }
                   }
-                    }
-                  }
-                );
-              });
-        </script>
+                }
+              );
+            });
+          </script>
       </div>  
     </div>
   </div>

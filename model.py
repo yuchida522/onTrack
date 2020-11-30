@@ -1,7 +1,7 @@
 """Models for running tracking app"""
 
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+from datetime import datetime, timedelta
 db = SQLAlchemy()
 
 #User table
@@ -179,10 +179,10 @@ class TrainingLog(db.Model):
                                 autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     training_date = db.Column(db.Date, nullable=False)
-    training_mileage = db.Column(db.Float, nullable=False) 
+    training_mileage = db.Column(db.Float, nullable=False, default=0) 
     training_effort = db.Column(db.String, nullable=False)
     training_comment = db.Column(db.String, nullable=False)
-    training_run_time = db.Column(db.Interval)
+    training_run_time = db.Column(db.Interval, default=timedelta(hours=00, minutes=00, seconds=00), nullable=False)
 
     user = db.relationship('User')
 
