@@ -11,7 +11,7 @@ document.querySelector('#create-new-log-button').addEventListener('click', (evt)
       'run_time_hr': $('#h-field').val(),
       'run_time_min': $('#m-field').val(),
       'run_time_sec': $('#s-field').val(),
-      'effort': $('#training-effort-field').val(),
+      'effort': $('#training-effort-field:checked').val(),
       'comments': $('#training-comment-field').val()
     }
     console.log(formInputs)

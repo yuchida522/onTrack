@@ -206,6 +206,8 @@ def save_new_log():
 def delete_training_log(training_log_id):
     """deletes a training log entry"""
 
+    print('\n\n\n\n\n')
+    print(training_log_id)
     crud.delete_training_log(training_log_id)
 
     # return redirect('/training-log')
@@ -233,10 +235,18 @@ def save_edited_log(training_log_id):
     edited_date = datetime.strptime(request.form.get('edited_training_date'), '%Y-%m-%d')
     edited_mileage = request.form.get('edited_training_mileage')
     edited_effort = request.form.get('edited_training_effort')
+    print('\n\n\n\n\n')
+    print(edited_effort)
     edited_comment = request.form.get('edited_training_comment')
 
+    edited_hour = int(request.form.get('edited_run_time_hr'))
+    edited_min = int(request.form.get('edited_run_time_min'))
+    edited_sec = int(request.form.get('edited_run_time_sec'))
+
+    edited_run_time = timedelta(hours=edited_hour, minutes=edited_min, seconds=edited_sec)
+
     #commit the changes
-    crud.update_training_log(training_log_id, edited_date, edited_mileage, edited_effort, edited_comment)
+    crud.update_training_log(training_log_id, edited_date, edited_mileage, edited_effort, edited_comment, edited_run_time)
 
     return "Changes saved!"
 

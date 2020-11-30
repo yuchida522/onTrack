@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Edit training log{% endblock %}
-
+{% block title %}Edit Training Log{% endblock %}
 
 
 {% block body %}
@@ -12,16 +11,22 @@
   <div class="row">
   
     <form action="/save-changes/{{ training_log_to_edit.training_log_id }}" method="POST">
-      Date: <input type="date" name="edited_training_date" id="date-field" value="{{ training_log_to_edit.training_date }}"> <br>
-      Mileage: <input type="text" name="edited_training_mileage" id="mileage-field" value="{{ training_log_to_edit.training_mileage}}" required> <br>
+      Date: <input type="date" name="edited_training_date" id="edited-date-field" value="{{ training_log_to_edit.training_date }}"> <br>
+      Mileage: <input type="text" name="edited_training_mileage" id="edited-mileage-field" value="{{ training_log_to_edit.training_mileage}}" required> <br>
+      Time: <input id='edited-h-field' name='edited_run_time_hr' type='number' min='0' max='24'>
+        <label for='h'>h</label>
+        <input id='edited-m-field' name='edited_run_time_min' type='number' min='0' max='59'>
+        <label for='m'>m</label>
+        <input id='edited-s-field' name='edited_run_time_sec' type='number' min='0' max='59'>
+        <label for='s'>s</label> <br>
       Effort: 
-      <input type="radio" name="edited_training_effort" id="effort-field" value="easy" required>
+      <input type="radio" name="edited_training_effort" id="edited-effort-field" value="easy">
         <label for="easy">Easy</label>
-      <input type="radio" name="edited_training_effort" id="effort-field" value="moderate">
+      <input type="radio" name="edited_training_effort" id="edited-effort-field" value="moderate">
         <label for="moderate">Moderate</label>
-      <input type="radio" name="edited_training_effort" id="effort-field" value="hard">
+      <input type="radio" name="edited_training_effort" id="edited-effort-field" value="hard">
         <label for="hard">Hard</label> <br>
-      Comment: <input type="text" name="edited_training_comment" id="comment-field" value="{{ training_log_to_edit.training_comment }}"> <br>
+      Comment: <input type="text" name="edited_training_comment" id="edited-comment-field" value="{{ training_log_to_edit.training_comment }}"> <br>
 
       <button type="submit" name="log-to-edit" id="edit-log-button" value="{{ training_log_to_edit.training_log_id }}">Save Edit</button>
     </form>

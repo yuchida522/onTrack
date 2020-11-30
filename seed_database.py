@@ -1,3 +1,4 @@
+from datetime import datetime, date, timedelta
 import os
 import json
 import requests
@@ -47,11 +48,18 @@ f = open('test_data/test_training_log.txt')
 
 for line in f:
 	training_info = line.split('|')
-	training_date = training_info[0]
-	training_mileage = training_info[1]
+	training_date = datetime.strptime(training_info[0], '%Y-%m-%d')
+	training_mileage = int(training_info[1])
 	training_effort = training_info[2]
-	training_comment = training_info[3]
-	training_run_time = training_info[4]
+	training_comment = training_info[3]	
+
+	run_time_hr = int(training_info[4][0:2])
+	run_time_min = int(training_info[4][3:5])
+	run_time_sec = int(training_info[4][6:])
+
+	training_run_time = timedelta(hours=run_time_hr, minutes=run_time_min, seconds=run_time_sec) 
+
+	
 
 	for user in users_in_db:
 		print('\n\n\n\n\n\n')

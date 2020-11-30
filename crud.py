@@ -162,6 +162,7 @@ def get_avg_run_time(user_id):
     #divide sum(mileage) by sum(time)
 
 def convert_deltatime_to_time(timedelta_obj):
+    
 
     total_seconds = timedelta_obj.total_seconds()
     hours = total_seconds // 3600
@@ -185,7 +186,7 @@ def delete_training_log(training_log_id):
     db.session.commit()
 
 
-def update_training_log(training_log_id, new_date, new_mileage, new_effort, new_comment):
+def update_training_log(training_log_id, new_date, new_mileage, new_effort, new_comment, new_time):
 
     training_log_to_update = TrainingLog.query.filter(TrainingLog.training_log_id == training_log_id).first()
 
@@ -193,6 +194,7 @@ def update_training_log(training_log_id, new_date, new_mileage, new_effort, new_
     training_log_to_update.training_mileage = new_mileage
     training_log_to_update.training_effort = new_effort
     training_log_to_update.training_comment = new_comment
+    training_log_to_update.training_run_time = new_time
 
     db.session.commit()
 

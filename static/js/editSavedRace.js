@@ -8,6 +8,7 @@ document.querySelector('#update-saved-race-button').addEventListener('click', (e
       'update_signup_status': $('#signup-status-field').val(),
       'update_completed_status': $('#completed-status-field').val(),
       'update_notes': $('#notes-field').val()
+      
     }
   
     $.post(`/update-saved/${formInputs.currentRaceId}`, formInputs, (res) => {
