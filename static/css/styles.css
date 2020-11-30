@@ -1,4 +1,4 @@
-/* login page styles */
+/* background styles */
 
 body, html {
     height: 100%;
@@ -12,6 +12,8 @@ body, html {
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+/* homepage styles */
 
 #login-form {
     padding: 0 400px;

@@ -32,8 +32,8 @@ def show_create_user():
     return render_template('create-user.html')
 
 
-@app.route('/make-new-user', methods=['POST'])
-def create_user():
+@app.route('/create-new-user', methods=['POST'])
+def create_new_user():
 
     """handle creating new accounts"""
     
@@ -50,12 +50,11 @@ def create_user():
     #if the user does not exist, create user and add to db, redirect to homepage where the login is
     if user is None:
         user = crud.create_user(fname, lname, username, email, password)
-        flash('Account created! Now log in.')
-        return redirect('/')
+        
+        return 'Account created! Now log in'
         #if user already exists, flash message to say user already exists
     else:
-        flash("User already exists. Please try again...")
-        return redirect('/create-account')
+        return 'User already exists. Please try again...'
 
 
 @app.route('/login', methods=['POST'])

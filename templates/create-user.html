@@ -15,29 +15,29 @@
 
     <h2>Create New Account</h2>
 
-  <form action="/make-new-user" method="POST">
+  <form action="/create-new-user" method="POST">
     <div class="form-group">
       <label for="exampleInputEmail1">First name</label>
-      <input type="test" class="form-control" name="fname" id="exampleInputEmail1" required>
+      <input type="test" class="form-control" name="fname" id="fname-field" required>
     </div>
     <div class="form-group">
       <label for="exampleInputEmail1">Last name</label>
-      <input type="text" class="form-control" name="lname" id="exampleInputEmail1" required>
+      <input type="text" class="form-control" name="lname" id="lname-field" required>
     </div>
     <div class="form-group">
       <label for="exampleInputEmail1">Username</label>
-      <input type="text" class="form-control" name="username" id="exampleInputEmail1" required>
+      <input type="text" class="form-control" name="username" id="username-field" required>
     </div>
     <div class="form-group">
       <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" required> 
+      <input type="email" class="form-control" name="email" id="email-field" aria-describedby="emailHelp" required> 
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" name="password" id="exampleInputPassword1" required>
+      <input type="password" class="form-control" name="password" id="password-field" required>
     </div>
     
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" id="create-new-user-button">Submit</button>
   </form>
   <br>
   <form action="/">
@@ -51,9 +51,11 @@
   
 </div>
 
-  
+{% block javascript %}
+  <script src="/static/js/createAccount.js"></script>
+{% endblock %}
 
-  {% endblock %}
+{% endblock %}
 
 
 
