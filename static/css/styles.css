@@ -1,0 +1,14 @@
+body, html {
+    height: 100%;
+  }
+  
+.homepage, .create-account {
+    background-image: url('/static/img/bruno-nascimento-PHIgYUGQPvU-unsplash.jpg');
+    color: white;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
