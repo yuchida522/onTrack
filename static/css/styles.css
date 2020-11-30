@@ -1,3 +1,5 @@
+/* login page styles */
+
 body, html {
     height: 100%;
   }
@@ -11,4 +13,16 @@ body, html {
     background-repeat: no-repeat;
 }
 
+#login-form {
+    padding: 0 400px;
+    align-items: center;
+}
 
+#login-heading {
+    text-align: center;
+    padding-top: 40px;
+}
+
+#create-account-link {
+    text-align: center;
+}

@@ -5,11 +5,13 @@
 
 {% block body %}
    <div class="homepage">
-     <div class="container">
+    <div class="login" id="login-heading">
       <h1>Log In</h1>
-    
+    </div>
+      <br>
+    <div class="login" id="login-form">
       <form action="/login" method="POST">
-        <div class="form-group" >
+        <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
           <input type="email" class="form-control" name ="email" id="exampleInputEmail1" aria-describedby="emailHelp" required>
         </div>
@@ -19,12 +21,10 @@
         </div>
         <button type="submit" class="btn btn-primary" id="login-button">Submit</button>
       </form>
-    
-    
-        Don't have an account yet? <a href="/create-account">Create an Account</a>
-
-     </div>
-        
+    </div> 
+    <div class="login" id="create-account-link">
+      Don't have an account yet? <a href="/create-account">Create an Account</a>
+    </div>
 
   </div>
 
