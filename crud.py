@@ -3,7 +3,15 @@
 from model import db, User, Race, City, CurrentRace, TrainingLog, connect_to_db
 from sqlalchemy.sql import functions
 
+################################################################################
+#                                                                              #
+#                   CRUD FUNCTIONS FOR ADDING DATA TO DB                       #
+#                                                                              #
+################################################################################
+
+
 def create_user(fname, lname, username, email, password):
+    """function that creates a user and saves in db"""
 
     #creates a user
     user = User(fname=fname, lname=lname, username=username, email=email, password=password)
@@ -32,6 +40,7 @@ def create_race(race_name, date, city, race_url, race_description, organization_
 
 #TODO: refactor how to handle exisiting cities
 def create_city(city_name, zipcode):
+    """function that saves city information of the race from API call to db"""
     
     exists = City.query.filter_by(city_name=city_name).first()
     city = City(city_name=city_name, zipcode=zipcode)
@@ -46,7 +55,9 @@ def create_city(city_name, zipcode):
     else:
         return exists
 
+
 def create_current_race(race, user_id, signup_status, completed_status, notes):
+    """function that takes race information and saves in db"""
     
     current_race = CurrentRace(race=race,
                                user_id=user_id,
@@ -62,6 +73,7 @@ def create_current_race(race, user_id, signup_status, completed_status, notes):
 
 
 def create_training_log(user_id, training_date, training_mileage, training_effort, training_comment, training_run_time):
+    """function that creates and saves a training log to db"""
 
     training_log = TrainingLog(user_id=user_id,
                                training_date=training_date,
@@ -77,19 +89,30 @@ def create_training_log(user_id, training_date, training_mileage, training_effor
     return training_log
 
 
+################################################################################
+#                                                                              #
+#                     USER AUTHENTICATION CRUD FUNCTION                        #
+#                                                                              #
+################################################################################
+
  
 def get_user_by_email(email):
-    """searches for user object by email"""
+    """queries for user object by email"""
 
     return User.query.filter(User.email == email).first()
 
 
 def get_user_by_user_id(user_id):
+    """queries user by user_id"""
 
     return User.query.filter(User.user_id == user_id).first()
 
 
-######################## CURRENT RACE ENTRIES #################################
+################################################################################
+#                                                                              #
+#                       SAVED RACES CRUD FUNCTIONS                             #
+#                                                                              #
+################################################################################
 
 
 def get_currentraces_by_id(user_id):
@@ -127,7 +150,11 @@ def delete_saved_race(current_race_id):
 
 
 
-######################## TRAINING LOG ENTRIES ##################################
+################################################################################
+#                                                                              #
+#                        TRAINING LOG CRUD FUNCTIONS                           #
+#                                                                              #
+################################################################################
 
 
 def get_training_log_by_userid(user_id):
@@ -140,9 +167,12 @@ def get_training_log_by_userid(user_id):
 def get_total_mileage(user_id):
     """function that return total mileage ran by the user"""
 
-    # return TrainingLog.query.with_entities(functions.sum(TrainingLog.training_mileage)).filter(TrainingLog.user_id == user_id).first()
-    # return TrainingLog.query(functions.sum(TrainingLog.training_mileage.label('training_mileage'))).filter(TrainingLog.user_id == user_id).first()
-    return db.session.query(functions.sum(TrainingLog.training_mileage)).filter(TrainingLog.user_id == user_id).first()[0]
+    total_mileage = db.session.query(functions.sum(TrainingLog.training_mileage)).filter(TrainingLog.user_id == user_id).first()[0]
+
+    if total_mileage is None:
+        return 0
+    
+    return total_mileage
 
 
 def get_total_number_of_runs(user_id):
@@ -152,17 +182,21 @@ def get_total_number_of_runs(user_id):
 
 
 def get_avg_run_time(user_id):
+    """funtion that caculates average pace by dividing the total mileage and time"""
     
     total_mileage = db.session.query(functions.sum(TrainingLog.training_mileage)).filter(TrainingLog.user_id == user_id).first()[0]
     total_time = db.session.query(functions.sum(TrainingLog.training_run_time)).filter(TrainingLog.user_id == user_id).first()[0]
 
-    return convert_deltatime_to_time(total_time / total_mileage)
+    if total_mileage is None and total_time is None:
+        return 0
+    else:
+        return convert_deltatime_to_time(total_time / total_mileage)
     #query for total mileage
     #query for total time
     #divide sum(mileage) by sum(time)
 
 def convert_deltatime_to_time(timedelta_obj):
-    
+    """function that converts deltatime to readable time"""
 
     total_seconds = timedelta_obj.total_seconds()
     hours = total_seconds // 3600
@@ -174,11 +208,13 @@ def convert_deltatime_to_time(timedelta_obj):
 
 
 def get_training_log_by_log_id(training_log_id):
+    """function that queries for specific training log by its id"""
 
     return TrainingLog.query.filter(TrainingLog.training_log_id == training_log_id).first()
 
 
 def delete_training_log(training_log_id):
+    """function that deletes a specific training log from the db"""
 
     training_log = TrainingLog.query.filter(TrainingLog.training_log_id == training_log_id).first()
 
@@ -187,6 +223,7 @@ def delete_training_log(training_log_id):
 
 
 def update_training_log(training_log_id, new_date, new_mileage, new_effort, new_comment, new_time):
+    """function that updates an exisiting training log in db"""
 
     training_log_to_update = TrainingLog.query.filter(TrainingLog.training_log_id == training_log_id).first()
 

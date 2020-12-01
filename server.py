@@ -16,13 +16,18 @@ API_KEY = os.environ['API_KEY']
 app.jinja_env.undefined = StrictUndefined
 
 
+################################################################################
+#                                                                              #
+#                        USER AUTHENTICATION PROCESS                           #
+#                                                                              #
+################################################################################
+
+
 @app.route('/')
 def homepage():
 
     return render_template('homepage.html')
 
-
-########## USER AUTHENTICATION PROCESS ######################
 
 
 @app.route('/create-account')
@@ -49,7 +54,9 @@ def create_new_user():
 
     #if the user does not exist, create user and add to db, redirect to homepage where the login is
     if user is None:
-        user = crud.create_user(fname, lname, username, email, password)
+        crud.create_user(fname, lname, username, email, password)
+        # user = crud.get_user_by_email(email)
+        # inital_training_log = crud.create_training_log(user.user_id, 
         
         return 'Account created! Now log in'
         #if user already exists, flash message to say user already exists
@@ -64,18 +71,30 @@ def login():
 
     #get all input values from login form
     email = request.form.get('login-email')
-    password = request.form.get('login-password')
+    pw = request.form.get('login-password')
+
+    print('\n\n\n\n\n')
+    print(email)
+    print(pw)
+
 
     user = crud.get_user_by_email(email)
-    
-    if user is None:
-        flash('User does not exist. Create an account to sign in')
-        return redirect('/')
-    else:
-        if not password:
-            flash('Login unsuccessful. Try again')
-            return redirect('/')
-        # return 'Login unsuccessful. Try again'
+    # print('\n\n\n\n\n')
+    # print(user)
+    # print('PASSWORD', user.password)
+
+    if user:
+    # if user is None:
+    #     flash('User does not exist. Create an account to sign in')
+    #     return redirect('/')
+    # else:
+        if user.password != pw:
+            print('\n\n\n\n\n')
+            print('user.password:', type(user.password))
+            print('password:', type(pw))
+            # flash('Login unsuccessful. Try again')
+            # return redirect('/')
+            return 'Login unsuccessful'
     
         else:
             session['current_user'] = user.user_id 
@@ -86,16 +105,22 @@ def login():
             avg_pace = crud.get_avg_run_time(current_user_id)
 
             # return current_user_id
-            return render_template('profile.html',
-                                    current_user=user,
-                                    total_mileage=total_mileage,
-                                    total_runs=total_runs,
-                                    avg_pace=avg_pace) 
-    # toastify option
+            return 'True'
+            # return render_template('profile.html',
+            #                         current_user=user,
+            #                         total_mileage=total_mileage,
+            #                         total_runs=total_runs,
+            #                         avg_pace=avg_pace) 
+    else:
+        # flash('User does not exist. Create an account to sign in')
+        # return redirect('/')
+        return 'User does not exist. Create an account to sign in'
+
+    # toastify option 
     # if user is None:
     #     return 'User does not exist. Create an account to sign in' 
     # else:
-    #     if user.password is not password:
+    #     if user.password != password:
    
     #         return 'Login unsuccessful. Try again'
     
@@ -112,24 +137,6 @@ def login():
     #                                 total_mileage=total_mileage,
     #                                 total_runs=total_runs,
     #                                 avg_pace=avg_pace) 
-
-
-@app.route('/training-log.json')
-def get_training_log_by_userid():
-    """get the training log by user and jsonify it for graph"""
-
-    current_user_id = session.get('current_user', None)
-
-    if current_user_id:
-        current_user_training_log = crud.get_training_log_by_userid(current_user_id)
-
-    training_log = []
-    
-    for training in current_user_training_log:
-        training_log.append({'date': training.training_date.isoformat(),
-                             'mileage': training.training_mileage})
-
-    return jsonify({'data': training_log})
 
 
 @app.route('/profile')
@@ -155,22 +162,6 @@ def profile():
                                                avg_pace=avg_pace)
 
 
-
-@app.route('/current-races')
-def current_races():
-    """get a list of the races users have saved"""
-
-    current_user_id = session.get('current_user', None)
-    
-    if current_user_id:
-
-        races = crud.get_currentraces_by_id(current_user_id)
-
-        return render_template('current-races.html',
-                               current_races=races)
-
-
-
 @app.route('/logout')
 def logout():
     """logs out user from session"""
@@ -180,11 +171,47 @@ def logout():
     return render_template('homepage.html')
 
 
+@app.route('/training-log.json')
+def get_training_log_by_userid():
+    """get the training log by user and jsonify it for graph"""
 
-########################## ENTRIES ##############################
+    current_user_id = session.get('current_user', None)
+
+    if current_user_id:
+        current_user_training_log = crud.get_training_log_by_userid(current_user_id)
+
+    training_log = []
+    
+    for training in current_user_training_log:
+        training_log.append({'date': training.training_date.isoformat(),
+                             'mileage': training.training_mileage})
+
+    return jsonify({'data': training_log})
+
+################################################################################
+#                                                                              #
+#                             TRAINING LOG ENTRIES                             #
+#                                                                              #
+################################################################################
+
+@app.route('/training-log')
+def show_training_logs():
+    """shows the past training logs user has made"""
+
+    #default to none if user does not exist
+    current_user_id = session.get('current_user', None)
+
+    if current_user_id:
+
+        current_user_logs = crud.get_training_log_by_userid(current_user_id)
+
+        return render_template('training-log.html',
+                               current_user_logs=current_user_logs)
+
 
 @app.route('/create-new-log')
 def create_training_log():
+    """renders new training log form"""
 
     return render_template('create-new-log.html')
 
@@ -252,7 +279,7 @@ def edit_training_log(training_log_id):
 
 @app.route('/save-changes/<int:training_log_id>', methods=['POST'])
 def save_edited_log(training_log_id):
-
+    """saves changes to any updates made in past training logs"""
     
     #get the values from the edit log form
     edited_date = datetime.strptime(request.form.get('edited_training_date'), '%Y-%m-%d')
@@ -273,9 +300,29 @@ def save_edited_log(training_log_id):
 
     return "Changes saved!"
 
+################################################################################
+#                                                                              #
+#                             SAVED RACES ENTRIES                              #
+#                                                                              #
+################################################################################
+
+@app.route('/current-races')
+def current_races():
+    """get a list of the races users have saved"""
+
+    current_user_id = session.get('current_user', None)
+    
+    if current_user_id:
+
+        races = crud.get_currentraces_by_id(current_user_id)
+
+        return render_template('current-races.html',
+                               current_races=races)
+
 
 @app.route('/update-race-status/<int:current_race_id>')
 def update_race_status(current_race_id):
+    """renders template to update info on saved races in user's account"""
 
     current_race_to_update = crud.get_saved_race(current_race_id)
 
@@ -285,6 +332,7 @@ def update_race_status(current_race_id):
 
 @app.route('/update-saved/<int:current_race_id>', methods=['POST'])
 def update_saved(current_race_id):
+    """upates any info changed on any saved races"""
 
     updated_signup_status = request.form.get('update_signup_status')
     updated_completed_status = request.form.get('update_completed_status')
@@ -298,25 +346,12 @@ def update_saved(current_race_id):
 
 @app.route('/delete-race/<int:current_race_id>', methods=['POST'])
 def delete_race(current_race_id):
+    """deletes any saved races"""
 
     crud.delete_saved_race(current_race_id)
 
     return 'race has been deleted!'
 
-
-@app.route('/training-log')
-def show_training_logs():
-    """shows the past training logs user has made"""
-
-    #default to none if user does not exist
-    current_user_id = session.get('current_user', None)
-
-    if current_user_id:
-
-        current_user_logs = crud.get_training_log_by_userid(current_user_id)
-
-        return render_template('training-log.html',
-                               current_user_logs=current_user_logs)
 
 
 ###################### SEARCH RACE FUNCTIONS ###################################
@@ -358,7 +393,7 @@ def race_results():
 #TODO: change route name
 @app.route('/save-the-date')
 def create_saved_race():
-    """make a direct API call using unique assetGuID to retrieve event"""
+    """make a direct API call using unique assetGuID to retrieve event and renders form to save race"""
 
     asset_guid = request.args.get('assetguid', '')
 

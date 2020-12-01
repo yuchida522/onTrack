@@ -31,14 +31,15 @@ users_in_db = []
 with open('test_data/test_users.txt') as f:
 
 	for line in f:
-		user_info = line.split('|')
+		user_info = line.strip().split('|')
 
 		fname = user_info[0]
 		lname = user_info[1]
 		username = user_info[2]
 		email = user_info[3]
 		password = user_info[4]
-
+		print('\n\n\n\n\n\n')
+		print(password)
 		user = crud.create_user(fname, lname, username, email, password)
 
 		users_in_db.append(user)
@@ -72,7 +73,7 @@ for line in f:
 		print(training_log)
 
 		
-#import API, for test purposes param is set to search races in SF beyond Jan 1, 2021
+# import API, for test purposes param is set to search races in SF beyond Jan 1, 2021
 url = 'http://api.amp.active.com/v2/search?query=running'
 payload = {'api_key': API_KEY,
                'near': 'San Francisco',

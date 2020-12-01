@@ -182,7 +182,7 @@ class TrainingLog(db.Model):
     training_mileage = db.Column(db.Float, nullable=False, default=0) 
     training_effort = db.Column(db.String, nullable=False)
     training_comment = db.Column(db.String, nullable=False)
-    training_run_time = db.Column(db.Interval, default=timedelta(hours=00, minutes=00, seconds=00), nullable=False)
+    training_run_time = db.Column(db.Interval, nullable=False, default=timedelta(hours=00, minutes=00, seconds=00))
 
     user = db.relationship('User')
 

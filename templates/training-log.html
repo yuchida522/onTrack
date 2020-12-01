@@ -36,17 +36,17 @@
 <div class="app">
   <div class="container">
     <div class="row">
-      <div class="col-3">
+      <div class="col-4">
         <h1>Training Log</h1> 
       </div>
       <form action="/create-new-log">
-        <button class="btn btn-outline-dark" type="submit">create new log</button>
+        <button class="btn btn-outline-dark" type="submit">Create New Log</button>
       </form>
     </div>
     <br>
     
-    <div class="row">
-      <div class="col-5">
+    <div class="card">
+      <div class="card-body">
       {% for logs in current_user_logs[::-1] %}
         <div id="{{ logs.training_log_id }}">
           {{ logs.training_date }} <br>
