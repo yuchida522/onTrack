@@ -188,7 +188,7 @@ def get_avg_run_time(user_id):
     total_time = db.session.query(functions.sum(TrainingLog.training_run_time)).filter(TrainingLog.user_id == user_id).first()[0]
 
     if total_mileage is None and total_time is None:
-        return 0
+        return '00:00:00'
     else:
         return convert_deltatime_to_time(total_time / total_mileage)
     #query for total mileage

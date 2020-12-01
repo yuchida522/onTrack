@@ -13,7 +13,7 @@ crossorigin="anonymous"></script>
 {% block body %}
 
 <!-- navbar -->
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar fixed-top navbar-dark bg-dark">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -42,13 +42,16 @@ crossorigin="anonymous"></script>
 <div class="app">
 
   <div class="row">
+    
+  </div>  
+  <div class="row">
     <div class="col-12">
       <h1>Hello, {{ current_user.fname }}!</h1>
     </div>
-  </div>  
+  </div>
 
-  <div class="row">
-    <div class="col-10">
+  <div class="d-flex align-items-center">
+    <div class="col-12">
       <div class="chart-container" id="running-chart">
         <canvas id="myChart"></canvas>
 

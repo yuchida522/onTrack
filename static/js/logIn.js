@@ -11,7 +11,7 @@ document.querySelector('#login-button').addEventListener('click', (evt) => {
   }
 
   $.post('/login', formInputs, (res) => {
-    console.log('res:', res)
+    
     if (res === 'True') {
       Toastify({
         text: 'Welcome!',
@@ -20,7 +20,7 @@ document.querySelector('#login-button').addEventListener('click', (evt) => {
   
         ).showToast();
         console.log(res)
-        setTimeout(() => window.location.replace('/profile') , 3000);
+        setTimeout(() => window.location.replace('/profile') , 1000);
       } else {
       Toastify({
         text: res,

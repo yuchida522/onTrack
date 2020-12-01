@@ -5,7 +5,7 @@
 
 {% block body %}
 <!-- navbar -->
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar fixed-top navbar-dark bg-dark">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -31,8 +31,8 @@
 </nav>
 
 <!-- content -->
+
 <div class="app">
-<p>
   <h1>Your Saved Races:</h1> <br>
     {% for race in current_races %}
     <div id="{{ race.current_race_id }}">
@@ -47,9 +47,12 @@
         <button class="btn btn-outline-dark" id="delete-saved-race-button" value="{{ race.current_race_id }}" type="submit">Delete Race</button>
     </form> <br>
     </div>
-    {% endfor %}   
-</p>
+    {% endfor %} 
+  
 </div>
+    
+
+
 
 {% block javascript %}
 <script src="/static/js/deleteSavedRace.js"></script>

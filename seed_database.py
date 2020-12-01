@@ -38,39 +38,32 @@ with open('test_data/test_users.txt') as f:
 		username = user_info[2]
 		email = user_info[3]
 		password = user_info[4]
-		print('\n\n\n\n\n\n')
-		print(password)
+	
 		user = crud.create_user(fname, lname, username, email, password)
 
 		users_in_db.append(user)
 
 
-f = open('test_data/test_training_log.txt')
+with open('test_data/test_training_log.txt') as f:
 
-for line in f:
-	training_info = line.split('|')
-	training_date = datetime.strptime(training_info[0], '%Y-%m-%d')
-	training_mileage = int(training_info[1])
-	training_effort = training_info[2]
-	training_comment = training_info[3]	
+	for line in f:
+		training_info = line.strip().split('|')
 
-	run_time_hr = int(training_info[4][0:2])
-	run_time_min = int(training_info[4][3:5])
-	run_time_sec = int(training_info[4][6:])
+		training_date = datetime.strptime(training_info[0], '%Y-%m-%d')
+		training_mileage = int(training_info[1])
+		training_effort = training_info[2]
+		training_comment = training_info[3]	
+		training_run_time = training_info[4]
+		# run_time_hr = int(training_info[4][0:2])
+		# run_time_min = int(training_info[4][3:5])
+		# run_time_sec = int(training_info[4][6:])
 
-	training_run_time = timedelta(hours=run_time_hr, minutes=run_time_min, seconds=run_time_sec) 
+		# training_run_time = timedelta(hours=run_time_hr, minutes=run_time_min, seconds=run_time_sec) 
 
-	
-
-	for user in users_in_db:
-		print('\n\n\n\n\n\n')
-		print('*********////////////')
-		print('IS THIS USER????', user)
-		print('*********')
-		training_log = crud.create_training_log(user.user_id, training_date, training_mileage, training_effort, training_comment, training_run_time)
-		print('\n\n\n\n\n\n')
-		print('*********')
-		print(training_log)
+		for user in users_in_db:
+			
+			training_log = crud.create_training_log(user.user_id, training_date, training_mileage, training_effort, training_comment, training_run_time)
+		
 
 		
 # import API, for test purposes param is set to search races in SF beyond Jan 1, 2021

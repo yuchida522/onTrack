@@ -77,67 +77,31 @@ def login():
     print(email)
     print(pw)
 
-
     user = crud.get_user_by_email(email)
-    # print('\n\n\n\n\n')
-    # print(user)
-    # print('PASSWORD', user.password)
 
     if user:
-    # if user is None:
-    #     flash('User does not exist. Create an account to sign in')
-    #     return redirect('/')
-    # else:
+    
         if user.password != pw:
             print('\n\n\n\n\n')
             print('user.password:', type(user.password))
             print('password:', type(pw))
-            # flash('Login unsuccessful. Try again')
-            # return redirect('/')
+            
             return 'Login unsuccessful'
     
         else:
             session['current_user'] = user.user_id 
             current_user_id = session.get('current_user')
 
-            total_mileage = crud.get_total_mileage(current_user_id)
-            total_runs = crud.get_total_number_of_runs(current_user_id)
-            avg_pace = crud.get_avg_run_time(current_user_id)
+            # total_mileage = crud.get_total_mileage(current_user_id)
+            # total_runs = crud.get_total_number_of_runs(current_user_id)
+            # avg_pace = crud.get_avg_run_time(current_user_id)
 
-            # return current_user_id
             return 'True'
-            # return render_template('profile.html',
-            #                         current_user=user,
-            #                         total_mileage=total_mileage,
-            #                         total_runs=total_runs,
-            #                         avg_pace=avg_pace) 
+             
     else:
-        # flash('User does not exist. Create an account to sign in')
-        # return redirect('/')
+        
         return 'User does not exist. Create an account to sign in'
-
-    # toastify option 
-    # if user is None:
-    #     return 'User does not exist. Create an account to sign in' 
-    # else:
-    #     if user.password != password:
-   
-    #         return 'Login unsuccessful. Try again'
-    
-    #     else:
-    #         session['current_user'] = user.user_id 
-    #         current_user_id = session.get('current_user')
-
-    #         total_mileage = crud.get_total_mileage(current_user_id)
-    #         total_runs = crud.get_total_number_of_runs(current_user_id)
-    #         avg_pace = crud.get_avg_run_time(current_user_id)
-
-    #         return render_template('profile.html',
-    #                                 current_user=user,
-    #                                 total_mileage=total_mileage,
-    #                                 total_runs=total_runs,
-    #                                 avg_pace=avg_pace) 
-
+ 
 
 @app.route('/profile')
 def profile():
@@ -167,7 +131,7 @@ def logout():
     """logs out user from session"""
 
     session.pop('current_user', None)
-    flash('Logged Out')
+
     return render_template('homepage.html')
 
 
@@ -204,6 +168,9 @@ def show_training_logs():
     if current_user_id:
 
         current_user_logs = crud.get_training_log_by_userid(current_user_id)
+
+        print('\n\n\n')
+        print(current_user_logs)
 
         return render_template('training-log.html',
                                current_user_logs=current_user_logs)
@@ -256,7 +223,8 @@ def save_new_log():
 def delete_training_log(training_log_id):
     """deletes a training log entry"""
 
-    print('\n\n\n\n\n')
+    
+    print('\n\n\n')
     print(training_log_id)
     crud.delete_training_log(training_log_id)
 

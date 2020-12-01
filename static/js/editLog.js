@@ -22,10 +22,11 @@ document.querySelector('#edit-log-button').addEventListener('click', (evt) => {
           }
     
           ).showToast();
+          setTimeout(() => window.location.replace('/training-log') , 2000);
       });
-    console.log('called!')
-    console.log(formInputs)
-    const trainingLogId = $(`#${formInputs.training_log_id}`);
-    console.log(trainingLogId)
-    trainingLogId.load('/training-log')
+    // console.log('called!')
+    // console.log(formInputs)
+    // const trainingLogId = $(`#${formInputs.training_log_id}`);
+    // console.log(trainingLogId)
+    // trainingLogId.load('/training-log')
   });
