@@ -47,7 +47,7 @@
     <br>
     
       {% for logs in current_user_logs[::-1] %}
-      <div class="d-flex justify-content-center posted-logs"></div>
+      
       <div class="card w-50 text-center" id="{{ logs.training_log_id }}"> 
         <div class="card-body">
           {{ logs.training_date }} <br>
@@ -60,13 +60,11 @@
           <button class="btn btn-outline-danger" type="submit" value="{{ logs.training_log_id }}">Edit Log</button>
         </form>
         <form action="/delete-training-log/{{ logs.training_log_id }}" method="POST">
-          <button class="btn btn-outline-dark" class="delete-log-button" type="submit" value="{{ logs.training_log_id }}">Delete Log</button>
+          <button class="btn btn-outline-dark delete-log-button" type="submit" value="{{ logs.training_log_id }}">Delete Log</button>
         </form>
       </div>
       <br>
         {% endfor %}
-       
-    </div>
 
   </div>
     

@@ -34,19 +34,24 @@
 
 <div class="container">
   <h1>Your Saved Races:</h1> <br>
+
     {% for race in current_races %}
-    <div id="{{ race.current_race_id }}">
-    > {{ race.race.race_name }} <br>
-    > signed up? {{ race.signup_status }}<br>
-    > completed race? {{ race.completed_status }} <br>
-    > Notes: {{ race.notes }} <br>
-    <form action="/update-race-status/{{ race.current_race_id }}">
+
+    <div class="card w-50 text-center" id="{{ race.current_race_id }}">
+      <div class="card-body">
+        > {{ race.race.race_name }} <br>
+        > signed up? {{ race.signup_status }}<br>
+        > completed race? {{ race.completed_status }} <br>
+        > Notes: {{ race.notes }} <br>
+      </div>
+      <form action="/update-race-status/{{ race.current_race_id }}">
         <button type="submit">Update Race Status</button>
-    </form> 
-    <form action="/delete-race/{{ race.current_race_id }}" method="POST">
-        <button class="btn btn-outline-dark" id="delete-saved-race-button" value="{{ race.current_race_id }}" type="submit">Delete Race</button>
-    </form> <br>
+      </form> 
+      <form action="/delete-race/{{ race.current_race_id }}" method="POST">
+        <button class="btn btn-outline-dark delete-saved-race-button" value="{{ race.current_race_id }}" type="submit">Delete Race</button>
+      </form> <br>
     </div>
+
     {% endfor %} 
   
 </div>
