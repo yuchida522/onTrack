@@ -34,50 +34,44 @@
 
 <!-- training logs -->
 
-<div class="app">
+
   <div class="container">
-
-    <div class="row align-center">
-
-      <div class="col-4">
-        <h1>Training Log</h1> 
-      </div>
-      <form action="/create-new-log">
+    <div class="float-right" id="training-log-heading">
+      <h1>Training Log</h1> 
+      
+      <form id="new-log-button" action="/create-new-log">
         <button class="btn btn-outline-dark" type="submit">Create New Log</button>
       </form>
     </div>
+
     <br>
     
-      <div class="card">
-        {% for logs in current_user_logs[::-1] %}
+      {% for logs in current_user_logs[::-1] %}
+      <div class="d-flex justify-content-center posted-logs"></div>
+      <div class="card w-50 text-center" id="{{ logs.training_log_id }}"> 
         <div class="card-body">
-        {{ logs.training_date }} <br>
-        {{ logs.training_mileage}} miles<br>
-        {{ logs.training_run_time }} <br>
-        {{ logs.training_effort }} <br>
-        {{ logs.training_comment }} 
-        
+          {{ logs.training_date }} <br>
+          {{ logs.training_mileage}} miles<br>
+          {{ logs.training_run_time }} <br>
+          {{ logs.training_effort }} <br>
+          {{ logs.training_comment }} 
+        </div>
         <form action="/edit-training-log/{{ logs.training_log_id }}">
           <button class="btn btn-outline-danger" type="submit" value="{{ logs.training_log_id }}">Edit Log</button>
         </form>
         <form action="/delete-training-log/{{ logs.training_log_id }}" method="POST">
-          <button class="btn btn-outline-dark" id="delete-log-button" type="submit" value="{{ logs.training_log_id }}">Delete Log</button>
+          <button class="btn btn-outline-dark" class="delete-log-button" type="submit" value="{{ logs.training_log_id }}">Delete Log</button>
         </form>
-        </div>
-        {% endfor %}
       </div>
-    
-    
-      
+      <br>
+        {% endfor %}
+       
+    </div>
+
   </div>
-
-</div>
-  
+    
   
 
-
-
-  
  
 {% block javascript %}
   <script src="/static/js/deleteLog.js"></script>

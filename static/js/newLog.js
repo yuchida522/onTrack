@@ -23,6 +23,7 @@ document.querySelector('#create-new-log-button').addEventListener('click', (evt)
         }
   
         ).showToast();
+        setTimeout(() => window.location.replace('/training-log') , 2000);
     });
 
   });

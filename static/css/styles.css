@@ -1,4 +1,4 @@
-/* background styles */
+/* general styles */
 
 body, html {
     background-image: url('/static/img/henry-co-tqu0IOMaiU8-unsplash.jpg');
@@ -18,14 +18,9 @@ body, html {
     background-repeat: no-repeat;
 }
 
-
-/* .app {
-    background-image: url('/static/img/henry-co-tqu0IOMaiU8-unsplash.jpg');
-    height: 100%;
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center;
-} */
+.container {
+    padding-top: 100px;
+}
 /* homepage styles */
 
 #login-form {
@@ -46,4 +41,22 @@ body, html {
 
 #running-chart {
     background-color: white;
+}
+
+/* training log styles */
+
+#new-log-button {
+    padding: 10px 20px;
+}
+
+#training-log-heading {
+    position: fixed;
+    margin-left: 700px;
+    z-index: 1;
+}
+
+/* search race page styles */
+
+#city-search {
+    width: 100%;
 }

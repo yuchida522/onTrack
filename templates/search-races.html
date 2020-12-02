@@ -2,6 +2,9 @@
 
 {% block title %}Search Race{% endblock %}
 
+{% block head %}
+<script type="text/javascript" src="datepicker/bootstrap-datepicker.js"></script>
+{% endblock %}
 
 {% block body %}
 
@@ -32,23 +35,27 @@
 </nav>
 
 <!-- content -->
-<div class="app">
+
   <div class="container">
     <div class="row">
       <h2>Search</h2>
     </div>
     
-    <div class="row">
+    
       <form action="/race-results" method='GET'>
-        <!-- <div class="card">
-          <div class="card-body">
-            <div class="input-group input--large">
-              <label for="city_name">City</label>
-              <input type="text" name="city_name" required>
-            </div>
-          </div> -->
+        <div class="inner-form">
+          <div class="input-field" id="city-search">
+            <input name="city_name" id="city-search" type="text" placeholder="Which city do you want to run in?" required>
+          </div>
+          <div>
+            
+          </div>
           
-
+          
+          
+          
+            
+          <input type="submit"> <br>
 
         </div>
         
@@ -67,12 +74,12 @@
           When do you want to run?
           <input type="date" name="start_date"> <br>
         
-        <input type="submit"> <br>
+        
       </form>
-    </div>
+
 
   </div>
-</div>
+
 {% endblock %}
 
 
