@@ -144,12 +144,10 @@ def get_training_log_by_userid():
 
     if current_user_id:
         current_user_training_log = crud.get_training_log_by_userid(current_user_id)
-        
 
     training_log = []
     
     for training in current_user_training_log:
-        
     
         training_log.append({'date': training.training_date.isoformat(),
                              'mileage': training.training_mileage})
@@ -159,20 +157,31 @@ def get_training_log_by_userid():
 @app.route('/training-log-pace.json')
 def get_pace_by_user_id():
 
-    pass
-    # current_user_id = session.get('current_user', None)
+    current_user_id = session.get('current_user', None)
 
-    # if current_user_id:
-    #     current_user_training_log = crud.get_training_log_by_userid(current_user_id)
+    if current_user_id:
+        current_user_training_log = crud.get_training_log_by_userid(current_user_id)
+    
+    all_avg_pace = []
 
-    # training_log = []
+    for log in current_user_training_log:
+        total_seconds = log.training_run_time.total_seconds()
+        avg_pace_in_seconds = total_seconds/log.training_mileage
 
-    # for training in current_user_training_log:
+        hours = avg_pace_in_seconds // 3600
+        remaining_seconds = avg_pace_in_seconds % 3600
+        minutes = remaining_seconds // 60
+        remaining_seconds = remaining_seconds % 60
+    
+        avg_pace = '{:02d}:{:02d}:{:02d}'.format(round(hours), round(minutes), round(remaining_seconds))
+        
+        all_avg_pace.append({'date': log.training_date.isoformat(),
+                             'avg_pace':avg_pace})
+    
+    return jsonify({'data': all_avg_pace})
 
-    #     run_time = training.training_run_time
-    #     run_time_converted = crud.convert_deltatime_to_time(run_time)
-
-    #     print()
+    
+                    
 
 
 ################################################################################

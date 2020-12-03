@@ -195,6 +195,26 @@ def get_avg_run_time(user_id):
     #query for total time
     #divide sum(mileage) by sum(time)
 
+# def get_avg_pace_per_log(user_id):
+
+#     training_logs_list = get_training_log_by_userid(user_id)
+    
+#     all_avg_pace = []
+
+#     for log in training_logs_list:
+#         total_seconds = log.training_run_time.total_seconds()
+#         avg_pace_in_seconds = total_seconds/log.training_mileage
+
+#         hours = avg_pace_in_seconds // 3600
+#         remaining_seconds = avg_pace_in_seconds % 3600
+#         minutes = remaining_seconds // 60
+#         remaining_seconds = remaining_seconds % 60
+    
+#         avg_pace = '{:02d}:{:02d}:{:02d}'.format(round(hours), round(minutes), round(remaining_seconds))
+#         all_avg_pace.append({avg_pace)
+
+#     return all_avg_pace
+
 def convert_deltatime_to_time(timedelta_obj):
     """function that converts deltatime to readable time"""
 
@@ -206,6 +226,7 @@ def convert_deltatime_to_time(timedelta_obj):
 
     # return f'{round(hours)}0:{round(minutes)}:0{round(remaining_seconds)}'
     return '{:02d}:{:02d}:{:02d}'.format(round(hours), round(minutes), round(remaining_seconds))
+
 
 
 def get_training_log_by_log_id(training_log_id):
