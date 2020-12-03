@@ -36,18 +36,26 @@
 
 
   <div class="container">
-    <div class="float-right" id="training-log-heading">
-      <h1>Training Log</h1> 
+    <div class="row justify-content-center" id="training-log-heading">
+      <div class="col-4">
+
+      </div>
+      <div class="col-6">
+        <h1>Training Log</h1> 
+      </div>
+      <div class="col-2">
+        <form id="create-new-log-btn" action="/create-new-log">
+          <button class="btn btn-outline-dark btn-lg" type="submit">Create New Log</button>
+        </form>
+      </div>
       
-      <form id="new-log-button" action="/create-new-log">
-        <button class="btn btn-outline-dark" type="submit">Create New Log</button>
-      </form>
+      
     </div>
 
     <br>
     
       {% for logs in current_user_logs[::-1] %}
-      
+    <div class="row justify-content-center">
       <div class="card w-50 text-center" id="{{ logs.training_log_id }}"> 
         <div class="card-body">
           <i class="fas fa-calendar-alt"></i> {{ logs.training_date.strftime("%A %B %d %Y") }} <br>
@@ -69,8 +77,12 @@
         </div>
         
       </div>
+    </div>
       <br>
         {% endfor %}
+
+    
+      
 
   </div>
     

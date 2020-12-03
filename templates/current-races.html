@@ -45,12 +45,21 @@
         > completed race? {{ race.completed_status }} <br>
         > Notes: {{ race.notes }} <br>
       </div>
-      <form action="/update-race-status/{{ race.current_race_id }}">
-        <button type="submit">Update Race Status</button>
-      </form> 
-      <form action="/delete-race/{{ race.current_race_id }}" method="POST">
-        <button class="btn btn-outline-dark delete-saved-race-button" value="{{ race.current_race_id }}" type="submit">Delete Race</button>
-      </form> <br>
+      <div class="row justify-content-center saved-race-btns">
+        <div class="col-5">
+          <form action="/update-race-status/{{ race.current_race_id }}">
+            <button class="btn btn-primary" type="submit">Update Race Status</button>
+          </form> 
+        </div>
+        <div class="col-4">
+          <form action="/delete-race/{{ race.current_race_id }}" method="POST">
+            <button class="btn btn-primary delete-saved-race-button" value="{{ race.current_race_id }}" type="submit">Delete Race</button>
+          </form>
+        </div>
+
+      </div>
+      
+       <br>
     </div>
 
     {% endfor %} 

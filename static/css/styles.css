@@ -17,10 +17,15 @@ body, html {
     background-size: cover;
     background-repeat: no-repeat;
 }
+h1 {
+    font-family: 'Amatic SC', cursive;
+    font-size: 80px;
+}
 
 .container {
     padding-top: 100px;
 }
+
 /* homepage styles */
 
 #login-form {
@@ -45,18 +50,20 @@ body, html {
 
 /* training log styles */
 
-#new-log-button {
-    padding: 10px 20px;
-}
-
-#training-log-heading {
-    position: fixed;
-    margin-left: 700px;
-    z-index: 1;
-}
 .card {
     background: rgba(187,187,187, 0.5); 
 }
+
+#create-new-log-btn {
+    position: fixed;
+    padding-top: 30px;
+    padding-right: 50px;
+}
+#training-log-heading {
+    position: relative;
+    z-index: 1;
+}
+
 /* search race page styles */
 
 #city-search {
