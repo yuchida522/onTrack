@@ -33,41 +33,40 @@
 
 <!-- content -->
 
-  <div class="container">
-    <div class="row justify-content-center">
+  <div class="container app">
+    <div class="row justify-content-center heading">
       <h1>Search</h1>
     </div>
-    
-      <form action="/race-results" method='GET'>
-        <div class="inner-form">
-          <div class="input-field" id="city-search">
-            <input name="city_name" id="city-search" type="text" placeholder="Which city do you want to run in?" required>
+    <div class="card">
+      <div class="card-body text-center">
+        <form action="/race-results" method='GET'>
+          <div class="inner-form">
+            <div class="input-field" id="city-search">
+              <input name="city_name" id="city-search" type="text" placeholder="Which city do you want to run in?" required>
+            </div>
+            <div>
+  
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="distance_length" value="5k" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">5K</label><br>
+              <input class="form-check-input" type="checkbox" name="distance_length" value="10k" id="defaultCheck2">
+                <label class="form-check-label" for="defaultCheck1">10K</label><br>
+              <input class="form-check-input" type="checkbox" name="distance_length" value="half_marathon" id="defaultCheck3">
+                <label class="form-check-label" for="defaultCheck1">Half Marathon</label><br>
+              <input class="form-check-input" type="checkbox" name="distance_length"value="marathon" id="defaultCheck4">
+                <label class="form-check-label" for="defaultCheck1">Marathon</label><br>
+              When do you want to run?
+              <input type="date" name="start_date"> <br>
+              <button type="submit" class="btn btn-primary">Search</button>
+  
           </div>
-          <div>
-
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="distance_length" value="5k" id="defaultCheck1">
-              <label class="form-check-label" for="defaultCheck1">5K</label><br>
-            <input class="form-check-input" type="checkbox" name="distance_length" value="10k" id="defaultCheck2">
-              <label class="form-check-label" for="defaultCheck1">10K</label><br>
-            <input class="form-check-input" type="checkbox" name="distance_length" value="half_marathon" id="defaultCheck3">
-              <label class="form-check-label" for="defaultCheck1">Half Marathon</label><br>
-            <input class="form-check-input" type="checkbox" name="distance_length"value="marathon" id="defaultCheck4">
-              <label class="form-check-label" for="defaultCheck1">Marathon</label><br>
-          </div>
-            When do you want to run?
-            <input type="date" name="start_date"> <br>
-            
-          <input type="submit"> <br>
-
-        </div>
-        
           
-          
-        
-        
-      </form>
+        </form>
+      </div>
+
+    </div>
+      
 
 
   </div>

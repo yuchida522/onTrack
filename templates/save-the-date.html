@@ -32,8 +32,11 @@
   </nav>
 
   <!-- content -->
-<div class="container">
-  <h2>Add this race</h2>
+<div class="container app">
+  <div class="heading">
+    <h2>Add this race</h2>
+  </div>
+  
   <form action="/race-saved" method="POST">
     Race name: <input type="text" name="race_name" id="race-name-field"value="{{ data['results'][0]['assetName'] }}"> <br>
     Race date: <input type="text" name="date" id="race-date-field" value="{{ data['results'][0]['activityStartDate'] }}"> <br>

@@ -9,43 +9,46 @@
 {% endblock %}
 
 {% block body %}
-<div id="create-account">
+<div class="outside-app">
 
   <div class="container">
-
-    <h2>Create New Account</h2>
-
-  <form action="/create-new-user" method="POST">
-    <div class="form-group">
-      <label for="exampleInputEmail1">First name</label>
-      <input type="test" class="form-control" name="fname" id="fname-field" required>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Last name</label>
-      <input type="text" class="form-control" name="lname" id="lname-field" required>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Username</label>
-      <input type="text" class="form-control" name="username" id="username-field" required>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" name="email" id="email-field" aria-describedby="emailHelp" required> 
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" name="password" id="password-field" required>
+    <div class="d-flex justify-content-center heading">
+      <h1>Create New Account</h1>
     </div>
     
-    <button type="submit" class="btn btn-primary" id="create-new-user-button">Submit</button>
-  </form>
-  <br>
-  <form action="/">
-    <button type="submit" class="btn btn-primary">Back to Login</button>
-  </form>
-    
-  
-  
+    <div class="card" id="create-new-user-card">
+      <div class="card-body">
+        <form action="/create-new-user" method="POST">
+          <div class="form-group">
+            <label for="exampleInputEmail1">First name</label>
+            <input type="test" class="form-control" name="fname" id="fname-field" required>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Last name</label>
+            <input type="text" class="form-control" name="lname" id="lname-field" required>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Username</label>
+            <input type="text" class="form-control" name="username" id="username-field" required>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" name="email" id="email-field" aria-describedby="emailHelp" required> 
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" name="password" id="password-field" required>
+          </div>
+          
+          <button type="submit" class="btn btn-primary" id="create-new-user-btn">Submit</button>
+        </form>
+        <br>
+        <form action="/">
+          <button id="back-to-login-btn" type="submit" class="btn btn-primary">Back to Login</button>
+        </form>
+      </div>
+
+    </div>
 
   </div>
   

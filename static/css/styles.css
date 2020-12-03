@@ -1,6 +1,9 @@
 /* general styles */
+a {
+    color: #0A043C;
+}
 
-body, html {
+body {
     background-image: url('/static/img/asoggetti-GYr9A2CPMhY-unsplash.jpg');
     height: 100%;
     font-family: 'Montserrat', sans-serif;
@@ -8,44 +11,104 @@ body, html {
     background-size: cover;
     background-position: center;
   }
-  
-#homepage, #create-account {
+
+.btn-primary {
+    background-color: #ffe3d8;
+    border-color: #ffe3d8;
+    color: #0a043c;
+}
+.btn-primary:hover {
+    background-color: #0a043c;
+}
+  .form-control {
+      position: relative;
+  }
+
+.outside-app {
     background-image: url('/static/img/bruno-nascimento-PHIgYUGQPvU-unsplash.jpg');
     color: white;
     height: 100%;
+    background-attachment: fixed;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
 }
+
 h1 {
+    color: white;
     font-family: 'Amatic SC', cursive;
     font-size: 80px;
 }
-
+.heading {
+    padding-top: 15px;
+}
 .container {
     padding-top: 100px;
 }
 
 /* homepage styles */
 
-#login-form {
-    padding: 0 400px;
+.card-body {
+    margin: 50px 0;
+}
+
+#login-button {
+    size: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+#login-card {
+    background-color: rgba(187,187,187,.5);
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+    color:  #0a043c;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    margin: 0 400px;
+}
+
+#login-form{
+    padding: 0 20px;
     align-items: center;
 }
 
 #login-heading {
     text-align: center;
-    padding-top: 40px;
+    padding-top: 60px;
 }
 
 #create-account-link {
     text-align: center;
 }
 
+/* create new user page style */
+
+#back-to-login-btn {
+    size: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+#create-new-user-btn {
+    size: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+#create-new-user-card {
+    background-color: rgba(187,187,187,.5);
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+    color: #0a043c;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    margin: 0 400px;
+}
 /* profile styles */
 
 .running-chart {
-    background-color: grey;
+    background-color: white;
 }
 
 /* training log styles */

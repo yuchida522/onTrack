@@ -4,26 +4,37 @@
 
 
 {% block body %}
-<div class="app">
-  <h1>Update Race Status</h1>
-  <form action="/update-saved/{{ current_race_to_update.current_race_id }}" method="POST">
+<div class="container app">
+  <div class="row d-flex justify-content-center heading">
+    <h1>Update Race Status</h1>
+  </div>
   
-    {{ current_race_to_update.race.race_name}} <br>
-    Signed Up? 
-    <input type="checkbox" name="update_signup_status" id="signup-status-field" value="Yes" required>
-      <label>Yes</label>
-    <input type="checkbox" name="update_signup_status" id="signup-status-field" value="No">
-      <label>No</label> 
-      <br>
-    Completed race?
-    <input type="checkbox" name="update_completed_status" id="completed-status-field" value="Yes" required>
-      <label>Yes</label>
-    <input type="checkbox" name="update_completed_status" id="completed-status-field" value="No">
-      <label>No</label>
-      <br>
-    Notes: <input type="text" name="update_notes" id="notes-field" required> <br>
-    <button id="update-saved-race-button" value="{{ current_race_to_update.current_race_id }}"type="submit">Update</button>
-  </form>
+  <div class="row justify-content-center">
+    <div class="card">
+      <div class="card-body">
+        <form action="/update-saved/{{ current_race_to_update.current_race_id }}" method="POST">
+      
+          {{ current_race_to_update.race.race_name}} <br>
+          Signed Up? 
+          <input type="checkbox" name="update_signup_status" id="signup-status-field" value="Yes" required>
+            <label>Yes</label>
+          <input type="checkbox" name="update_signup_status" id="signup-status-field" value="No">
+            <label>No</label> 
+            <br>
+          Completed race?
+          <input type="checkbox" name="update_completed_status" id="completed-status-field" value="Yes" required>
+            <label>Yes</label>
+          <input type="checkbox" name="update_completed_status" id="completed-status-field" value="No">
+            <label>No</label>
+            <br>
+          Notes: <input type="text" name="update_notes" id="notes-field" required> <br>
+          <button class="btn btn-primary" id="update-saved-race-button" value="{{ current_race_to_update.current_race_id }}"type="submit">Update</button>
+        </form>
+      </div>
+    </div>
+    
+  </div>
+  
   
   <div class="row">
     <form action="/current-races">
