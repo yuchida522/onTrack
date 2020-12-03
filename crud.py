@@ -204,7 +204,8 @@ def convert_deltatime_to_time(timedelta_obj):
     minutes = remaining_seconds // 60
     remaining_seconds = remaining_seconds % 60
 
-    return f'{round(hours)}0:{round(minutes)}:0{round(remaining_seconds)}'
+    # return f'{round(hours)}0:{round(minutes)}:0{round(remaining_seconds)}'
+    return '{:02d}:{:02d}:{:02d}'.format(round(hours), round(minutes), round(remaining_seconds))
 
 
 def get_training_log_by_log_id(training_log_id):

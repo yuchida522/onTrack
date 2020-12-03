@@ -33,7 +33,7 @@
 
 <!-- content -->
 <div class="container">
-  <div>
+<div>
 
     {% for event in data['results'] %}
     <p>{{ event['activityStartDate'] }} <br>
@@ -42,7 +42,7 @@
         {{ event['place']['cityName'] }} <br>
         {{ event['place']['postalCode'] }} <br>
         <a href="{{ event['homePageUrlAdr'] }}" target="_blank">Event Page</a> <br>
-        {{ event['assetDescriptions'][0]['description'] }} <br>
+        {{ event['assetDescriptions'][0]['description']|striptags }} <br>
         <form action="/save-the-date">
           <button type="submit" name="assetguid" value="{{ event['assetGuid'] }}" >Save Race</button>
         </form>

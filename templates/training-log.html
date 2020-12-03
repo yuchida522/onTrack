@@ -50,7 +50,7 @@
       
       <div class="card w-50 text-center" id="{{ logs.training_log_id }}"> 
         <div class="card-body">
-          {{ logs.training_date }} <br>
+          {{ logs.training_date.strftime("%A %B %d %Y") }} <br>
           {{ logs.training_mileage}} miles<br>
           {{ logs.training_run_time }} <br>
           {{ logs.training_effort }} <br>

@@ -2,6 +2,7 @@ from flask import (Flask, jsonify, render_template, request, flash, session, red
 import requests
 import os
 import crud
+import re
 from datetime import datetime, date, timedelta
 
 # TODO:add classes from model.py
@@ -143,14 +144,36 @@ def get_training_log_by_userid():
 
     if current_user_id:
         current_user_training_log = crud.get_training_log_by_userid(current_user_id)
+        
 
     training_log = []
     
     for training in current_user_training_log:
+        
+    
         training_log.append({'date': training.training_date.isoformat(),
                              'mileage': training.training_mileage})
 
     return jsonify({'data': training_log})
+
+@app.route('/training-log-pace.json')
+def get_pace_by_user_id():
+
+    pass
+    # current_user_id = session.get('current_user', None)
+
+    # if current_user_id:
+    #     current_user_training_log = crud.get_training_log_by_userid(current_user_id)
+
+    # training_log = []
+
+    # for training in current_user_training_log:
+
+    #     run_time = training.training_run_time
+    #     run_time_converted = crud.convert_deltatime_to_time(run_time)
+
+    #     print()
+
 
 ################################################################################
 #                                                                              #
@@ -268,6 +291,7 @@ def save_edited_log(training_log_id):
 
     return "Changes saved!"
 
+
 ################################################################################
 #                                                                              #
 #                             SAVED RACES ENTRIES                              #
@@ -322,7 +346,12 @@ def delete_race(current_race_id):
 
 
 
-###################### SEARCH RACE FUNCTIONS ###################################
+################################################################################
+#                                                                              #
+#                            SEARCH RACE FUNTIONS                              #
+#                                                                              #
+################################################################################
+
 
 @app.route('/search-races')
 def search_races():
@@ -358,7 +387,7 @@ def race_results():
                             data=data)
 
 
-#TODO: change route name
+#///TODO: change route name
 @app.route('/save-the-date')
 def create_saved_race():
     """make a direct API call using unique assetGuID to retrieve event and renders form to save race"""
@@ -381,7 +410,7 @@ def create_saved_race():
 
 
 # TODO: explore using models
-# TODO: change route name
+# ///TODO: change route name
 @app.route('/race-saved', methods=['POST'])  
 def save_the_date():
     """saving race, and city to db, allows users to save race to account"""
@@ -409,9 +438,7 @@ def save_the_date():
 
         crud.create_current_race(new_race, current_user_id, signup_status, completed_status, notes)
         
-        # flash('Race has been added!')
-        # return render_template('search-races.html')
-        return "race has been added!"
+        return "Race has been added!"
     
 
 
