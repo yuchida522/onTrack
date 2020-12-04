@@ -58,7 +58,7 @@
     <div class="row justify-content-center">
       <div class="card w-50 text-center" id="{{ logs.training_log_id }}"> 
         <div class="card-body">
-          <i class="fas fa-calendar-alt"></i> {{ logs.training_date.strftime("%A %B "%d %Y) }} <br>
+          <i class="fas fa-calendar-alt"></i> {{ logs.training_date.strftime("%A, %B %d %Y") }} <br>
           <i class="fas fa-running"></i> {{ logs.training_mileage}} miles | <i class="fas fa-clock"></i> {{ logs.training_run_time }} <br>
           <i class="fas fa-fire-alt"></i> {{ logs.training_effort }} <br>
           <i class="fas fa-sticky-note"></i> {{ logs.training_comment }} 
@@ -66,12 +66,12 @@
         <div class="row justify-content-center training-log-btns">
           <div class="col-3">
             <form action="/edit-training-log/{{ logs.training_log_id }}">
-              <button class="btn btn-outline-danger" type="submit" value="{{ logs.training_log_id }}">Edit Log</button>
+              <button class="btn btn-primary" type="submit" value="{{ logs.training_log_id }}">Edit Log</button>
             </form>
           </div>
           <div class="col-3">
             <form action="/delete-training-log/{{ logs.training_log_id }}" method="POST">
-              <button class="btn btn-outline-dark delete-log-button" type="submit" value="{{ logs.training_log_id }}">Delete Log</button>
+              <button class="btn btn-secondary delete-log-button" type="submit" value="{{ logs.training_log_id }}">Delete Log</button>
             </form>
           </div>
         </div>

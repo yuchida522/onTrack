@@ -33,34 +33,44 @@
 
   <!-- content -->
 <div class="container app">
-  <div class="heading">
-    <h2>Add this race</h2>
+  <div class="d-flex justify-content-center heading">
+    <h1>Add this race</h1>
+  </div>
+  <div class="row justify-content-center">
+    <div class="card">
+      <div class="card-body text-center">
+        <form action="/race-saved" method="POST">
+          Race name: <input type="text" name="race_name" id="race-name-field"value="{{ data['results'][0]['assetName'] }}"> <br>
+          Race date: <input type="text" name="date" id="race-date-field" value="{{ data['results'][0]['activityStartDate'] }}"> <br>
+          City: <input type="text" name="city_name" id="race-city-field" value="{{ data['results'][0]['place']['cityName'] }}"> <br>
+          Zipcode: <input type="text" name="zipcode" id="race-zipcode-field" value="{{ data['results'][0]['place']['postalCode'] }}"> <br>
+          url: <input type="text" name="race_url" id="race-url-field" value="{{ data['results'][0]['homePageUrlAdr'] }}"> <br>
+          description: <input type="text" name="race_description" id="race-description-field" value="{{ data['results'][0]['assetDescriptions'][0]['description']|striptags }}"> <br>
+          Organization Name: <input type="text" name="organization_name" id="race-organization-field" value="{{ data['results'][0]['organization']['organizationName']|striptags }}"> <br>
+          Signed up?
+          <input type="checkbox" name="signup_status" id="race-signup-field" value="Yes">
+            <label>Yes</label>
+          <input type="checkbox" name="signup_status" id="race-signup-field" value="No">
+            <label>No</label> <br>
+          Completed the race?
+          <input type="checkbox" name="completed_status" id="race-completed-field" value="Yes">
+            <label>Yes</label>
+          <input type="checkbox" name="completed_status" id="race-completed-field" value="No">
+            <label>No</label> <br>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Notes</label>
+              <textarea class="form-control" name="notes" id="race-notes-field" rows="3"></textarea>
+            </div>
+            <!-- <input type="text" name="notes" id="race-notes-field"> -->
+          <br>
+          <br>
+          <input id="save-the-race-button" type="submit">
+        </form>
+      </div>
+
+    </div>
   </div>
   
-  <form action="/race-saved" method="POST">
-    Race name: <input type="text" name="race_name" id="race-name-field"value="{{ data['results'][0]['assetName'] }}"> <br>
-    Race date: <input type="text" name="date" id="race-date-field" value="{{ data['results'][0]['activityStartDate'] }}"> <br>
-    City: <input type="text" name="city_name" id="race-city-field" value="{{ data['results'][0]['place']['cityName'] }}"> <br>
-    Zipcode: <input type="text" name="zipcode" id="race-zipcode-field" value="{{ data['results'][0]['place']['postalCode'] }}"> <br>
-    url: <input type="text" name="race_url" id="race-url-field" value="{{ data['results'][0]['homePageUrlAdr'] }}"> <br>
-    description: <input type="text" name="race_description" id="race-description-field" value="{{ data['results'][0]['assetDescriptions'][0]['description'] }}"> <br>
-    Organization Name: <input type="text" name="organization_name" id="race-organization-field" value="{{ data['results'][0]['organization']['organizationName'] }}"> <br>
-    Signed up?
-    <input type="checkbox" name="signup_status" id="race-signup-field" value="Yes">
-      <label>Yes</label>
-    <input type="checkbox" name="signup_status" id="race-signup-field" value="No">
-      <label>No</label> <br>
-    Completed the race yet?
-    <input type="checkbox" name="completed_status" id="race-completed-field" value="Yes">
-      <label>Yes</label>
-    <input type="checkbox" name="completed_status" id="race-completed-field" value="No">
-      <label>No</label> <br>
-    Notes:
-      <input type="text" name="notes" id="race-notes-field">
-    <br>
-    <br>
-    <input id="save-the-race-button" type="submit">
-  </form>
 </div> 
 
 {% block javascript %}
