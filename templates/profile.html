@@ -48,10 +48,31 @@ crossorigin="anonymous"></script>
   
   <!-- graph-->
 
-
-
   <br>
-  <canvas class="running-chart" id="avg-pace-graph"></canvas>
+  <div class="row">
+    <div class="col-4">
+      <div class="card">
+        <div class="card-body">
+          <h3>total runs: {{ total_runs }}</h3>
+        </div>
+      </div>
+      <br>
+      <div class="card">
+        <div class="card-body">
+          <h3>Total mileage: {{ total_mileage }} miles</h3>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="card">
+        <div class="card-body">
+          <h3>Average pace: {{ avg_pace }}/mile</h3>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-7">
+      <canvas class="running-chart" id="avg-pace-graph"></canvas>
       <script>
         $.get('/training-log-pace.json', (res) => {
           const data = [];
@@ -102,7 +123,8 @@ crossorigin="anonymous"></script>
           );
         });
       </script>
-    <canvas class="running-chart" id="myChart"></canvas>
+      <br>
+      <canvas class="running-chart" id="myChart"></canvas>
       <script>
         $.get('/training-log.json', (res) => {
           const data = [];
@@ -142,39 +164,15 @@ crossorigin="anonymous"></script>
           );
         });
       </script>
-  <!-- <div class="row">
-    
-    
-  </div>
-  <div class="row">
-    <div class="col-9">
-          <div class="chart-container">
-            
-          </div>  
     </div>
-    
-    <div class="col-3"> -->
-      <div class="card">
-        <div class="card-body">
-          <h3>total runs: {{ total_runs }}</h3>
-        </div>
-      </div>
-      <br>
-      <div class="card">
-        <div class="card-body">
-          <h3>total distance: {{ total_mileage }} miles</h3> 
-        </div>
-      </div>
-      <br>
-      <div class="card">
-        <div class="card-body">
-          <h3>Average pace: {{ avg_pace }}/mile</h3>
-        </div>
-      </div>
-    
-    </div>
-    
   </div>
+  <br>
+    
+      
+   
+
+  <br>
+
   
 
 </div>
