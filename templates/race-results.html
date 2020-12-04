@@ -38,18 +38,23 @@
     {% for event in data['results'] %}
     <div class="card">
       <div class="card-body">
-        Date: {{ event['activityStartDate'] }} <br>
-        Event Name: {{ event['assetName'] }} <br>
-        City: {{ event['place']['cityName'] }} <br>
-        Zipcode: {{ event['place']['postalCode'] }} <br>
-        <a href="{{ event['homePageUrlAdr'] }}" target="_blank">Event Page</a> <br>
-        {{ event['assetDescriptions'][0]['description']|striptags }} <br>
-        <form action="/save-the-date">
-          <button class="btn btn-primary" type="submit" name="assetguid" value="{{ event['assetGuid'] }}" >Save Race</button>
-        </form>
+        <i class="fas fa-calendar-alt"></i> {{ event['activityStartDate'] }} <br>
+        <i class="fas fa-running"></i> {{ event['assetName'] }} <br>
+        <i class="fas fa-map-marker-alt"></i> {{ event['place']['cityName'] }} <br>
+        <i class="fas fa-map-marker-alt"></i> {{ event['place']['postalCode'] }} <br>
+        <i class="fas fa-globe"></i> <a href="{{ event['homePageUrlAdr'] }}" target="_blank" role="button"><u>Event Page</u></a><br><br>
+        {{ event['assetDescriptions'][0]['description']|striptags }} <br><br>
+        <div class="search-result-btns1">
+          <div class="row search-result-btn2">
+            <form id="save-the-date-btn" action="/save-the-date">
+              <button class="btn btn-primary" type="submit" name="assetguid" value="{{ event['assetGuid'] }}" >Save Race</button>
+            </form>       
+            <a class="btn btn-secondary" id="google-cal-btn" href="https://calendar.google.com/calendar/r/eventedit?text={{ event['assetName'] }}&dates={{ event['activityStartDate'] }}
+              &details=For+details,+link+here:+{{ event['homePageUrlAdr'] }}&location={{ event['place']['cityName'] }}">Save to Google Calendar</a>
+          </div>
+          
+        </div>
         
-       <a href="https://calendar.google.com/calendar/r/eventedit?text={{ event['assetName'] }}&dates={{ event['activityStartDate'] }}
-       &details=For+details,+link+here:+{{ event['homePageUrlAdr'] }}&location={{ event['place']['cityName'] }}">Save to Google Calendar</a> 
       </div>
     </div>
     <br>
