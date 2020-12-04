@@ -41,6 +41,7 @@
     <div class="card w-50 text-center" id="{{ race.current_race_id }}">
       <div class="card-body">
         <i class="fas fa-running"></i> {{ race.race.race_name }} <br>
+        <i class="fas fa-calendar-alt"></i> {{race.race.date}} <br>
         <i class="fas fa-check-square"></i> signed up? {{ race.signup_status }}<br>
         <i class="fas fa-check-square"></i> completed race? {{ race.completed_status }} <br>
         <i class="fas fa-sticky-note"></i> Notes: {{ race.notes }} <br>
