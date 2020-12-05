@@ -38,12 +38,12 @@
   </div>
 
   <!-- toggleable cards -->
-  <div class="row">
-      <div class="col-8">
+  <div class="row justify-content-center">
+      <div class="col-6">
         <div class="card">
 
           <!-- tab names -->
-          <div class="card-header">
+          <div class="card-header justify-content-center">
             <ul class="nav nav-tabs card-header-tabs" id="saved-race-list" role="tablist">
               <li class="nav-item">
                 <a id="#upcoming-races-tab"class="nav-link active" href="#upcoming-races" role="tab" aria-controls="upcoming-races" aria-selected="true" data-toggle="tab">Upcoming Race</a>
@@ -60,45 +60,82 @@
           
           <div class="tab-content">
           
-            <div class="tab-pane" id="upcoming-races" role="tabpanel">
-              
+            <div class="tab-pane" id="upcoming-races" role="tabpanel"> 
+              {% for race in upcoming_races %}
               <div class="card-body">
                 <div class="card-title">
-                  <h4 class="card-title"></h4>
-                  <h6 class="card-subtitle mb-2"></h6>
+                  <h4 class="card-title">{{ race.race.race_name }}</h4>
+                  <h5 class="card-subtitle mb-2">{{ race.race.date }}</h5>
                 </div>
-                <p class="card-text"></p>
-                  
-              </div>  
+                <p class="card-text">{{ race.notes }}</p>
+                <div class="row">
+                  <div class="col-6">
+                    <form action="/update-race-status/{{ race.current_race_id }}">
+                      <button class="btn btn-primary" type="submit">Update Race Status</button>
+                    </form>
+                  </div>
+                  <div class="col-6">
+                    <form action="/delete-race/{{ race.current_race_id }}" method="POST">
+                      <button class="btn btn-secondary delete-saved-race-button" value="{{ race.current_race_id }}" type="submit">Delete Race</button>
+                    </form>
+                  </div>
+                </div>
+                    
+              </div> 
+              {% endfor %} 
             </div> 
-              
+            
 
-            
-            <div class="tab-pane" id="past-races" role="tabpanel">
-              
+               
+            <div class="tab-pane" id="past-races" role="tabpanel"> 
+              {% for race in past_races %}
               <div class="card-body">
                 <div class="card-title">
-                  <h4 class="card-title"></h4>
-                  <h6 class="card-subtitle mb-2"></h6>
+                  <h4 class="card-title">{{ race.race.race_name }}</h4>
+                  <h5 class="card-subtitle mb-2">{{ race.race.date }}</h5>
                 </div>
-                <p class="card-text"></p>
-                
+                <p class="card-text">{{ race.notes }}</p>
+                <div class="row">
+                  <div class="col-6">
+                    <form action="/update-race-status/{{ race.current_race_id }}">
+                      <button class="btn btn-primary" type="submit">Update Race Status</button>
+                    </form>
+                  </div>
+                  <div class="col-6">
+                    <form action="/delete-race/{{ race.current_race_id }}" method="POST">
+                      <button class="btn btn-secondary delete-saved-race-button" value="{{ race.current_race_id }}" type="submit">Delete Race</button>
+                    </form>
+                  </div>
+                </div>    
               </div>  
+              {% endfor %}
             </div>
             
             
-            <div class="tab-pane" id="#need-to-signup" role="tabpanel">
-              
+            <div class="tab-pane" id="need-to-signup" role="tabpanel">
+              {% for race in need_to_signup_races %}
               <div class="card-body">
                 <div class="card-title">
-                  <h4 class="card-title"></h4>
-                  <h6 class="card-subtitle mb-2"></h6>
+                  <h4 class="card-title">{{ race.race.race_name }}</h4>
+                  <h5 class="card-subtitle mb-2">{{ race.race.date }}</h5>
                 </div>
-                <p class="card-text"></p>
-                
-              </div>  
+                <p class="card-text">{{ race.notes }}</p>
+                <div class="row">
+                  <div class="col-6">
+                    <form action="/update-race-status/{{ race.current_race_id }}">
+                      <button class="btn btn-primary" type="submit">Update Race Status</button>
+                    </form>
+                  </div>
+                  <div class="col-6">
+                    <form action="/delete-race/{{ race.current_race_id }}" method="POST">
+                      <button class="btn btn-secondary delete-saved-race-button" value="{{ race.current_race_id }}" type="submit">Delete Race</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}  
             </div>
-            
+             
           </div>
           
                    

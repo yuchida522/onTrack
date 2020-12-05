@@ -5,8 +5,8 @@ document.querySelector('#update-saved-race-button').addEventListener('click', (e
     
     const formInputs = {
       currentRaceId: $(evt.target).val(),
-      'update_signup_status': $('#signup-status-field').val(),
-      'update_completed_status': $('#completed-status-field').val(),
+      'update_signup_status': $('#signup-status-field:checked').val(),
+      'update_completed_status': $('#completed-status-field:checked').val(),
       'update_notes': $('#notes-field').val()
       
     }
@@ -22,7 +22,5 @@ document.querySelector('#update-saved-race-button').addEventListener('click', (e
       });
     console.log('called!')
     console.log(formInputs)
-    const currentRaceId = $(`#${formInputs.currentRaceId}`);
-    console.log(currentRaceId)
-    currentRaceId.load('/current-races')
+    setTimeout(() => window.location.replace('/current-races') , 2000);
   });

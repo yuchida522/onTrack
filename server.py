@@ -323,21 +323,23 @@ def current_races():
         need_to_signup_races = []
 
         for race in races:
-            if race.race.date < today and race.signup_status == "Yes":
-                upcoming_races.append(race)
-            elif race.race.date > today and race.signup_status == "Yes":
-                past_races.append(race)
-            else:
+            if today < race.race.date and race.signup_status == "No":
                 need_to_signup_races.append(race)
+            elif today < race.race.date and race.signup_status == 'Yes':
+                upcoming_races.append(race)
+            elif today > race.race.date and race.signup_status == 'Yes':
+                past_races.append(race)
+        
         print('\n\n\n')
-        print(upcoming_races)
+        print('**********')  
+        print(upcoming_races)  
         print(past_races)
         print(need_to_signup_races)
-        
+        print(today)
         return render_template('current-races.html',
-                               upcoming_races=upcoming_races,
-                               past_races=past_races,
-                               need_to_signup_races=need_to_signup_races)
+                                upcoming_races=upcoming_races,
+                                past_races=past_races,
+                                need_to_signup_races=need_to_signup_races)
 
 
 @app.route('/update-race-status/<int:current_race_id>')

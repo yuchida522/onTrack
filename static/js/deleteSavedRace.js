@@ -22,8 +22,7 @@ for (let deleteSavedRaceBtn of deleteSavedRaceButtonlist) {
         ).showToast();
     });
     // console.log("CALLED");
-    const currentRaceId = $(`#${formInputs.currentRaceId}`)[0];
-    currentRaceId.style.display = "none";
+    setTimeout(() => window.location.replace('/current-races') , 2000);
   
   });
 }
