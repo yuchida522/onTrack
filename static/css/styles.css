@@ -16,6 +16,8 @@ a {
     background-color: #ffe3d8;
     border-color: #ffe3d8;
     color: #0a043c;
+    font-family: 'Amatic SC', cursive;
+    font-size: 20px;
 }
 .btn-primary:hover {
     background-color: #0a043c;
@@ -55,7 +57,8 @@ h1 {
 
 #login-button {
     size: 10px;
-    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
     width: 100%;
 }
 
@@ -85,13 +88,13 @@ h1 {
 
 #back-to-login-btn {
     size: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     width: 100%;
 }
 
 #create-new-user-btn {
     size: 10px;
-    margin-bottom: 20px;
+    margin: 20px 0;
     width: 100%;
 }
 
@@ -102,7 +105,7 @@ h1 {
     color: #0a043c;
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
-    margin: 0 400px;
+    width: 300px;
 }
 /* profile styles */
 
