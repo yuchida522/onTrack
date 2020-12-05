@@ -5,39 +5,49 @@
 
 {% block body %}
 <div class="outside-app">
-  <div class="login heading" id="login-heading">
-    <h1>Log In</h1>
-  </div>
-      <br>
-  <div class="login-form-div">
-    <div class="card" id="login-card">
-      <div class="card-body">
-        <div class="form">
-          <form id="login-form" action="/login" method="POST">
-            <div class="login-group"> 
-              <div class="form-group">
-                <label for="login-email">Email address</label>
-                <input type="email" class="form-control" name ="login-email" id="login-email-field" aria-describedby="emailHelp" required>  
-              </div>
-              <div class="form-group">
-                <label for="login-password">Password</label>
-                <input type="password" class="form-control" name="login-password" id="login-password-field">
-              </div>
-              <button type="submit" class="btn btn-primary" id="login-button">log in</i></button>
-            </div>     
-          </form>
-        </div> 
-        <div class="login" id="create-account-link">
-          Don't have an account yet? <a href="/create-account">Create an Account</a>
+  <div class="container">
+    <div class="row justify-content-center heading" id="login-heading">
+      <h1>Log In</h1>
+    </div>
+        <br>
+    
+      <div class="login-form-div">
+      <div class="row justify-content-center">
+        <div class="card" id="login-card">
+          <div class="card-body">
+            <div class="form">
+              <form id="login-form" action="/login" method="POST">
+                <div class="login-group"> 
+                  <div class="form-group">
+                    <label for="login-email">Email address</label>
+                    <input type="email" class="form-control" name ="login-email" id="login-email-field" aria-describedby="emailHelp" required>  
+                  </div>
+                  <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" class="form-control" name="login-password" id="login-password-field">
+                  </div>
+                  <button type="submit" class="btn btn-primary" id="login-button">log in</i></button>
+                </div>     
+              </form>
+            </div> 
+            <div class="login" id="create-account-link">
+              Don't have an account yet? <br>
+              <a href="/create-account"><u>Create an Account</u></a>
+            </div>
+          </div>
+    
         </div>
       </div>
-
+      
+  
+  
+  
+  
     </div>
-
-
-
-
   </div>
+
+  
+
 
 </div>
 {% block javascript %}

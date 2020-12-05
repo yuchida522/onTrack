@@ -3,7 +3,7 @@ a {
     color: #0A043C;
 }
 
-body {
+.app {
     background-image: url('/static/img/asoggetti-GYr9A2CPMhY-unsplash.jpg');
     height: 100%;
     font-family: 'Montserrat', sans-serif;
@@ -28,10 +28,11 @@ body {
     background-image: url('/static/img/bruno-nascimento-PHIgYUGQPvU-unsplash.jpg');
     color: white;
     height: 100%;
+    width: 100%;
+    margin: 0 0;
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
-    background-repeat: no-repeat;
 }
 
 h1 {
@@ -61,11 +62,13 @@ h1 {
 #login-card {
     background-color: rgba(187,187,187,.5);
     border-radius: 25px;
+    bottom: 30px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
     color:  #0a043c;
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
-    margin: 0 400px;
+    width: 300px;
+    
 }
 
 #login-form{
@@ -73,10 +76,6 @@ h1 {
     align-items: center;
 }
 
-#login-heading {
-    text-align: center;
-    padding-top: 60px;
-}
 
 #create-account-link {
     text-align: center;
