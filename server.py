@@ -316,9 +316,28 @@ def current_races():
     if current_user_id:
 
         races = crud.get_currentraces_by_id(current_user_id)
+        today = datetime.now()
+        
+        upcoming_races=[]
+        past_races = []
+        need_to_signup_races = []
 
+        for race in races:
+            if race.race.date < today and race.signup_status == "Yes":
+                upcoming_races.append(race)
+            elif race.race.date > today and race.signup_status == "Yes":
+                past_races.append(race)
+            else:
+                need_to_signup_races.append(race)
+        print('\n\n\n')
+        print(upcoming_races)
+        print(past_races)
+        print(need_to_signup_races)
+        
         return render_template('current-races.html',
-                               current_races=races)
+                               upcoming_races=upcoming_races,
+                               past_races=past_races,
+                               need_to_signup_races=need_to_signup_races)
 
 
 @app.route('/update-race-status/<int:current_race_id>')
