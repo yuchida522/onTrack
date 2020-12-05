@@ -5,7 +5,7 @@
 
 {% block body %}
 <!-- navbar -->
-<nav class="navbar fixed-top navbar-dark" style="background-color: #0a043c; color: #ffe3d8">
+<nav class="navbar fixed-top navbar-dark bg-dark">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -31,8 +31,8 @@
 </nav>
 
 <!-- content -->
-
-<div class="container app">
+<div class="app">
+<div class="container">
   <div class="d-flex justify-content-center heading">
     <h1>Your Saved Races</h1>
   </div>
@@ -143,7 +143,7 @@
     </div>      
   </div>  
 </div>
-
+</div>
 
 {% block javascript %}
 <script src="/static/js/deleteSavedRace.js"></script>

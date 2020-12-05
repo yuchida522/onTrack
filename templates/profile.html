@@ -40,114 +40,62 @@ crossorigin="anonymous"></script>
 
 
 <!-- content -->
-<div class="container app">
+<div class="app">
+  <div class="container">
 
-  <div class="d-flex justify-content-center heading"> 
-      <h1>Hello, {{ current_user.fname }}!</h1>
-  </div>  
-  
-  <!-- graph-->
-
-  <br>
-  <div class="row">
-    <div class="col-4">
-      <div class="card">
-        <div class="card-body">
-          <h3>total runs: {{ total_runs }}</h3>
-        </div>
-      </div>
-      <br>
-      <div class="card">
-        <div class="card-body">
-          <h3>Total mileage: {{ total_mileage }} miles</h3>
-        </div>
-      </div>
-      <br>
-      <br>
-      <div class="card">
-        <div class="card-body">
-          <h3>Average pace: {{ avg_pace }}/mile</h3>
-        </div>
-      </div>
-    </div>
+    <div class="d-flex justify-content-center heading"> 
+        <h1>Hello, {{ current_user.fname }}!</h1>
+    </div>  
     
-    <div class="col-7">
-      <canvas class="running-chart" id="avg-pace-graph"></canvas>
-      <script>
-        $.get('/training-log-pace.json', (res) => {
-          const data = [];
-          for (const training of res.data) {
-            data.push({x: training.date, y: training.avg_pace});
-          }
-          console.log(data)
-          new Chart(
-            $('#avg-pace-graph'),
-            {
-              type: 'line',
-              data: {
-                datasets: [
-                  {
-                    label: 'Average Pace',
-                    data: data,
-                  }
-                ]
-              },
-              options: {
-                scales: {
-                  xAxes: [{
-                    type: 'time',
-                    time: {
-                      displayFormats: {
-                        week: 'll'
-                      }
-                    },
-                    distribution:'series'
-                  }
-                  ],
-                  yAxes: [{
-                    type: 'time',
-                    time: {
-                    parser: 'hh:mm:ss',
-                    unit: 'seconds',
-                    displayFormats: {
-                      'seconds': 'm.s'
-                    },
-                    ticks: {
-                      beginAtZero: true
-                    }
-                    },
-                  }]
-                }
-              }
+    <!-- graph-->
+  
+    <br>
+    <div class="row">
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body">
+            <h3>total runs: {{ total_runs }}</h3>
+          </div>
+        </div>
+        <br>
+        <div class="card">
+          <div class="card-body">
+            <h3>Total mileage: {{ total_mileage }} miles</h3>
+          </div>
+        </div>
+        <br>
+        <br>
+        <div class="card">
+          <div class="card-body">
+            <h3>Average pace: {{ avg_pace }}/mile</h3>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-7">
+        <canvas class="running-chart" id="avg-pace-graph"></canvas>
+        <script>
+          $.get('/training-log-pace.json', (res) => {
+            const data = [];
+            for (const training of res.data) {
+              data.push({x: training.date, y: training.avg_pace});
             }
-          );
-        });
-      </script>
-      <br>
-      <canvas class="running-chart" id="myChart"></canvas>
-      <script>
-        $.get('/training-log.json', (res) => {
-          const data = [];
-          for (const training of res.data) {
-            data.push({x: training.date, y: training.mileage});
-          }
-          console.log(data)
-          new Chart(
-            $('#myChart'),
-            {
-              type: 'line',
-              data: {
-                datasets: [
-                  {
-                    label: 'Mileage ran',
-                    data: data
-                  }
-                ]
-              },
-              options: {
-                scales: {
-                  xAxes: [
+            console.log(data)
+            new Chart(
+              $('#avg-pace-graph'),
+              {
+                type: 'line',
+                data: {
+                  datasets: [
                     {
+                      label: 'Average Pace',
+                      data: data,
+                    }
+                  ]
+                },
+                options: {
+                  scales: {
+                    xAxes: [{
                       type: 'time',
                       time: {
                         displayFormats: {
@@ -155,56 +103,81 @@ crossorigin="anonymous"></script>
                         }
                       },
                       distribution:'series'
+                    }
+                    ],
+                    yAxes: [{
+                      type: 'time',
+                      time: {
+                      parser: 'hh:mm:ss',
+                      unit: 'seconds',
+                      displayFormats: {
+                        'seconds': 'm.s'
+                      },
+                      ticks: {
+                        beginAtZero: true
                       }
-                    ]
-                  },
-                
+                      },
+                    }]
+                  }
+                }
               }
+            );
+          });
+        </script>
+        <br>
+        <canvas class="running-chart" id="myChart"></canvas>
+        <script>
+          $.get('/training-log.json', (res) => {
+            const data = [];
+            for (const training of res.data) {
+              data.push({x: training.date, y: training.mileage});
             }
-          );
-        });
-      </script>
+            console.log(data)
+            new Chart(
+              $('#myChart'),
+              {
+                type: 'line',
+                data: {
+                  datasets: [
+                    {
+                      label: 'Mileage ran',
+                      data: data
+                    }
+                  ]
+                },
+                options: {
+                  scales: {
+                    xAxes: [
+                      {
+                        type: 'time',
+                        time: {
+                          displayFormats: {
+                            week: 'll'
+                          }
+                        },
+                        distribution:'series'
+                        }
+                      ]
+                    },
+                  
+                }
+              }
+            );
+          });
+        </script>
+      </div>
     </div>
-  </div>
-  <br>
-    
+    <br>
       
-   
-
-  <br>
-
+        
+     
   
-
+    <br>
+  
+    
+  
+  </div>
 </div>
+
 {% endblock %}
 
-If datetime object time doesn't work, convert to a string. 
-
-var yLabels = {
-  1: '7:30', 2: '8:45', 3: '9:30'
-}
-
-new Chart(
-  $('#line-hypnogram'),
-  {
-    type: 'line',
-    data: data,
-
-    options : {
-      scales : { 
-        xAxes:[{
-          ticks: {
-            beginAtZero: true
-          }
-        }],
-        yAxes: [{
-          ticks : {
-            beginAtZero: true,
-
-            callback: function(value, index, values) {
-              return yLabels[value];
-            }
-          }
-        }]
-      }
-    }
