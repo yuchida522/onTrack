@@ -1,6 +1,6 @@
 'use strict';
 
-document.querySelector('#save-the-race-button').addEventListener('click', (evt) => {
+document.querySelector('#save-race-btn').addEventListener('click', (evt) => {
     evt.preventDefault();
 
     const formInputs = {

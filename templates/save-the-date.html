@@ -38,16 +38,25 @@
     <h1>Add this race</h1>
   </div>
   <div class="row justify-content-center">
-    <div class="card">
-      <div class="card-body text-center">
+    <div class="card" id="save-the-date-form">
+      <div class="card-body">
         <form action="/race-saved" method="POST">
-          Race name: <input type="text" name="race_name" id="race-name-field"value="{{ data['results'][0]['assetName'] }}"> <br>
-          Race date: <input type="text" name="date" id="race-date-field" value="{{ data['results'][0]['activityStartDate'] }}"> <br>
-          City: <input type="text" name="city_name" id="race-city-field" value="{{ data['results'][0]['place']['cityName'] }}"> <br>
-          Zipcode: <input type="text" name="zipcode" id="race-zipcode-field" value="{{ data['results'][0]['place']['postalCode'] }}"> <br>
-          url: <input type="text" name="race_url" id="race-url-field" value="{{ data['results'][0]['homePageUrlAdr'] }}"> <br>
-          description: <input type="text" name="race_description" id="race-description-field" value="{{ data['results'][0]['assetDescriptions'][0]['description']|striptags }}"> <br>
-          Organization Name: <input type="text" name="organization_name" id="race-organization-field" value="{{ data['results'][0]['organization']['organizationName']|striptags }}"> <br>
+          <label for="race-name-field">Race Name</label>
+          <input class="form-control" type="text" name="race_name" id="race-name-field" value="{{ data['results'][0]['assetName'] }}" placeholder="Race Name" required> <br>
+          
+          <label for="race-date-field">Race Date</label>
+          <input class="form-control" type="text" name="date" id="race-date-field" value="{{ data['results'][0]['activityStartDate'] }}" placeholder="Race Date" required> <br>
+          <label for="race-city-field">City</label>
+          <input class="form-control" type="text" name="city_name" id="race-city-field" value="{{ data['results'][0]['place']['cityName'] }}" placeholder="City" required> <br>
+          <label for="race-zipcode-field">Zipcode</label>
+          <input class="form-control" type="text" name="zipcode" id="race-zipcode-field" value="{{ data['results'][0]['place']['postalCode'] }}" placeholder="Zipcode" required> <br>
+          <label for="race-url-field">Event Website</label>
+          <input class="form-control" type="text" name="race_url" id="race-url-field" value="{{ data['results'][0]['homePageUrlAdr'] }}" required> <br>
+          <label for="race-organization-field">Race Organization</label>
+          <input class="form-control" type="text" name="organization_name" id="race-organization-field" value="{{ data['results'][0]['organization']['organizationName']|striptags }}" required> <br>
+          <label for="race-description-field">Race Description </label>
+          <input class="form-control" name="race_description" id="race-description-field" value="{{ data['results'][0]['assetDescriptions'][0]['description']|striptags }}" rows="3" required> <br>
+
           Signed up?
           <input type="checkbox" name="signup_status" id="race-signup-field" value="Yes">
             <label>Yes</label>
@@ -62,10 +71,12 @@
               <label for="exampleFormControlTextarea1">Notes</label>
               <textarea class="form-control" name="notes" id="race-notes-field" rows="3"></textarea>
             </div>
-            <!-- <input type="text" name="notes" id="race-notes-field"> -->
           <br>
           <br>
-          <input id="save-the-race-button" type="submit">
+          <div class="row justify-content-center">
+            <button class="btn btn-primary" id="save-race-btn" type="submit">Save Race</button>
+          </div>
+        
         </form>
       </div>
 

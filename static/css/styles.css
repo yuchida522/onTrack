@@ -3,7 +3,7 @@ a {
     color: #0A043C;
 }
 
-.app {
+body {
     background-image: url('/static/img/asoggetti-GYr9A2CPMhY-unsplash.jpg');
     height: 100%;
     font-family: 'Montserrat', sans-serif;
@@ -20,9 +20,15 @@ a {
     font-size: 20px;
 }
 .btn-primary:hover {
-    background-color: #0a043c;
+    background-color: #ccb68d;
 }
-  .form-control {
+
+.btn-secondary {
+    font-family: 'Amatic SC', cursive;
+    font-size: 20px;
+}
+
+.form-control {
       position: relative;
   }
 
@@ -43,16 +49,16 @@ h1 {
     font-size: 80px;
 }
 .heading {
-    padding-top: 15px;
+    margin-bottom: 20px;
 }
 .container {
-    padding-top: 100px;
+    padding-top: 80px;
 }
 
 /* homepage styles */
 
 .card-body {
-    margin: 50px 0;
+    margin: 30px 0;
 }
 
 #login-button {
@@ -145,4 +151,23 @@ h1 {
 /* create new log styles */
 #create-new-btn {
     margin: 30px;
+}
+
+/* save the date page styles */
+#save-race-btn {
+    width: 90%;
+}
+
+#save-the-date-form {
+    bottom: 30px;
+    width: 500px;
+
+}
+
+/* current races page style */
+
+.current-races-btns {
+    display: flexbox;
+    margin-left: auto;
+    margin-right: auto;
 }
