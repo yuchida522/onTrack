@@ -16,6 +16,7 @@ document.querySelector('#update-saved-race-button').addEventListener('click', (e
       Toastify({
           text: res,
           duration: 3000,
+          backgroundColor: "linear-gradient(to right, #f22e8a, #ebccda)"
           }
     
           ).showToast();

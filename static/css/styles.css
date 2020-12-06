@@ -21,13 +21,17 @@ body {
 }
 .btn-primary:hover {
     background-color: #E1997D;
-    border-color: #E1997D;
-    
+    border-color: #E1997D;   
 }
 
 .btn-secondary {
     font-family: 'Amatic SC', cursive;
     font-size: 20px;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(54, 56, 59);
+    border-color: rgba(54, 56, 59);
 }
 
 .form-control {
@@ -118,24 +122,38 @@ h1 {
 /* profile styles */
 
 .running-chart {
-    background-color: white;
+    background-color: rgba(252, 247, 245, 0.8);
 }
 
+.profile {
+    border-radius: 20px;
+    height: 180px;
+    width: 250px;
+}
+
+#profile-card {
+    background-color: rgba(252, 247, 245, 0.8);
+}
+
+#profile-card-body {
+    margin-left: 40px;
+}
 /* training log styles */
 
 .card {
     background: rgba(187,187,187, 0.5); 
 }
 .training-log-btns {
-    padding: 10px;
+    padding-bottom: 30px;
 }
+
 #create-new-log-btn {
-    position: fixed;
-    padding-top: 30px;
-    padding-right: 50px;
+    padding-top: 10px;
+    width: 400px;
+    text-align: center;
 }
+
 #training-log-heading {
-    position: relative;
     z-index: 1;
 }
 
@@ -145,6 +163,9 @@ h1 {
     width: 80%;
 }
 
+#search-btn {
+    width: 90%;
+}
 /* search result page styles*/
 #save-the-date-btn {
     margin: 0 20px;
@@ -182,4 +203,9 @@ h1 {
 #update-saved-race-card {
     width: 400px;
     margin-bottom: 30px;
+}
+
+/* edit log page styles */
+#edit-log-button {
+    width: 50%;
 }

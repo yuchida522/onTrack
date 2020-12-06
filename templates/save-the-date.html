@@ -42,8 +42,7 @@
       <div class="card-body">
         <form action="/race-saved" method="POST">
           <label for="race-name-field">Race Name</label>
-          <input class="form-control" type="text" name="race_name" id="race-name-field" value="{{ data['results'][0]['assetName'] }}" placeholder="Race Name" required> <br>
-          
+          <input class="form-control" type="text" name="race_name" id="race-name-field" value="{{ data['results'][0]['assetName'] }}" placeholder="Race Name" required> <br>   
           <label for="race-date-field">Race Date</label>
           <input class="form-control" type="text" name="date" id="race-date-field" value="{{ data['results'][0]['activityStartDate'] }}" placeholder="Race Date" required> <br>
           <label for="race-city-field">City</label>

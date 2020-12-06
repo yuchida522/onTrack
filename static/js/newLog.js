@@ -20,6 +20,7 @@ document.querySelector('#create-new-log-button').addEventListener('click', (evt)
       Toastify({
         text: res,
         duration: 3000,
+        backgroundColor: "linear-gradient(to right, #f22e8a, #ebccda)"
         }
   
         ).showToast();

@@ -50,128 +50,137 @@ crossorigin="anonymous"></script>
     <!-- graph-->
   
     <br>
-    <div class="row">
-      <div class="col-4">
-        <div class="card">
-          <div class="card-body">
-            <h3>total runs: {{ total_runs }}</h3>
+    <div class="card" id="profile-card">
+      <div class="card-body" id="profile-card-body">
+        <div class="row">
+          <div class="col-4">
+            <div class="card profile">
+              <div class="card-body text-center">
+                <h3><b>Runs</b></h3> <br>
+                <h3>{{ total_runs }}</h3>
+              </div>
+            </div>
+            <br>
+            <br>
+            <div class="card profile">
+              <div class="card-body text-center">
+                <h3><b>Mileage</b></h3><br>
+                <h3>{{ total_mileage }} miles</h3>
+              </div>
+            </div>
+            <br>
+            <br>
+            <div class="card profile">
+              <div class="card-body text-center">
+                <h3><b>Pace</b></h3><br>
+                <h3>{{ avg_pace }}/mile</h3>
+              </div>
+            </div>
           </div>
-        </div>
-        <br>
-        <div class="card">
-          <div class="card-body">
-            <h3>Total mileage: {{ total_mileage }} miles</h3>
-          </div>
-        </div>
-        <br>
-        <br>
-        <div class="card">
-          <div class="card-body">
-            <h3>Average pace: {{ avg_pace }}/mile</h3>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-7">
-        <canvas class="running-chart" id="avg-pace-graph"></canvas>
-        <script>
-          $.get('/training-log-pace.json', (res) => {
-            const data = [];
-            for (const training of res.data) {
-              data.push({x: training.date, y: training.avg_pace});
-            }
-            console.log(data)
-            new Chart(
-              $('#avg-pace-graph'),
-              {
-                type: 'line',
-                data: {
-                  datasets: [
-                    {
-                      label: 'Average Pace',
-                      data: data,
-                    }
-                  ]
-                },
-                options: {
-                  scales: {
-                    xAxes: [{
-                      type: 'time',
-                      time: {
-                        displayFormats: {
-                          week: 'll'
-                        }
-                      },
-                      distribution:'series'
-                    }
-                    ],
-                    yAxes: [{
-                      type: 'time',
-                      time: {
-                      parser: 'hh:mm:ss',
-                      unit: 'seconds',
-                      displayFormats: {
-                        'seconds': 'm.s'
-                      },
-                      ticks: {
-                        beginAtZero: true
-                      }
-                      },
-                    }]
-                  }
+          
+          <div class="col-7">
+            <canvas class="running-chart" id="avg-pace-graph"></canvas>
+            <script>
+              $.get('/training-log-pace.json', (res) => {
+                const data = [];
+                for (const training of res.data) {
+                  data.push({x: training.date, y: training.avg_pace});
                 }
-              }
-            );
-          });
-        </script>
-        <br>
-        <canvas class="running-chart" id="myChart"></canvas>
-        <script>
-          $.get('/training-log.json', (res) => {
-            const data = [];
-            for (const training of res.data) {
-              data.push({x: training.date, y: training.mileage});
-            }
-            console.log(data)
-            new Chart(
-              $('#myChart'),
-              {
-                type: 'line',
-                data: {
-                  datasets: [
-                    {
-                      label: 'Mileage ran',
-                      data: data
-                    }
-                  ]
-                },
-                options: {
-                  scales: {
-                    xAxes: [
-                      {
-                        type: 'time',
-                        time: {
-                          displayFormats: {
-                            week: 'll'
-                          }
-                        },
-                        distribution:'series'
+                console.log(data)
+                new Chart(
+                  $('#avg-pace-graph'),
+                  {
+                    type: 'line',
+                    data: {
+                      datasets: [
+                        {
+                          label: 'Average Pace (min/mile)',
+                          data: data,
+                          backgroundColor: 'rgba(3, 80, 111, 0.5)'
                         }
                       ]
                     },
-                  
+                    options: {
+                      scales: {
+                        xAxes: [{
+                          type: 'time',
+                          time: {
+                            displayFormats: {
+                              week: 'll'
+                            }
+                          },
+                          distribution:'series'
+                        }
+                        ],
+                        yAxes: [{
+                          type: 'time',
+                          time: {
+                          parser: 'hh:mm:ss',
+                          unit: 'seconds',
+                          displayFormats: {
+                            'seconds': 'm:s'
+                          },
+                          ticks: {
+                            beginAtZero: true
+                          }
+                          },
+                        }]
+                      }
+                    }
+                  }
+                );
+              });
+            </script>
+            <br>
+            <br>
+            <br>
+            <br>
+            <canvas class="running-chart" id="myChart"></canvas>
+            <script>
+              $.get('/training-log.json', (res) => {
+                const data = [];
+                for (const training of res.data) {
+                  data.push({x: training.date, y: training.mileage});
                 }
-              }
-            );
-          });
-        </script>
+                console.log(data)
+                new Chart(
+                  $('#myChart'),
+                  {
+                    type: 'line',
+                    data: {
+                      datasets: [
+                        {
+                          label: 'Mileage ran',
+                          data: data,
+                          backgroundColor: 'rgba(255, 227, 216, 0.5)'
+                        }
+                      ]
+                    },
+                    options: {
+                      scales: {
+                        xAxes: [
+                          {
+                            type: 'time',
+                            time: {
+                              displayFormats: {
+                                week: 'll'
+                              }
+                            },
+                            distribution:'series'
+                            }
+                          ]
+                        },
+                      
+                    }
+                  }
+                );
+              });
+            </script>
+          </div>
+        </div>
       </div>
     </div>
     <br>
-      
-        
-     
-  
     <br>
   
     

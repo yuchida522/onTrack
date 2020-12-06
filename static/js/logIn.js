@@ -24,7 +24,8 @@ document.querySelector('#login-button').addEventListener('click', (evt) => {
       } else {
       Toastify({
         text: res,
-        duration: 3000
+        duration: 3000,
+        backgroundColor: "linear-gradient(to right, #f22e8a, #ebccda)"
         }
   
         ).showToast();
