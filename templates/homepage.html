@@ -4,13 +4,16 @@
 
 
 {% block body %}
-<div class="outside-app">
+<body class="outside-app">
   <div class="container">
     <div class="row justify-content-center heading" id="login-heading">
-      <h1>Log In</h1>
+      <h1>OnTrack</h1> 
     </div>
-        <br>
-    
+    <div class="row justify-content-center">
+      <h3 style="font-family: cursive">Your first run starts here</h3>
+    </div>
+      <br>
+      <br>
       <div class="login-form-div">
       <div class="row justify-content-center">
         <div class="card" id="login-card">
@@ -45,11 +48,7 @@
   
     </div>
   </div>
-
-  
-
-
-</div>
+</body>
 {% block javascript %}
   <script src="/static/js/logIn.js"></script>
 {% endblock %}

@@ -15,7 +15,8 @@ document.querySelector('#login-button').addEventListener('click', (evt) => {
     if (res === 'True') {
       Toastify({
         text: 'Welcome!',
-        duration: 3000
+        duration: 3000,
+        backgroundColor: "linear-gradient(to right, #f22e8a, #ebccda)"
         }
   
         ).showToast();
