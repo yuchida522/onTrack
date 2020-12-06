@@ -19,15 +19,15 @@
             <label for="edited-mileage-field">Mileage</label>
             <input class="form-control" type="text" name="edited_training_mileage" id="edited-mileage-field" value="{{ training_log_to_edit.training_mileage}}" placeholder="Mileage" required> <br>
             Time <br>
-            <input id='edited-h-field' name='edited_run_time_hr' type='number' min='0' max='24'>
+            <input id='edited-h-field' name='edited_run_time_hr' type='number' min='0' max='24' required>
               <label for='h'>h</label>
-              <input id='edited-m-field' name='edited_run_time_min' type='number' min='0' max='59'>
+              <input id='edited-m-field' name='edited_run_time_min' type='number' min='0' max='59' required>
               <label for='m'>m</label>
-              <input id='edited-s-field' name='edited_run_time_sec' type='number' min='0' max='59'>
+              <input id='edited-s-field' name='edited_run_time_sec' type='number' min='0' max='59'required>
               <label for='s'>s</label> <br>
               <br>
             Effort<br>
-            <input type="radio" name="edited_training_effort" id="edited-effort-field" value="easy">
+            <input type="radio" name="edited_training_effort" id="edited-effort-field" value="easy" required>
               <label for="easy">Easy</label>
             <input type="radio" name="edited_training_effort" id="edited-effort-field" value="moderate">
               <label for="moderate">Moderate</label>

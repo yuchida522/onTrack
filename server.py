@@ -357,10 +357,9 @@ def update_saved(current_race_id):
     """upates any info changed on any saved races"""
 
     updated_signup_status = request.form.get('update_signup_status')
-    updated_completed_status = request.form.get('update_completed_status')
     update_notes = request.form.get('update_notes')
 
-    crud.update_saved_race(current_race_id, updated_signup_status, updated_completed_status, update_notes)
+    crud.update_saved_race(current_race_id, updated_signup_status, update_notes)
 
     return 'Update Saved!'
 
@@ -453,7 +452,6 @@ def save_the_date():
     race_description = request.form.get('race_description')
     race_organization_name = request.form.get('organization_name')
     signup_status = request.form.get('signup_status')
-    completed_status = request.form.get('completed_status')
     notes = request.form.get('notes')
     
     #create a new city to add to db
@@ -466,7 +464,7 @@ def save_the_date():
 
     if current_user_id:
 
-        crud.create_current_race(new_race, current_user_id, signup_status, completed_status, notes)
+        crud.create_current_race(new_race, current_user_id, signup_status, notes)
         
         return "Race has been added!"
     

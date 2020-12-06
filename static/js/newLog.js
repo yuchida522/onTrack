@@ -2,7 +2,7 @@
 
 // create log button
 
-document.querySelector('#create-new-log-button').addEventListener('click', (evt) => {
+document.querySelector('#create-new-btn').addEventListener('click', (evt) => {
     evt.preventDefault();
   
     const formInputs = {

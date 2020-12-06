@@ -12,7 +12,6 @@ document.querySelector('#save-race-btn').addEventListener('click', (evt) => {
         'race_description': $('#race-description-field').val(),
         'organization_name': $('#race-organization-field').val(),
         'signup_status': $('#race-signup-field:checked').val(),
-        'completed_status': $('#race-completed-field:checked').val(),
         'notes': $('#race-notes-field').val(),
       }
     $.post('/race-saved', formInputs, (res) => {

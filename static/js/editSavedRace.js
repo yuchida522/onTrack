@@ -6,7 +6,6 @@ document.querySelector('#update-saved-race-button').addEventListener('click', (e
     const formInputs = {
       currentRaceId: $(evt.target).val(),
       'update_signup_status': $('#signup-status-field:checked').val(),
-      'update_completed_status': $('#completed-status-field:checked').val(),
       'update_notes': $('#notes-field').val()
       
     }

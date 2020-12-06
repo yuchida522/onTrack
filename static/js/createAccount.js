@@ -2,7 +2,7 @@
 
 //create account button
 
-document.querySelector('#create-new-user-button').addEventListener('click', (evt) => {
+document.querySelector('#create-new-user-btn').addEventListener('click', (evt) => {
     evt.preventDefault();
   
     const formInputs = {

@@ -159,7 +159,6 @@ class CurrentRace(db.Model):
     race_id = db.Column(db.Integer, db.ForeignKey('races.race_id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     signup_status = db.Column(db.String)
-    completed_status = db.Column(db.String)
     notes = db.Column(db.String)
 
     #relationship- current race is the child of Race and User
