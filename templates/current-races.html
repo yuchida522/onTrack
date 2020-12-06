@@ -39,7 +39,7 @@
 
   <!-- toggleable cards -->
   <div class="row justify-content-center">
-      <div class="col-7">
+      <div class="col-6">
         <div class="card" style="margin-bottom: 30px;">
 
           <!-- tab names -->
@@ -64,8 +64,9 @@
               {% for race in upcoming_races[::-1] %}
               <div class="card-body">
                 <div class="card-title">
-                  <h4 class="card-title"><i class="fas fa-running"></i> {{ race.race.race_name }}</h4>
-                  <h5 class="card-subtitle mb-2"><i class="fas fa-calendar-alt"></i> {{ race.race.date }}</h5>
+                  <h4 class="card-title"><i class="fas fa-running"></i> <b>{{ race.race.race_name }}</b></h4>
+                  <br>
+                  <h5 class="card-subtitle mb-2"><i class="fas fa-calendar-alt"></i> {{ race.race.date.strftime("%A, %B %d, %Y %I:%M %p") }}</h5>
                 </div>
                 <p class="card-text"><i class="fas fa-sticky-note"></i> {{ race.notes }}</p>
                 <div class="row current-races-btns">
@@ -91,8 +92,9 @@
               {% for race in past_races[::-1] %}
               <div class="card-body">
                 <div class="card-title">
-                  <h4 class="card-title"><i class="fas fa-running"></i> {{ race.race.race_name }}</h4>
-                  <h5 class="card-subtitle mb-2"><i class="fas fa-calendar-alt"></i>{{ race.race.date }}</h5>
+                  <h4 class="card-title"><i class="fas fa-running"></i> <b>{{ race.race.race_name }}</b></h4>
+                  <br>
+                  <h5 class="card-subtitle mb-2"><i class="fas fa-calendar-alt"></i>{{ race.race.date.strftime("%A, %B %d, %Y %I:%M %p") }}</h5>
                 </div>
                 <p class="card-text"><i class="fas fa-sticky-note"></i> {{ race.notes }}</p>
                 <div class="row">
@@ -116,9 +118,9 @@
               {% for race in need_to_signup_races[::-1] %}
               <div class="card-body">
                 <div class="card-title">
-                  <h4 class="card-title"><i class="fas fa-running"></i> {{ race.race.race_name }}</h4>
+                  <h4 class="card-title"><i class="fas fa-running"></i> <b>{{ race.race.race_name }}</b></h4>
                   <br>
-                  <h5 class="card-subtitle mb-2"><i class="fas fa-calendar-alt"></i> {{ race.race.date }}</h5>
+                  <h5 class="card-subtitle mb-2"><i class="fas fa-calendar-alt"></i> {{ race.race.date.strftime("%A, %B %d, %Y %I:%M %p") }}</h5>
                 </div>
                 <p class="card-text"><i class="fas fa-sticky-note"></i> {{ race.notes }}</p>
                 <div class="row">
