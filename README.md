@@ -14,7 +14,7 @@ __Front End:__ HTML, Jinja2, CSS, JavaScript, AJAX, Bootstrap, chart.js<br/>
 __Back End:__ Python, Flask, PostgreSQL, SQLAlchemy
 
 ## <a name="features"></a>Features
-GET STATS: Login to view your profile that gives key stats of your progress like number of runs, total distance, mileage, and pace
+GET STATS: Login to view your profile that gives key stats of your progress like number of runs, total distance, mileage, and pace <br/>
 ![stats](/static/ReadMe/stats.gif)
 <br/>
 <br/>
@@ -22,7 +22,7 @@ TRACK AND STORE RUNS: log your runs to keep track <br/>
 ![track](/static/ReadMe/log.gif)
 <br/>
 <br/>
-SET GOALS: Search and find a race to set goals for your training. Keep track of whether you've signed up.
+SET GOALS: Search and find a race to set goals for your training. Keep track of whether you've signed up <br/>
 ![goals](/static/ReadMe/goals.gif)
 <br/>
 <br/>
