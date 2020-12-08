@@ -44,7 +44,7 @@ $ pip3 install -r requirements.txt
 ```
 
 Make an account with [Active API](https://developer.active.com/docs/read/v2_Activity_API_Search) and get a free [API key](https://developer.active.com/member/register) <br>
-Store the key in a file named 'secrets.sh':
+Store the key in a file named 'secrets.sh':<br>
 ![Secret](/static/ReadMe/secret_key.png)
 
 Add the key to your environmental variables:
@@ -73,4 +73,4 @@ Visit localhost:5000 on your browser. Enjoy!
 
 Yuri Uchida by training is a classical violinist, performing as an orchestral musican and maintaining a studio of 15 pre-college students. She first came across programming when she wanted to build her personal webiste and quickly realized her love for coding, as she found many similarities between coding and music. After a couple of months of self-learning, she decided to transition her career to software engineering and joined Hackbright Academy in September 2020. Post Hackbright, she looks forward to pursuing a full-time career as a software engineer and creating personal projects along the way.
 
-Learn more about Yuri on her<a href="https://www.linkedin.com/in/yuri-uchida/">LinkedIn</a>
+Learn more about Yuri on her <a href="https://www.linkedin.com/in/yuri-uchida/">LinkedIn</a>
