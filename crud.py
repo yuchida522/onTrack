@@ -10,11 +10,11 @@ from sqlalchemy.sql import functions
 ################################################################################
 
 
-def create_user(fname, lname, username, email, password):
+def create_user(fname, lname, email, password):
     """function that creates a user and saves in db"""
 
     #creates a user
-    user = User(fname=fname, lname=lname, username=username, email=email, password=password)
+    user = User(fname=fname, lname=lname, email=email, password=password)
 
     #adds user to db
     db.session.add(user)

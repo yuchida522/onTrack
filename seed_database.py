@@ -35,11 +35,10 @@ with open('test_data/test_users.txt') as f:
 
 		fname = user_info[0]
 		lname = user_info[1]
-		username = user_info[2]
-		email = user_info[3]
-		password = user_info[4]
+		email = user_info[2]
+		password = user_info[3]
 	
-		user = crud.create_user(fname, lname, username, email, password)
+		user = crud.create_user(fname, lname, email, password)
 
 		users_in_db.append(user)
 

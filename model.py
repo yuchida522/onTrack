@@ -46,9 +46,6 @@ class User(db.Model):
                       nullable=False)
     lname = db.Column(db.String,
                       nullable=False)
-    username = db.Column(db.String,
-                         unique=True,
-                         nullable=False)
     email = db.Column(db.String,
                       unique=True,
                       nullable=False)

@@ -5,7 +5,7 @@ import crud
 import re
 from datetime import datetime, date, timedelta
 
-# TODO:add classes from model.py
+#// TODO:add classes from model.py
 from model import connect_to_db
 from jinja2 import StrictUndefined
 # from pprint import pformat
@@ -46,7 +46,6 @@ def create_new_user():
     #get all the input values from the 'create account' form
     fname = request.form.get('fname')
     lname = request.form.get('lname')
-    username = request.form.get('username')
     email = request.form.get('email')
     password = request.form.get('password')
 
@@ -55,14 +54,14 @@ def create_new_user():
 
     #if the user does not exist, create user and add to db, redirect to homepage where the login is
     if user is None:
-        crud.create_user(fname, lname, username, email, password)
+        crud.create_user(fname, lname, email, password)
         # user = crud.get_user_by_email(email)
         # inital_training_log = crud.create_training_log(user.user_id, 
         
         return 'Account created! Now log in'
         #if user already exists, flash message to say user already exists
     else:
-        return 'User already exists. Please try again...'
+        return 'False'
 
 
 @app.route('/login', methods=['POST'])
@@ -83,9 +82,6 @@ def login():
     if user:
     
         if user.password != pw:
-            print('\n\n\n\n\n')
-            print('user.password:', type(user.password))
-            print('password:', type(pw))
             
             return 'Login unsuccessful'
     
