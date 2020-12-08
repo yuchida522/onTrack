@@ -55,8 +55,6 @@ def create_new_user():
     #if the user does not exist, create user and add to db, redirect to homepage where the login is
     if user is None:
         crud.create_user(fname, lname, email, password)
-        # user = crud.get_user_by_email(email)
-        # inital_training_log = crud.create_training_log(user.user_id, 
         
         return 'Account created! Now log in'
         #if user already exists, flash message to say user already exists

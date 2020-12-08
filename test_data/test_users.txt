@@ -1,4 +1,4 @@
-John|Kelly|jkelly@gmail.com|rkelly
+Jon|Kelly|jkelly@gmail.com|rkelly
 Melinda|Baker|mbaker@aol.com|mbaker
 Robert|Hines|rhines@comcast.net|rhines
 Brandon|Wyatt|bwyatt@gmail.com|bwyatt

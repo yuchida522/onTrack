@@ -1,6 +1,6 @@
 # OnTrack
 
-OnTrack is a web app that lets users track their running progress
+OnTrack is a web app that lets users track their running progress and set goals by searching and saving races they wish to participate
 
 ## Table of Contents
 
@@ -14,55 +14,61 @@ __Front End:__ HTML, Jinja2, CSS, JavaScript, AJAX, Bootstrap, chart.js<br/>
 __Back End:__ Python, Flask, PostgreSQL, SQLAlchemy
 
 ## <a name="features"></a>Features
-GET STATS: Login to view your profile that gives key stats of your progress like number of runs, total distance, mileage, and pace.  
-
+GET STATS: Login to view your profile that gives key stats of your progress like number of runs, total distance, mileage, and pace
+![stats](/static/ReadMe/stats.gif)
+<br/>
+<br/>
 TRACK AND STORE RUNS: log your runs to keep track 
-
+![track](/static/ReadMe/log.gif)
+<br/>
+<br/>
 SET GOALS: Search and find a race to set goals for your training. Keep track of whether you've signed up.
+![goals](/static/ReadMe/goals.gif)
+<br/>
+<br/>
 ## <a name="setup"></a>Setup
 Requirements:
 Python3, PostgreSQL
-<br>
-Clone repository:
+<br/>
+1. Clone repository:
 ```
 $ git clone https://github.com/yuchida522/onTrack.git
 ```
 
-Create a virtual environment:
+2. Create a virtual environment:
 ```
 $ virtualenv env
 ```
 
-Activate the virtual environment:
+3. Activate the virtual environment:
 ```
 $ source env/bin/activate
 ```
 
-Install dependencies:
+4. Install dependencies:
 ```
 $ pip3 install -r requirements.txt
 ```
 
-Make an account with [Active API](https://developer.active.com/docs/read/v2_Activity_API_Search) and get a free [API key](https://developer.active.com/member/register) <br>
-Store the key in a file named 'secrets.sh':<br>
+5. Make an account with [Active API](https://developer.active.com/docs/read/v2_Activity_API_Search) and get a free [API key](https://developer.active.com/member/register) <br/>
+Store the key in a file named 'secrets.sh':<br/>
 ![Secret](/static/ReadMe/secret_key.png)
 
-Add the key to your environmental variables:
+6. Add the key to your environmental variables:
 ```
 $ source secrets.sh
 ```
 
-Create OnTrack database called 'races' with PostgreSQL:
+7. Create OnTrack database called 'races' with PostgreSQL:
 ```
 $ createdb races
 ```
 
-Seed database with data (optional - provided data is created by Faker, do this if you want to see what the rendered results will look like on each page) :
+8. Seed database with data (optional - provided data is created by Faker, do this if you want to see what the rendered results will look like with more data) :
 ```
 $ python3 seed_database.py
 ```
-
-Run the app from the command line:
+9. Run the app from the command line:
 ```
 $ python3 server.py
 ```
