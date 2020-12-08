@@ -71,6 +71,6 @@ Visit localhost:5000 on your browser. Enjoy!
 
 ## <a name="developer"></a>About the Developer
 
-Yuri Uchida by training is a classical violinist, performing as an orchestral musican and maintaining a studio of 15 pre-college students. She first came across programming when she wanted to build her personal webiste and quickly realized her love for coding, as she found many similarities between coding and music. After a couple of months of self-learning, she decided to transition her career to software engineering and joined Hackbright Academy in September 2020. Post Hackbright, she looks forward to pursuing a full-time career as a software engineer and creating personal projects along the way.
+Before joining Hackbright Academy, Yuri was a successful classical violinist.  She had a full schedule of concerts to play every weekend and maintained a violin studio of pre-college students.  While she loved playing violin and teaching, she knew this was not her end game.  Her interest in software engineering sparked when she started learning HTML and CSS to build her personal website. She found similarities between learning programming languages and learning music, and suddenly she was hooked.  She continued to learn on her own, and after moving to the Bay Area, she enrolled in Hackbright to further deepen her knowledge.  Upon graduation, she looks forward to pursuing a career in software engineering and continuing building her skills.
 
 Learn more about Yuri on her <a href="https://www.linkedin.com/in/yuri-uchida/">LinkedIn</a>
