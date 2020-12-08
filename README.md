@@ -18,7 +18,7 @@ GET STATS: Login to view your profile that gives key stats of your progress like
 ![stats](/static/ReadMe/stats.gif)
 <br/>
 <br/>
-TRACK AND STORE RUNS: log your runs to keep track 
+TRACK AND STORE RUNS: log your runs to keep track <br/>
 ![track](/static/ReadMe/log.gif)
 <br/>
 <br/>
