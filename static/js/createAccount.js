@@ -11,7 +11,7 @@ document.querySelector('#create-new-user-btn').addEventListener('click', (evt) =
       'email': $('#email-field').val(),
       'password': $('#password-field').val()
     }
-    console.log(formInputs)
+    
     $.post('/create-new-user', formInputs, (res) => {
       
       if (res === "False") {

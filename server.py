@@ -71,9 +71,9 @@ def login():
     email = request.form.get('login-email')
     pw = request.form.get('login-password')
 
-    print('\n\n\n\n\n')
-    print(email)
-    print(pw)
+    # print('\n\n\n\n\n')
+    # print(email)
+    # print(pw)
 
     user = crud.get_user_by_email(email)
 
@@ -173,9 +173,7 @@ def get_pace_by_user_id():
                              'avg_pace':avg_pace})
     
     return jsonify({'data': all_avg_pace})
-
-    
-                    
+             
 
 
 ################################################################################
@@ -195,8 +193,8 @@ def show_training_logs():
 
         current_user_logs = crud.get_training_log_by_userid(current_user_id)
 
-        print('\n\n\n')
-        print(current_user_logs)
+        # print('\n\n\n')
+        # print(current_user_logs)
 
         return render_template('training-log.html',
                                current_user_logs=current_user_logs)
@@ -249,9 +247,6 @@ def save_new_log():
 def delete_training_log(training_log_id):
     """deletes a training log entry"""
 
-    
-    print('\n\n\n')
-    print(training_log_id)
     crud.delete_training_log(training_log_id)
 
     # return redirect('/training-log')
@@ -279,8 +274,6 @@ def save_edited_log(training_log_id):
     edited_date = datetime.strptime(request.form.get('edited_training_date'), '%Y-%m-%d')
     edited_mileage = request.form.get('edited_training_mileage')
     edited_effort = request.form.get('edited_training_effort')
-    print('\n\n\n\n\n')
-    print(edited_effort)
     edited_comment = request.form.get('edited_training_comment')
 
     edited_hour = int(request.form.get('edited_run_time_hr'))
@@ -324,12 +317,12 @@ def current_races():
             elif today > race.race.date and race.signup_status == 'Yes':
                 past_races.append(race)
         
-        print('\n\n\n')
-        print('**********')  
-        print(upcoming_races)  
-        print(past_races)
-        print(need_to_signup_races)
-        print(today)
+        # print('\n\n\n')
+        # print('**********')  
+        # print(upcoming_races)  
+        # print(past_races)
+        # print(need_to_signup_races)
+        # print(today)
         return render_template('current-races.html',
                                 upcoming_races=upcoming_races,
                                 past_races=past_races,
@@ -392,8 +385,7 @@ def race_results():
     city_name = request.args.get('city_name', '')
     distance_length = request.args.get('distance_length', '')
     start_date = request.args.get('start_date', '')
-    # session['city_name'] = city_name
-    # session['distance']
+   
     url = 'http://api.amp.active.com/v2/search?query=running&sort=date_asc'
     payload = {'api_key': API_KEY,
                'near': city_name,

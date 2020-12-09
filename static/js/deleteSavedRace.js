@@ -3,7 +3,7 @@
 
 // delete saved race button
 const deleteSavedRaceButtonlist = document.querySelectorAll('.delete-saved-race-button')
-console.log(deleteSavedRaceButtonlist)
+
 for (let deleteSavedRaceBtn of deleteSavedRaceButtonlist) {
   deleteSavedRaceBtn.addEventListener('click', (evt) => {
     evt.preventDefault();
@@ -22,7 +22,7 @@ for (let deleteSavedRaceBtn of deleteSavedRaceButtonlist) {
   
         ).showToast();
     });
-    // console.log("CALLED");
+    
     setTimeout(() => window.location.replace('/current-races') , 2000);
   
   });

@@ -2,8 +2,9 @@
 
 
 // delete log button
+
+// list of all the delete buttons on the page
 const lst = document.querySelectorAll('.delete-log-button')
-console.log(lst)
 
 for (let deleteButton of lst) {
   deleteButton.addEventListener('click', (evt) => {

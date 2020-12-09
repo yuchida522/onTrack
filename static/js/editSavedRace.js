@@ -20,7 +20,7 @@ document.querySelector('#update-saved-race-button').addEventListener('click', (e
     
           ).showToast();
       });
-    console.log('called!')
-    console.log(formInputs)
+    // console.log('called!')
+    // console.log(formInputs)
     setTimeout(() => window.location.replace('/current-races') , 2000);
   });

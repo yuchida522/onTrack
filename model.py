@@ -146,7 +146,7 @@ class City(db.Model):
 
 #current race table
 class CurrentRace(db.Model):
-    """creates a current race table, which shows which race the user has signed up/training for"""
+    """Creates a race and associated it to a users that saved the race to their account"""
     
     __tablename__ = 'current_races'
 
@@ -167,6 +167,7 @@ class CurrentRace(db.Model):
         return f'<CurrentRace race_id={self.current_race_id}, user_id={self.user_id}>'
 
 class TrainingLog(db.Model):
+    """creates a training log"""
 
     __tablename__ = 'training_logs'   
 
@@ -196,51 +197,6 @@ def connect_to_db(flask_app, db_uri='postgresql:///races', echo=True):
     db.init_app(flask_app)
 
     print('Connected to the db!')
-
-    
-# def example_data():
-
-#     #empty out exisiting data if test is ran more than once
-#     User.query.delete()
-#     Race.query.delete()
-#     City.query.delete()
-#     CurrentRace.query.delete()
-#     TrainingLog.query.delete()
-
-#     #create new training data
-#     test_new_user = User(fname='Jane',
-#                     lname='Doe',
-#                     username='jdoe',
-#                     password='testpw',
-#                     email='jdoe@test.com')
-
-#     test_new_city = City(city_name='chicago',
-#                     zipcode=60601)
-
-#     test_new_race = Race(race_name='Half Marathon',
-#                     date='2020-11-13',
-#                     city_id=test_new_city,
-#                     race_url='halfmarathon.com',
-#                     race_description="Let's run!",
-#                     organization_name="Runner's World")
-
-#     test_new_current_race = CurrentRace(user_id=test_new_user,
-#                                    race_id=test_new_race,
-#                                    signup_status=True)
-    
-#     test_new_training_log = TrainingLog(user_id=test_new_user,
-#                                         training_date='2020-11-11',
-#                                         training_mileage=13,
-#                                         training_effort='hard',
-#                                         training_comment='test comment')
-
-#     db.session.add_all([test_new_user,
-#                         test_new_city,
-#                         test_new_race,
-#                         test_new_current_race,
-#                         test_new_training_log])
-#     
-#     db.session.commit()
 
 
 if __name__ == '__main__':
