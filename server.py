@@ -5,10 +5,9 @@ import crud
 import re
 from datetime import datetime, date, timedelta
 
-#// TODO:add classes from model.py
 from model import connect_to_db
 from jinja2 import StrictUndefined
-# from pprint import pformat
+
 
 app = Flask(__name__)
 app.secret_key = 'dev'
@@ -40,7 +39,6 @@ def show_create_user():
 
 @app.route('/create-new-user', methods=['POST'])
 def create_new_user():
-
     """handle creating new accounts"""
     
     #get all the input values from the 'create account' form
@@ -71,36 +69,22 @@ def login():
     email = request.form.get('login-email')
     pw = request.form.get('login-password')
 
-    # print('\n\n\n\n\n')
-    # print(email)
-    # print(pw)
 
     user = crud.get_user_by_email(email)
 
-    if user:
-    
-        if user.password != pw:
-            
+    if user: 
+        if user.password != pw:    
             return 'Login unsuccessful'
-    
         else:
             session['current_user'] = user.user_id 
             current_user_id = session.get('current_user')
-
-            # total_mileage = crud.get_total_mileage(current_user_id)
-            # total_runs = crud.get_total_number_of_runs(current_user_id)
-            # avg_pace = crud.get_avg_run_time(current_user_id)
-
-            return 'True'
-             
-    else:
-        
+            return 'True'             
+    else:   
         return 'User does not exist. Create an account to sign in'
  
 
 @app.route('/profile')
 def profile():
-
     """display user's profile page"""
 
     current_user_id = session.get('current_user', None)
@@ -108,8 +92,6 @@ def profile():
     if current_user_id:
 
         current_user = crud.get_user_by_user_id(current_user_id)
-        # print('\n\n\n\n\n\n\n')
-        # print(current_user)
         total_mileage = crud.get_total_mileage(current_user_id)
         total_runs = crud.get_total_number_of_runs(current_user_id)
         avg_pace = crud.get_avg_run_time(current_user_id)
@@ -142,7 +124,6 @@ def get_training_log_by_userid():
     training_log = []
     
     for training in current_user_training_log:
-    
         training_log.append({'date': training.training_date.isoformat(),
                              'mileage': training.training_mileage})
 
@@ -150,6 +131,7 @@ def get_training_log_by_userid():
 
 @app.route('/training-log-pace.json')
 def get_pace_by_user_id():
+    """renders a user's average pace based on their training log data"""
 
     current_user_id = session.get('current_user', None)
 
@@ -193,9 +175,6 @@ def show_training_logs():
 
         current_user_logs = crud.get_training_log_by_userid(current_user_id)
 
-        # print('\n\n\n')
-        # print(current_user_logs)
-
         return render_template('training-log.html',
                                current_user_logs=current_user_logs)
 
@@ -208,8 +187,7 @@ def create_training_log():
 
 
 @app.route('/save-new-log', methods=['POST'])
-def save_new_log():
-    
+def save_new_log():   
     """creates new training entry to the training log"""
 
     current_user_id = session.get('current_user', None)
@@ -226,10 +204,7 @@ def save_new_log():
         sec_run = int(request.form.get('run_time_sec'))
 
         training_run_time = timedelta(hours=hours_run, minutes=min_run, seconds=sec_run)
-
-        # print('\n\n\n\n')
-        # print(training_run_time)
-        # print(type(training_run_time))
+    
     
         crud.create_training_log(current_user_id,
                                 training_date,
@@ -238,8 +213,6 @@ def save_new_log():
                                 training_comments, 
                                 training_run_time) 
 
-        
-        # return redirect('/training-log')
         return 'new log created!'
 
 
@@ -249,7 +222,6 @@ def delete_training_log(training_log_id):
 
     crud.delete_training_log(training_log_id)
 
-    # return redirect('/training-log')
     return "Log is deleted!"
 
 
@@ -258,7 +230,6 @@ def delete_training_log(training_log_id):
 def edit_training_log(training_log_id):
     """edits past training log entry"""
     
-    # training_log_id = request.args.get('edit')
     training_log_to_edit = crud.get_training_log_by_log_id(training_log_id)
     
     return render_template('edit-training-log.html',
@@ -317,12 +288,7 @@ def current_races():
             elif today > race.race.date and race.signup_status == 'Yes':
                 past_races.append(race)
         
-        # print('\n\n\n')
-        # print('**********')  
-        # print(upcoming_races)  
-        # print(past_races)
-        # print(need_to_signup_races)
-        # print(today)
+
         return render_template('current-races.html',
                                 upcoming_races=upcoming_races,
                                 past_races=past_races,
@@ -418,14 +384,10 @@ def create_saved_race():
     response = requests.get(url, params=payload)
     data = response.json()
 
-    # race = data['results']
-
     return render_template('save-the-date.html',
                             data=data)
 
 
-# TODO: explore using models
-# ///TODO: change route name
 @app.route('/race-saved', methods=['POST'])  
 def save_the_date():
     """saving race, and city to db, allows users to save race to account"""

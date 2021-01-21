@@ -7,35 +7,7 @@ db = SQLAlchemy()
 #User table
 class User(db.Model):
 
-    """
-    creates a user, taken from the form "create account" page
-    
-    For example:
-        First name: Jane
-        Last name: Doe  
-        username: jdoe
-        password: testpw
-        email: jdoe@test.com
-
-    >>> new_user = User(fname='Jane',
-    ...                 lname='Doe',
-    ...                 username='jdoe',_l
-    ...                 password='testpw',
-    ...                 email='jdoe@test.com')
-    >>> new_user
-    <User user_id=None, email=jdoe@test.com>
-    >>> new_user.fname
-    'Jane'
-    >>> new_user.lname
-    'Doe'
-    >>> new_user.username
-    'jdoe'
-    >>> new_user.password
-    'testpw'
-    >>> new_user.email
-    'jdoe@test.com'
-
-    """
+ """a user"""
     
     __tablename__ = 'users'
 
@@ -63,32 +35,8 @@ class User(db.Model):
 #race table
 class Race(db.Model):
 
-    """
-    this creates a race which includes race name, date, time of race, city, 
-    race homepage, description of the race, and host/organization of the race. 
-    All info is parsed from API request.
+    """a race"""
 
-    For example, to save a race from 
-    >>> race = Race(race_name='Half Marathon',
-    ...             date='2020-11-13',
-    ...             city_id=1,
-    ...             race_url='halfmarathon.com',
-    ...             race_description="Let's run!",
-    ...             organization_name="Runner's World")
-    >>> race
-    <Race race_id=None, race_name=Half Marathon>
-    >>> race.date
-    '2020-11-13'
-    >>> race.city_id
-    1
-    >>> race.race_url
-    'halfmarathon.com'
-    >>> race.race_description
-    "Let's run!"
-    >>> race.organization_name
-    "Runner's World"
-    """
-    
     __tablename__ = 'races'
 
     race_id = db.Column(db.Integer,
@@ -111,23 +59,7 @@ class Race(db.Model):
 #city table
 class City(db.Model):
 
-    """
-    creates a city, taken from the info parsed from API request
-    
-    For example:
-    
-        city = Chicago
-        zipcode = 60601
-
-    >>> new_city = City(city_name='Chicago', zipcode=60601)
-    >>> new_city
-    <City city_id=None, city_name=Chicago, zipcode=60601>
-    >>> new_city.city_name
-    'Chicago'
-    >>> new_city.zipcode
-    60601
-
-    """
+    """a city"""
     
     __tablename__ = 'cities'
 
@@ -146,7 +78,7 @@ class City(db.Model):
 
 #current race table
 class CurrentRace(db.Model):
-    """Creates a race and associated it to a users that saved the race to their account"""
+    """a race and associated it to a users that saved the race to their account"""
     
     __tablename__ = 'current_races'
 
@@ -167,7 +99,7 @@ class CurrentRace(db.Model):
         return f'<CurrentRace race_id={self.current_race_id}, user_id={self.user_id}>'
 
 class TrainingLog(db.Model):
-    """creates a training log"""
+    """a training log"""
 
     __tablename__ = 'training_logs'   
 

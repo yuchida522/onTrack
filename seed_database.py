@@ -5,7 +5,6 @@ import requests
 
 import crud
 import model
-# from model import db, User, Race, City, CurrentRace, TrainingLog
 import server
 
 from random import choice
@@ -62,7 +61,6 @@ with open('test_data/test_training_log.txt') as f:
 		for user in users_in_db:
 			
 			training_log = crud.create_training_log(user.user_id, training_date, training_mileage, training_effort, training_comment, training_run_time)
-		
 
 		
 # import API, for test purposes param is set to search races in SF beyond Jan 1, 2021
@@ -77,10 +75,10 @@ response = requests.get(url, params=payload)
 
 race_data = response.json() 
 
-#where the list of races exist
+#where the list of races exist in the response
 events = race_data['results']
 
-#save each race to a list to again for later when creating current_races table
+#save each race to a list 
 races_in_db = []
 
 for race in events:
@@ -104,6 +102,7 @@ for user in users_in_db:
 
 	# #choose a race for each user from the list of races saved in races_in_db
 	race = choice(races_in_db)
+	
 	#seeding data into current races table
 	current_race = crud.create_current_race(race, user.user_id, signup_status="Yes", notes="First race of the year!")
 	

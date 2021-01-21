@@ -23,8 +23,8 @@ def create_user(fname, lname, email, password):
     return user
 
 def create_race(race_name, date, city, race_url, race_description, organization_name):
+    """function that creates a race"""
     
-    #creates a race
     race = Race(race_name=race_name,
                 date=date,
                 city=city,
