@@ -2,6 +2,7 @@ from datetime import datetime, date, timedelta
 import os
 import json
 import requests
+# import requests
 
 import crud
 import model
@@ -80,6 +81,9 @@ events = race_data['results']
 
 #save each race to a list 
 races_in_db = []
+
+print('/n/n/n/n/n')
+print(races_in_db)
 
 for race in events:
 	date = race['activityStartDate']
