@@ -2,12 +2,13 @@
 
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta
+
 db = SQLAlchemy()
 
 #User table
 class User(db.Model):
 
- """a user"""
+    """a user"""
     
     __tablename__ = 'users'
 
