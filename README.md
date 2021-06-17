@@ -34,41 +34,46 @@ Python3, PostgreSQL
 ```
 $ git clone https://github.com/yuchida522/onTrack.git
 ```
+2. Install virtualenv:
+```
+pip install virtualenv
+```
 
-2. Create a virtual environment:
+3. cd to /onTrack and run the following command to create a virtual environment:
 ```
 $ virtualenv env
 ```
 
-3. Activate the virtual environment:
+4. Activate the virtual environment:
 ```
 $ source env/bin/activate
 ```
 
-4. Install dependencies:
+5. Install dependencies:
 ```
 $ pip3 install -r requirements.txt
 ```
 
-5. Make an account with [Active API](https://developer.active.com/docs/read/v2_Activity_API_Search) and get a free [API key](https://developer.active.com/member/register) <br/>
+6. Make an account with [Active API](https://developer.active.com/docs/read/v2_Activity_API_Search) and get a free [API key](https://developer.active.com/member/register) <br/>
+** when asked for which API that the application will use, check off the "Issue a new key for Activity Search API v2" box. That is all you will need.
 Store the key in a file named 'secrets.sh':<br/>
 ![Secret](/static/ReadMe/secret_key.png)
 
-6. Add the key to your environmental variables:
+7. Add the key to your environmental variables:
 ```
 $ source secrets.sh
 ```
 
-7. Create OnTrack database called 'races' with PostgreSQL:
+8. Create OnTrack database called 'races' with PostgreSQL:
 ```
 $ createdb races
 ```
 
-8. Seed database with data (optional - provided data is created by Faker, do this if you want to see what the rendered results will look like with more data) :
+9. Seed database with data (optional - provided data is created by Faker, do this if you want to see what the rendered results will look like with more data) :
 ```
 $ python3 seed_database.py
 ```
-9. Run the app from the command line:
+10. Run the app from the command line:
 ```
 $ python3 server.py
 ```
