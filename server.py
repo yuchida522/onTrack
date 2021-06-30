@@ -4,7 +4,6 @@ import crud
 import re
 from datetime import datetime, date, timedelta
 import requests
-
 from model import connect_to_db
 from jinja2 import StrictUndefined
 
@@ -27,8 +26,6 @@ app.jinja_env.undefined = StrictUndefined
 def homepage():
 
     return render_template('homepage.html')
-
-
 
 @app.route('/create-account')
 def show_create_user():
@@ -68,7 +65,6 @@ def login():
     #get all input values from login form
     email = request.form.get('login-email')
     pw = request.form.get('login-password')
-
 
     user = crud.get_user_by_email(email)
 
@@ -191,29 +187,27 @@ def save_new_log():
     """creates new training entry to the training log"""
 
     current_user_id = session.get('current_user', None)
-    
-    if current_user_id:
 
-        training_date = datetime.strptime(request.form.get('training_date'), '%Y-%m-%d')  
-        training_mileage = request.form.get('mileage_run')
-        training_effort = request.form.get('effort')
-        training_comments = request.form.get('comments')
+    training_date = datetime.strptime(request.form.get('training_date'), '%Y-%m-%d') 
+    training_mileage = request.form.get('mileage_run')
+    training_effort = request.form.get('effort')
+    training_comments = request.form.get('comments')
 
-        hours_run = int(request.form.get('run_time_hr'))
-        min_run = int(request.form.get('run_time_min'))
-        sec_run = int(request.form.get('run_time_sec'))
+    hours_run = int(request.form.get('run_time_hr'))
+    min_run = int(request.form.get('run_time_min'))
+    sec_run = int(request.form.get('run_time_sec'))
 
-        training_run_time = timedelta(hours=hours_run, minutes=min_run, seconds=sec_run)
+    training_run_time = timedelta(hours=hours_run, minutes=min_run, seconds=sec_run)
     
     
-        crud.create_training_log(current_user_id,
-                                training_date,
-                                training_mileage,
-                                training_effort, 
-                                training_comments, 
-                                training_run_time) 
+    crud.create_training_log(current_user_id,
+                            training_date,
+                            training_mileage,
+                            training_effort, 
+                            training_comments, 
+                            training_run_time) 
 
-        return 'new log created!'
+    return 'new log created!'
 
 
 @app.route('/delete-training-log/<int:training_log_id>', methods=['POST'])
@@ -422,5 +416,5 @@ def save_the_date():
 
 if __name__ == '__main__':
     connect_to_db(app)
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True,)
 

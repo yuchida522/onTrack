@@ -11,7 +11,7 @@ document.querySelector('#login-button').addEventListener('click', (evt) => {
   }
 
   $.post('/login', formInputs, (res) => {
-    
+    console.log(formInputs)
     if (res === 'True') {
       Toastify({
         text: 'Welcome!',

@@ -1,6 +1,6 @@
 'use strict';
 
-// create log button
+// // create log button
 
 document.querySelector('#create-new-btn').addEventListener('click', (evt) => {
     evt.preventDefault();
@@ -14,7 +14,7 @@ document.querySelector('#create-new-btn').addEventListener('click', (evt) => {
       'effort': $('#training-effort-field:checked').val(),
       'comments': $('#training-comment-field').val()
     }
-    console.log(formInputs)
+  
     $.post('/save-new-log', formInputs, (res) => {
   
       Toastify({

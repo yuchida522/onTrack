@@ -234,8 +234,6 @@ def update_training_log(training_log_id, new_date, new_mileage, new_effort, new_
     db.session.commit()
 
 
-
-
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)
