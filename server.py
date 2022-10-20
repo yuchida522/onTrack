@@ -352,9 +352,8 @@ def race_results():
                'query': distance_length,
                'start_date': start_date + '..'
                }
-    print("payload", payload)
+    
     response = requests.get(url, params=payload)
-    print("RESPONSE HERE:", response)
     
     data = response.json()
     
